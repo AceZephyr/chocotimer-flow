@@ -1,1 +1,1 @@
-Direct Download: https://gunnermaniac.com/ft
+forked from https://github.com/stringflow/FlowTimer
