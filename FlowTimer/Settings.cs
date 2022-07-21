@@ -18,7 +18,7 @@ namespace FlowTimer {
         public double MinStartTime = 4000;
         public int BeepTimerFrequency = 15;
         public int MinimumWindowSize = 3;
-        public string DatabaseFile = @"C:\Users\pokef\OneDrive\Desktop\chocoduck_database\choco.db";
+        public string DatabaseFile = @"";
 
         [JsonIgnore]
         private CheckBox _CheckBoxAutoUpdate;
