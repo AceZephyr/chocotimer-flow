@@ -24,402 +24,444 @@
         /// </summary>
         private void InitializeComponent() {
             this.LabelTimer = new System.Windows.Forms.Label();
-            this.ButtonStart = new System.Windows.Forms.Button();
-            this.ButtonStop = new System.Windows.Forms.Button();
-            this.ButtonAdd = new System.Windows.Forms.Button();
-            this.ButtonSettings = new System.Windows.Forms.Button();
-            this.ButtonLoadTimers = new System.Windows.Forms.Button();
-            this.ButtonSaveTimers = new System.Windows.Forms.Button();
             this.PictureBoxPin = new System.Windows.Forms.PictureBox();
-            this.LabelBeeps = new System.Windows.Forms.Label();
-            this.LabelInterval = new System.Windows.Forms.Label();
-            this.LabelName = new System.Windows.Forms.Label();
-            this.LabelOffset = new System.Windows.Forms.Label();
-            this.TabControl = new System.Windows.Forms.TabControl();
-            this.TabPageFixedOffset = new System.Windows.Forms.TabPage();
-            this.TabPageVariableOffset = new System.Windows.Forms.TabPage();
-            this.ButtonMinus = new System.Windows.Forms.Button();
-            this.ButtonPlus = new System.Windows.Forms.Button();
-            this.ComboBoxFPS = new System.Windows.Forms.ComboBox();
-            this.ButtonSubmit = new System.Windows.Forms.Button();
-            this.LabelBeeps2 = new System.Windows.Forms.Label();
-            this.TextBoxBeeps = new System.Windows.Forms.TextBox();
-            this.LabelInterval2 = new System.Windows.Forms.Label();
-            this.TextBoxInterval = new System.Windows.Forms.TextBox();
-            this.LabelOffset2 = new System.Windows.Forms.Label();
-            this.TextBoxOffset = new System.Windows.Forms.TextBox();
-            this.LabelFPS = new System.Windows.Forms.Label();
-            this.LabelFrame = new System.Windows.Forms.Label();
-            this.TextBoxFrame = new System.Windows.Forms.TextBox();
-            this.ButtonUndo = new System.Windows.Forms.Button();
+            this.ButtonLoadStartTimer = new System.Windows.Forms.Button();
+            this.ButtonStopTimer = new System.Windows.Forms.Button();
+            this.ButtonSettings = new System.Windows.Forms.Button();
+            this.ButtonCalibrate = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
+            this.InputMinWinSize = new System.Windows.Forms.NumericUpDown();
+            this.GroupBoxRank = new System.Windows.Forms.GroupBox();
+            this.RadioS = new System.Windows.Forms.RadioButton();
+            this.RadioA = new System.Windows.Forms.RadioButton();
+            this.RadioB = new System.Windows.Forms.RadioButton();
+            this.RadioC = new System.Windows.Forms.RadioButton();
+            this.ChecklistItems = new System.Windows.Forms.CheckedListBox();
+            this.GroupBoxItems = new System.Windows.Forms.GroupBox();
+            this.ComboItems3 = new System.Windows.Forms.ComboBox();
+            this.ComboItems2 = new System.Windows.Forms.ComboBox();
+            this.ComboItems1 = new System.Windows.Forms.ComboBox();
+            this.GroupBoxNames = new System.Windows.Forms.GroupBox();
+            this.ComboNames6 = new System.Windows.Forms.ComboBox();
+            this.ComboNames5 = new System.Windows.Forms.ComboBox();
+            this.ComboNames4 = new System.Windows.Forms.ComboBox();
+            this.ComboNames3 = new System.Windows.Forms.ComboBox();
+            this.ComboNames2 = new System.Windows.Forms.ComboBox();
+            this.PanelFrameOutput = new System.Windows.Forms.FlowLayoutPanel();
+            this.ButtonPowerOn = new System.Windows.Forms.Button();
+            this.ButtonCalculateFrame = new System.Windows.Forms.Button();
+            this.ButtonClearInput = new System.Windows.Forms.Button();
+            this.InputFrame = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.ButtonCalibrateToFrame = new System.Windows.Forms.Button();
+            this.ButtonDisplayFrameData = new System.Windows.Forms.Button();
+            this.ButtonClearFrameData = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.PictureBoxPin)).BeginInit();
-            this.TabControl.SuspendLayout();
-            this.TabPageFixedOffset.SuspendLayout();
-            this.TabPageVariableOffset.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.InputMinWinSize)).BeginInit();
+            this.GroupBoxRank.SuspendLayout();
+            this.GroupBoxItems.SuspendLayout();
+            this.GroupBoxNames.SuspendLayout();
             this.SuspendLayout();
             // 
             // LabelTimer
             // 
-            this.LabelTimer.AutoSize = true;
             this.LabelTimer.Font = new System.Drawing.Font("Microsoft Sans Serif", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LabelTimer.Location = new System.Drawing.Point(5, 4);
+            this.LabelTimer.Location = new System.Drawing.Point(23, 9);
             this.LabelTimer.Name = "LabelTimer";
-            this.LabelTimer.Size = new System.Drawing.Size(117, 42);
-            this.LabelTimer.TabIndex = 0;
+            this.LabelTimer.Size = new System.Drawing.Size(303, 42);
+            this.LabelTimer.TabIndex = 35;
             this.LabelTimer.Text = "0.000";
             // 
-            // ButtonStart
+            // PictureBoxPin
             // 
-            this.ButtonStart.Location = new System.Drawing.Point(12, 57);
-            this.ButtonStart.Name = "ButtonStart";
-            this.ButtonStart.Size = new System.Drawing.Size(121, 25);
-            this.ButtonStart.TabIndex = 1;
-            this.ButtonStart.TabStop = false;
-            this.ButtonStart.Text = "Start";
-            this.ButtonStart.UseVisualStyleBackColor = true;
-            this.ButtonStart.Click += new System.EventHandler(this.ButtonStart_Click);
+            this.PictureBoxPin.Location = new System.Drawing.Point(332, 9);
+            this.PictureBoxPin.Name = "PictureBoxPin";
+            this.PictureBoxPin.Size = new System.Drawing.Size(16, 16);
+            this.PictureBoxPin.TabIndex = 39;
+            this.PictureBoxPin.TabStop = false;
+            this.PictureBoxPin.Click += new System.EventHandler(this.PictureBoxPin_Click);
             // 
-            // ButtonStop
+            // ButtonLoadStartTimer
             // 
-            this.ButtonStop.Location = new System.Drawing.Point(12, 85);
-            this.ButtonStop.Name = "ButtonStop";
-            this.ButtonStop.Size = new System.Drawing.Size(121, 25);
-            this.ButtonStop.TabIndex = 2;
-            this.ButtonStop.TabStop = false;
-            this.ButtonStop.Text = "Stop";
-            this.ButtonStop.UseVisualStyleBackColor = true;
-            this.ButtonStop.Click += new System.EventHandler(this.ButtonStop_Click);
+            this.ButtonLoadStartTimer.Location = new System.Drawing.Point(19, 116);
+            this.ButtonLoadStartTimer.Name = "ButtonLoadStartTimer";
+            this.ButtonLoadStartTimer.Size = new System.Drawing.Size(121, 25);
+            this.ButtonLoadStartTimer.TabIndex = 36;
+            this.ButtonLoadStartTimer.TabStop = false;
+            this.ButtonLoadStartTimer.Text = "Load + Start Timer";
+            this.ButtonLoadStartTimer.UseVisualStyleBackColor = true;
+            this.ButtonLoadStartTimer.Click += new System.EventHandler(this.ButtonStart_Click);
             // 
-            // ButtonAdd
+            // ButtonStopTimer
             // 
-            this.ButtonAdd.Location = new System.Drawing.Point(0, 0);
-            this.ButtonAdd.Name = "ButtonAdd";
-            this.ButtonAdd.Size = new System.Drawing.Size(67, 23);
-            this.ButtonAdd.TabIndex = 28;
-            this.ButtonAdd.TabStop = false;
-            this.ButtonAdd.Text = "Add";
-            this.ButtonAdd.UseVisualStyleBackColor = true;
-            this.ButtonAdd.Click += new System.EventHandler(this.ButtonAdd_Click);
+            this.ButtonStopTimer.Location = new System.Drawing.Point(19, 147);
+            this.ButtonStopTimer.Name = "ButtonStopTimer";
+            this.ButtonStopTimer.Size = new System.Drawing.Size(121, 25);
+            this.ButtonStopTimer.TabIndex = 37;
+            this.ButtonStopTimer.TabStop = false;
+            this.ButtonStopTimer.Text = "Stop Timer";
+            this.ButtonStopTimer.UseVisualStyleBackColor = true;
+            this.ButtonStopTimer.Click += new System.EventHandler(this.ButtonStop_Click);
             // 
             // ButtonSettings
             // 
-            this.ButtonSettings.Location = new System.Drawing.Point(12, 113);
+            this.ButtonSettings.Location = new System.Drawing.Point(19, 178);
             this.ButtonSettings.Name = "ButtonSettings";
             this.ButtonSettings.Size = new System.Drawing.Size(121, 25);
-            this.ButtonSettings.TabIndex = 30;
+            this.ButtonSettings.TabIndex = 38;
             this.ButtonSettings.TabStop = false;
             this.ButtonSettings.Text = "Settings";
             this.ButtonSettings.UseVisualStyleBackColor = true;
             this.ButtonSettings.Click += new System.EventHandler(this.ButtonSettings_Click);
             // 
-            // ButtonLoadTimers
+            // ButtonCalibrate
             // 
-            this.ButtonLoadTimers.Location = new System.Drawing.Point(12, 141);
-            this.ButtonLoadTimers.Name = "ButtonLoadTimers";
-            this.ButtonLoadTimers.Size = new System.Drawing.Size(121, 25);
-            this.ButtonLoadTimers.TabIndex = 31;
-            this.ButtonLoadTimers.TabStop = false;
-            this.ButtonLoadTimers.Text = "Load Timers";
-            this.ButtonLoadTimers.UseVisualStyleBackColor = true;
-            this.ButtonLoadTimers.Click += new System.EventHandler(this.ButtonLoadTimers_Click);
+            this.ButtonCalibrate.Location = new System.Drawing.Point(19, 85);
+            this.ButtonCalibrate.Name = "ButtonCalibrate";
+            this.ButtonCalibrate.Size = new System.Drawing.Size(121, 25);
+            this.ButtonCalibrate.TabIndex = 41;
+            this.ButtonCalibrate.TabStop = false;
+            this.ButtonCalibrate.Text = "Calibrate";
+            this.ButtonCalibrate.UseVisualStyleBackColor = true;
+            this.ButtonCalibrate.Click += new System.EventHandler(this.ButtonCalibrate_Click);
             // 
-            // ButtonSaveTimers
+            // label1
             // 
-            this.ButtonSaveTimers.Location = new System.Drawing.Point(12, 169);
-            this.ButtonSaveTimers.Name = "ButtonSaveTimers";
-            this.ButtonSaveTimers.Size = new System.Drawing.Size(121, 25);
-            this.ButtonSaveTimers.TabIndex = 32;
-            this.ButtonSaveTimers.TabStop = false;
-            this.ButtonSaveTimers.Text = "Save Timers";
-            this.ButtonSaveTimers.UseVisualStyleBackColor = true;
-            this.ButtonSaveTimers.Click += new System.EventHandler(this.ButtonSaveTimers_Click);
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(19, 210);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(116, 13);
+            this.label1.TabIndex = 42;
+            this.label1.Text = "Minimum Window Size:";
             // 
-            // PictureBoxPin
+            // InputMinWinSize
             // 
-            this.PictureBoxPin.Location = new System.Drawing.Point(478, 4);
-            this.PictureBoxPin.Name = "PictureBoxPin";
-            this.PictureBoxPin.Size = new System.Drawing.Size(16, 16);
-            this.PictureBoxPin.TabIndex = 33;
-            this.PictureBoxPin.TabStop = false;
-            this.PictureBoxPin.Click += new System.EventHandler(this.PictureBoxPin_Click);
+            this.InputMinWinSize.Location = new System.Drawing.Point(19, 227);
+            this.InputMinWinSize.Name = "InputMinWinSize";
+            this.InputMinWinSize.Size = new System.Drawing.Size(120, 20);
+            this.InputMinWinSize.TabIndex = 43;
+            this.InputMinWinSize.Value = new decimal(new int[] {
+            3,
+            0,
+            0,
+            0});
+            this.InputMinWinSize.ValueChanged += new System.EventHandler(this.InputMinWinSize_ValueChanged);
             // 
-            // LabelBeeps
+            // GroupBoxRank
             // 
-            this.LabelBeeps.AutoSize = true;
-            this.LabelBeeps.Location = new System.Drawing.Point(374, 14);
-            this.LabelBeeps.Name = "LabelBeeps";
-            this.LabelBeeps.Size = new System.Drawing.Size(37, 13);
-            this.LabelBeeps.TabIndex = 16;
-            this.LabelBeeps.Text = "Beeps";
+            this.GroupBoxRank.Controls.Add(this.RadioS);
+            this.GroupBoxRank.Controls.Add(this.RadioA);
+            this.GroupBoxRank.Controls.Add(this.RadioB);
+            this.GroupBoxRank.Controls.Add(this.RadioC);
+            this.GroupBoxRank.Location = new System.Drawing.Point(19, 253);
+            this.GroupBoxRank.Name = "GroupBoxRank";
+            this.GroupBoxRank.Size = new System.Drawing.Size(121, 114);
+            this.GroupBoxRank.TabIndex = 44;
+            this.GroupBoxRank.TabStop = false;
+            this.GroupBoxRank.Text = "Rank";
             // 
-            // LabelInterval
+            // RadioS
             // 
-            this.LabelInterval.AutoSize = true;
-            this.LabelInterval.Location = new System.Drawing.Point(303, 14);
-            this.LabelInterval.Name = "LabelInterval";
-            this.LabelInterval.Size = new System.Drawing.Size(42, 13);
-            this.LabelInterval.TabIndex = 13;
-            this.LabelInterval.Text = "Interval";
+            this.RadioS.AutoSize = true;
+            this.RadioS.Location = new System.Drawing.Point(7, 89);
+            this.RadioS.Name = "RadioS";
+            this.RadioS.Size = new System.Drawing.Size(32, 17);
+            this.RadioS.TabIndex = 3;
+            this.RadioS.TabStop = true;
+            this.RadioS.Text = "S";
+            this.RadioS.UseVisualStyleBackColor = true;
             // 
-            // LabelName
+            // RadioA
             // 
-            this.LabelName.AutoSize = true;
-            this.LabelName.Location = new System.Drawing.Point(161, 14);
-            this.LabelName.Name = "LabelName";
-            this.LabelName.Size = new System.Drawing.Size(35, 13);
-            this.LabelName.TabIndex = 7;
-            this.LabelName.Text = "Name";
+            this.RadioA.AutoSize = true;
+            this.RadioA.Location = new System.Drawing.Point(7, 66);
+            this.RadioA.Name = "RadioA";
+            this.RadioA.Size = new System.Drawing.Size(32, 17);
+            this.RadioA.TabIndex = 2;
+            this.RadioA.TabStop = true;
+            this.RadioA.Text = "A";
+            this.RadioA.UseVisualStyleBackColor = true;
             // 
-            // LabelOffset
+            // RadioB
             // 
-            this.LabelOffset.AutoSize = true;
-            this.LabelOffset.Location = new System.Drawing.Point(232, 14);
-            this.LabelOffset.Name = "LabelOffset";
-            this.LabelOffset.Size = new System.Drawing.Size(35, 13);
-            this.LabelOffset.TabIndex = 12;
-            this.LabelOffset.Text = "Offset";
+            this.RadioB.AutoSize = true;
+            this.RadioB.Location = new System.Drawing.Point(7, 43);
+            this.RadioB.Name = "RadioB";
+            this.RadioB.Size = new System.Drawing.Size(32, 17);
+            this.RadioB.TabIndex = 1;
+            this.RadioB.TabStop = true;
+            this.RadioB.Text = "B";
+            this.RadioB.UseVisualStyleBackColor = true;
             // 
-            // TabControl
+            // RadioC
             // 
-            this.TabControl.Controls.Add(this.TabPageFixedOffset);
-            this.TabControl.Controls.Add(this.TabPageVariableOffset);
-            this.TabControl.Location = new System.Drawing.Point(-3, 0);
-            this.TabControl.Name = "TabControl";
-            this.TabControl.SelectedIndex = 0;
-            this.TabControl.Size = new System.Drawing.Size(536, 250);
-            this.TabControl.TabIndex = 34;
+            this.RadioC.AutoSize = true;
+            this.RadioC.Location = new System.Drawing.Point(7, 20);
+            this.RadioC.Name = "RadioC";
+            this.RadioC.Size = new System.Drawing.Size(32, 17);
+            this.RadioC.TabIndex = 0;
+            this.RadioC.TabStop = true;
+            this.RadioC.Text = "C";
+            this.RadioC.UseVisualStyleBackColor = true;
             // 
-            // TabPageFixedOffset
+            // ChecklistItems
             // 
-            this.TabPageFixedOffset.BackColor = System.Drawing.SystemColors.Control;
-            this.TabPageFixedOffset.Controls.Add(this.ButtonAdd);
-            this.TabPageFixedOffset.Controls.Add(this.LabelTimer);
-            this.TabPageFixedOffset.Controls.Add(this.PictureBoxPin);
-            this.TabPageFixedOffset.Controls.Add(this.LabelBeeps);
-            this.TabPageFixedOffset.Controls.Add(this.ButtonStart);
-            this.TabPageFixedOffset.Controls.Add(this.LabelInterval);
-            this.TabPageFixedOffset.Controls.Add(this.ButtonSaveTimers);
-            this.TabPageFixedOffset.Controls.Add(this.LabelOffset);
-            this.TabPageFixedOffset.Controls.Add(this.ButtonStop);
-            this.TabPageFixedOffset.Controls.Add(this.LabelName);
-            this.TabPageFixedOffset.Controls.Add(this.ButtonLoadTimers);
-            this.TabPageFixedOffset.Controls.Add(this.ButtonSettings);
-            this.TabPageFixedOffset.Location = new System.Drawing.Point(4, 22);
-            this.TabPageFixedOffset.Name = "TabPageFixedOffset";
-            this.TabPageFixedOffset.Padding = new System.Windows.Forms.Padding(3);
-            this.TabPageFixedOffset.Size = new System.Drawing.Size(528, 224);
-            this.TabPageFixedOffset.TabIndex = 0;
-            this.TabPageFixedOffset.Text = "Fixed Offset";
+            this.ChecklistItems.FormattingEnabled = true;
+            this.ChecklistItems.Items.AddRange(new object[] {
+            "Sneak Attack",
+            "Enemy Away"});
+            this.ChecklistItems.Location = new System.Drawing.Point(19, 374);
+            this.ChecklistItems.Name = "ChecklistItems";
+            this.ChecklistItems.Size = new System.Drawing.Size(121, 94);
+            this.ChecklistItems.TabIndex = 45;
             // 
-            // TabPageVariableOffset
+            // GroupBoxItems
             // 
-            this.TabPageVariableOffset.BackColor = System.Drawing.SystemColors.Control;
-            this.TabPageVariableOffset.Controls.Add(this.ButtonUndo);
-            this.TabPageVariableOffset.Controls.Add(this.ButtonMinus);
-            this.TabPageVariableOffset.Controls.Add(this.ButtonPlus);
-            this.TabPageVariableOffset.Controls.Add(this.ComboBoxFPS);
-            this.TabPageVariableOffset.Controls.Add(this.ButtonSubmit);
-            this.TabPageVariableOffset.Controls.Add(this.LabelBeeps2);
-            this.TabPageVariableOffset.Controls.Add(this.TextBoxBeeps);
-            this.TabPageVariableOffset.Controls.Add(this.LabelInterval2);
-            this.TabPageVariableOffset.Controls.Add(this.TextBoxInterval);
-            this.TabPageVariableOffset.Controls.Add(this.LabelOffset2);
-            this.TabPageVariableOffset.Controls.Add(this.TextBoxOffset);
-            this.TabPageVariableOffset.Controls.Add(this.LabelFPS);
-            this.TabPageVariableOffset.Controls.Add(this.LabelFrame);
-            this.TabPageVariableOffset.Controls.Add(this.TextBoxFrame);
-            this.TabPageVariableOffset.Location = new System.Drawing.Point(4, 22);
-            this.TabPageVariableOffset.Name = "TabPageVariableOffset";
-            this.TabPageVariableOffset.Padding = new System.Windows.Forms.Padding(3);
-            this.TabPageVariableOffset.Size = new System.Drawing.Size(528, 224);
-            this.TabPageVariableOffset.TabIndex = 1;
-            this.TabPageVariableOffset.Text = "Variable Offset";
+            this.GroupBoxItems.Controls.Add(this.ComboItems3);
+            this.GroupBoxItems.Controls.Add(this.ComboItems2);
+            this.GroupBoxItems.Controls.Add(this.ComboItems1);
+            this.GroupBoxItems.Location = new System.Drawing.Point(147, 55);
+            this.GroupBoxItems.Name = "GroupBoxItems";
+            this.GroupBoxItems.Size = new System.Drawing.Size(200, 100);
+            this.GroupBoxItems.TabIndex = 46;
+            this.GroupBoxItems.TabStop = false;
+            this.GroupBoxItems.Text = "Items";
             // 
-            // ButtonMinus
+            // ComboItems3
             // 
-            this.ButtonMinus.Location = new System.Drawing.Point(413, 12);
-            this.ButtonMinus.Name = "ButtonMinus";
-            this.ButtonMinus.Size = new System.Drawing.Size(22, 22);
-            this.ButtonMinus.TabIndex = 13;
-            this.ButtonMinus.Text = "-";
-            this.ButtonMinus.UseVisualStyleBackColor = true;
-            this.ButtonMinus.Click += new System.EventHandler(this.ButtonMinus_Click);
+            this.ComboItems3.FormattingEnabled = true;
+            this.ComboItems3.Location = new System.Drawing.Point(6, 72);
+            this.ComboItems3.Name = "ComboItems3";
+            this.ComboItems3.Size = new System.Drawing.Size(187, 21);
+            this.ComboItems3.TabIndex = 2;
             // 
-            // ButtonPlus
+            // ComboItems2
             // 
-            this.ButtonPlus.Location = new System.Drawing.Point(437, 12);
-            this.ButtonPlus.Name = "ButtonPlus";
-            this.ButtonPlus.Size = new System.Drawing.Size(22, 22);
-            this.ButtonPlus.TabIndex = 12;
-            this.ButtonPlus.Text = "+";
-            this.ButtonPlus.UseVisualStyleBackColor = true;
-            this.ButtonPlus.Click += new System.EventHandler(this.ButtonPlus_Click);
+            this.ComboItems2.FormattingEnabled = true;
+            this.ComboItems2.Location = new System.Drawing.Point(6, 46);
+            this.ComboItems2.Name = "ComboItems2";
+            this.ComboItems2.Size = new System.Drawing.Size(187, 21);
+            this.ComboItems2.TabIndex = 1;
             // 
-            // ComboBoxFPS
+            // ComboItems1
             // 
-            this.ComboBoxFPS.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.ComboBoxFPS.FormattingEnabled = true;
-            this.ComboBoxFPS.Items.AddRange(new object[] {
-            "59.7275",
-            "59.6555",
-            "59.8261",
-            "60.0",
-            "30.0",
-            "25.0",
-            "15.0"});
-            this.ComboBoxFPS.Location = new System.Drawing.Point(240, 39);
-            this.ComboBoxFPS.Name = "ComboBoxFPS";
-            this.ComboBoxFPS.Size = new System.Drawing.Size(80, 21);
-            this.ComboBoxFPS.TabIndex = 11;
-            this.ComboBoxFPS.SelectedIndexChanged += new System.EventHandler(this.VariableTimer_DataChange);
+            this.ComboItems1.FormattingEnabled = true;
+            this.ComboItems1.Location = new System.Drawing.Point(6, 20);
+            this.ComboItems1.Name = "ComboItems1";
+            this.ComboItems1.Size = new System.Drawing.Size(187, 21);
+            this.ComboItems1.TabIndex = 0;
             // 
-            // ButtonSubmit
+            // GroupBoxNames
             // 
-            this.ButtonSubmit.Location = new System.Drawing.Point(326, 12);
-            this.ButtonSubmit.Name = "ButtonSubmit";
-            this.ButtonSubmit.Size = new System.Drawing.Size(80, 22);
-            this.ButtonSubmit.TabIndex = 10;
-            this.ButtonSubmit.Text = "Submit";
-            this.ButtonSubmit.UseVisualStyleBackColor = true;
-            this.ButtonSubmit.Click += new System.EventHandler(this.ButtonSubmit_Click);
+            this.GroupBoxNames.Controls.Add(this.ComboNames6);
+            this.GroupBoxNames.Controls.Add(this.ComboNames5);
+            this.GroupBoxNames.Controls.Add(this.ComboNames4);
+            this.GroupBoxNames.Controls.Add(this.ComboNames3);
+            this.GroupBoxNames.Controls.Add(this.ComboNames2);
+            this.GroupBoxNames.Location = new System.Drawing.Point(147, 154);
+            this.GroupBoxNames.Name = "GroupBoxNames";
+            this.GroupBoxNames.Size = new System.Drawing.Size(200, 150);
+            this.GroupBoxNames.TabIndex = 47;
+            this.GroupBoxNames.TabStop = false;
+            this.GroupBoxNames.Text = "Names";
             // 
-            // LabelBeeps2
+            // ComboNames6
             // 
-            this.LabelBeeps2.AutoSize = true;
-            this.LabelBeeps2.Location = new System.Drawing.Point(192, 120);
-            this.LabelBeeps2.Name = "LabelBeeps2";
-            this.LabelBeeps2.Size = new System.Drawing.Size(40, 13);
-            this.LabelBeeps2.TabIndex = 9;
-            this.LabelBeeps2.Text = "Beeps:";
+            this.ComboNames6.FormattingEnabled = true;
+            this.ComboNames6.Location = new System.Drawing.Point(6, 124);
+            this.ComboNames6.Name = "ComboNames6";
+            this.ComboNames6.Size = new System.Drawing.Size(187, 21);
+            this.ComboNames6.TabIndex = 7;
             // 
-            // TextBoxBeeps
+            // ComboNames5
             // 
-            this.TextBoxBeeps.Location = new System.Drawing.Point(240, 117);
-            this.TextBoxBeeps.Name = "TextBoxBeeps";
-            this.TextBoxBeeps.Size = new System.Drawing.Size(80, 20);
-            this.TextBoxBeeps.TabIndex = 8;
-            this.TextBoxBeeps.TextChanged += new System.EventHandler(this.VariableTimer_DataChange);
+            this.ComboNames5.FormattingEnabled = true;
+            this.ComboNames5.Location = new System.Drawing.Point(6, 98);
+            this.ComboNames5.Name = "ComboNames5";
+            this.ComboNames5.Size = new System.Drawing.Size(187, 21);
+            this.ComboNames5.TabIndex = 6;
             // 
-            // LabelInterval2
+            // ComboNames4
             // 
-            this.LabelInterval2.AutoSize = true;
-            this.LabelInterval2.Location = new System.Drawing.Point(192, 94);
-            this.LabelInterval2.Name = "LabelInterval2";
-            this.LabelInterval2.Size = new System.Drawing.Size(45, 13);
-            this.LabelInterval2.TabIndex = 7;
-            this.LabelInterval2.Text = "Interval:";
+            this.ComboNames4.FormattingEnabled = true;
+            this.ComboNames4.Location = new System.Drawing.Point(6, 72);
+            this.ComboNames4.Name = "ComboNames4";
+            this.ComboNames4.Size = new System.Drawing.Size(187, 21);
+            this.ComboNames4.TabIndex = 5;
             // 
-            // TextBoxInterval
+            // ComboNames3
             // 
-            this.TextBoxInterval.Location = new System.Drawing.Point(240, 91);
-            this.TextBoxInterval.Name = "TextBoxInterval";
-            this.TextBoxInterval.Size = new System.Drawing.Size(80, 20);
-            this.TextBoxInterval.TabIndex = 6;
-            this.TextBoxInterval.TextChanged += new System.EventHandler(this.VariableTimer_DataChange);
+            this.ComboNames3.FormattingEnabled = true;
+            this.ComboNames3.Location = new System.Drawing.Point(6, 46);
+            this.ComboNames3.Name = "ComboNames3";
+            this.ComboNames3.Size = new System.Drawing.Size(187, 21);
+            this.ComboNames3.TabIndex = 4;
             // 
-            // LabelOffset2
+            // ComboNames2
             // 
-            this.LabelOffset2.AutoSize = true;
-            this.LabelOffset2.Location = new System.Drawing.Point(192, 68);
-            this.LabelOffset2.Name = "LabelOffset2";
-            this.LabelOffset2.Size = new System.Drawing.Size(38, 13);
-            this.LabelOffset2.TabIndex = 5;
-            this.LabelOffset2.Text = "Offset:";
+            this.ComboNames2.FormattingEnabled = true;
+            this.ComboNames2.Location = new System.Drawing.Point(6, 20);
+            this.ComboNames2.Name = "ComboNames2";
+            this.ComboNames2.Size = new System.Drawing.Size(187, 21);
+            this.ComboNames2.TabIndex = 3;
             // 
-            // TextBoxOffset
+            // PanelFrameOutput
             // 
-            this.TextBoxOffset.Location = new System.Drawing.Point(240, 65);
-            this.TextBoxOffset.Name = "TextBoxOffset";
-            this.TextBoxOffset.Size = new System.Drawing.Size(80, 20);
-            this.TextBoxOffset.TabIndex = 4;
-            this.TextBoxOffset.TextChanged += new System.EventHandler(this.VariableTimer_DataChange);
+            this.PanelFrameOutput.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.PanelFrameOutput.Location = new System.Drawing.Point(354, 9);
+            this.PanelFrameOutput.Name = "PanelFrameOutput";
+            this.PanelFrameOutput.Size = new System.Drawing.Size(1218, 840);
+            this.PanelFrameOutput.TabIndex = 48;
             // 
-            // LabelFPS
+            // ButtonPowerOn
             // 
-            this.LabelFPS.AutoSize = true;
-            this.LabelFPS.Location = new System.Drawing.Point(192, 42);
-            this.LabelFPS.Name = "LabelFPS";
-            this.LabelFPS.Size = new System.Drawing.Size(30, 13);
-            this.LabelFPS.TabIndex = 3;
-            this.LabelFPS.Text = "FPS:";
+            this.ButtonPowerOn.Location = new System.Drawing.Point(19, 54);
+            this.ButtonPowerOn.Name = "ButtonPowerOn";
+            this.ButtonPowerOn.Size = new System.Drawing.Size(121, 25);
+            this.ButtonPowerOn.TabIndex = 40;
+            this.ButtonPowerOn.TabStop = false;
+            this.ButtonPowerOn.Text = "Power On";
+            this.ButtonPowerOn.UseVisualStyleBackColor = true;
+            this.ButtonPowerOn.Click += new System.EventHandler(this.ButtonPowerOn_Click);
             // 
-            // LabelFrame
+            // ButtonCalculateFrame
             // 
-            this.LabelFrame.AutoSize = true;
-            this.LabelFrame.Location = new System.Drawing.Point(192, 16);
-            this.LabelFrame.Name = "LabelFrame";
-            this.LabelFrame.Size = new System.Drawing.Size(39, 13);
-            this.LabelFrame.TabIndex = 1;
-            this.LabelFrame.Text = "Frame:";
+            this.ButtonCalculateFrame.Location = new System.Drawing.Point(147, 305);
+            this.ButtonCalculateFrame.Name = "ButtonCalculateFrame";
+            this.ButtonCalculateFrame.Size = new System.Drawing.Size(98, 25);
+            this.ButtonCalculateFrame.TabIndex = 8;
+            this.ButtonCalculateFrame.Text = "Calculate Frame";
+            this.ButtonCalculateFrame.UseVisualStyleBackColor = true;
             // 
-            // TextBoxFrame
+            // ButtonClearInput
             // 
-            this.TextBoxFrame.Location = new System.Drawing.Point(240, 13);
-            this.TextBoxFrame.Name = "TextBoxFrame";
-            this.TextBoxFrame.Size = new System.Drawing.Size(80, 20);
-            this.TextBoxFrame.TabIndex = 0;
-            this.TextBoxFrame.TextChanged += new System.EventHandler(this.VariableTimer_DataChange);
+            this.ButtonClearInput.Location = new System.Drawing.Point(249, 305);
+            this.ButtonClearInput.Name = "ButtonClearInput";
+            this.ButtonClearInput.Size = new System.Drawing.Size(98, 25);
+            this.ButtonClearInput.TabIndex = 9;
+            this.ButtonClearInput.Text = "Clear Input";
+            this.ButtonClearInput.UseVisualStyleBackColor = true;
             // 
-            // ButtonUndo
+            // InputFrame
             // 
-            this.ButtonUndo.Location = new System.Drawing.Point(326, 38);
-            this.ButtonUndo.Name = "ButtonUndo";
-            this.ButtonUndo.Size = new System.Drawing.Size(80, 22);
-            this.ButtonUndo.TabIndex = 14;
-            this.ButtonUndo.Text = "Undo";
-            this.ButtonUndo.UseVisualStyleBackColor = true;
-            this.ButtonUndo.Click += new System.EventHandler(this.ButtonUndo_Click);
+            this.InputFrame.Location = new System.Drawing.Point(189, 334);
+            this.InputFrame.Name = "InputFrame";
+            this.InputFrame.Size = new System.Drawing.Size(158, 20);
+            this.InputFrame.TabIndex = 10;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(147, 337);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(36, 13);
+            this.label2.TabIndex = 52;
+            this.label2.Text = "Frame";
+            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // ButtonCalibrateToFrame
+            // 
+            this.ButtonCalibrateToFrame.Location = new System.Drawing.Point(147, 360);
+            this.ButtonCalibrateToFrame.Name = "ButtonCalibrateToFrame";
+            this.ButtonCalibrateToFrame.Size = new System.Drawing.Size(200, 25);
+            this.ButtonCalibrateToFrame.TabIndex = 11;
+            this.ButtonCalibrateToFrame.Text = "Calibrate To Frame";
+            this.ButtonCalibrateToFrame.UseVisualStyleBackColor = true;
+            // 
+            // ButtonDisplayFrameData
+            // 
+            this.ButtonDisplayFrameData.Location = new System.Drawing.Point(147, 391);
+            this.ButtonDisplayFrameData.Name = "ButtonDisplayFrameData";
+            this.ButtonDisplayFrameData.Size = new System.Drawing.Size(200, 25);
+            this.ButtonDisplayFrameData.TabIndex = 12;
+            this.ButtonDisplayFrameData.Text = "Display Frame Data";
+            this.ButtonDisplayFrameData.UseVisualStyleBackColor = true;
+            // 
+            // ButtonClearFrameData
+            // 
+            this.ButtonClearFrameData.Location = new System.Drawing.Point(147, 422);
+            this.ButtonClearFrameData.Name = "ButtonClearFrameData";
+            this.ButtonClearFrameData.Size = new System.Drawing.Size(200, 25);
+            this.ButtonClearFrameData.TabIndex = 13;
+            this.ButtonClearFrameData.Text = "Clear Frame Data";
+            this.ButtonClearFrameData.UseVisualStyleBackColor = true;
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(500, 228);
-            this.Controls.Add(this.TabControl);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.ClientSize = new System.Drawing.Size(1584, 861);
+            this.Controls.Add(this.ButtonClearFrameData);
+            this.Controls.Add(this.ButtonDisplayFrameData);
+            this.Controls.Add(this.ButtonCalibrateToFrame);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.InputFrame);
+            this.Controls.Add(this.ButtonClearInput);
+            this.Controls.Add(this.ButtonCalculateFrame);
+            this.Controls.Add(this.PanelFrameOutput);
+            this.Controls.Add(this.GroupBoxNames);
+            this.Controls.Add(this.GroupBoxItems);
+            this.Controls.Add(this.ChecklistItems);
+            this.Controls.Add(this.GroupBoxRank);
+            this.Controls.Add(this.InputMinWinSize);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.ButtonCalibrate);
+            this.Controls.Add(this.ButtonPowerOn);
+            this.Controls.Add(this.LabelTimer);
+            this.Controls.Add(this.PictureBoxPin);
+            this.Controls.Add(this.ButtonLoadStartTimer);
+            this.Controls.Add(this.ButtonStopTimer);
+            this.Controls.Add(this.ButtonSettings);
             this.Name = "MainForm";
             this.Text = "FlowTimer";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
             ((System.ComponentModel.ISupportInitialize)(this.PictureBoxPin)).EndInit();
-            this.TabControl.ResumeLayout(false);
-            this.TabPageFixedOffset.ResumeLayout(false);
-            this.TabPageFixedOffset.PerformLayout();
-            this.TabPageVariableOffset.ResumeLayout(false);
-            this.TabPageVariableOffset.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.InputMinWinSize)).EndInit();
+            this.GroupBoxRank.ResumeLayout(false);
+            this.GroupBoxRank.PerformLayout();
+            this.GroupBoxItems.ResumeLayout(false);
+            this.GroupBoxNames.ResumeLayout(false);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
         #endregion
 
         public System.Windows.Forms.Label LabelTimer;
-        public System.Windows.Forms.Button ButtonStart;
-        public System.Windows.Forms.Button ButtonStop;
-        public System.Windows.Forms.Button ButtonAdd;
-        public System.Windows.Forms.Button ButtonSettings;
-        public System.Windows.Forms.Button ButtonLoadTimers;
-        public System.Windows.Forms.Button ButtonSaveTimers;
         public System.Windows.Forms.PictureBox PictureBoxPin;
-        public System.Windows.Forms.Label LabelBeeps;
-        public System.Windows.Forms.Label LabelInterval;
-        public System.Windows.Forms.Label LabelName;
-        public System.Windows.Forms.Label LabelOffset;
-        public System.Windows.Forms.TabControl TabControl;
-        private System.Windows.Forms.TabPage TabPageFixedOffset;
-        private System.Windows.Forms.TabPage TabPageVariableOffset;
-        public System.Windows.Forms.TextBox TextBoxFrame;
-        public System.Windows.Forms.Label LabelFrame;
-        public System.Windows.Forms.Label LabelBeeps2;
-        public System.Windows.Forms.TextBox TextBoxBeeps;
-        public System.Windows.Forms.Label LabelInterval2;
-        public System.Windows.Forms.TextBox TextBoxInterval;
-        public System.Windows.Forms.Label LabelOffset2;
-        public System.Windows.Forms.TextBox TextBoxOffset;
-        public System.Windows.Forms.Label LabelFPS;
-        public System.Windows.Forms.Button ButtonSubmit;
-        public System.Windows.Forms.ComboBox ComboBoxFPS;
-        public System.Windows.Forms.Button ButtonMinus;
-        public System.Windows.Forms.Button ButtonPlus;
-        public System.Windows.Forms.Button ButtonUndo;
+        public System.Windows.Forms.Button ButtonLoadStartTimer;
+        public System.Windows.Forms.Button ButtonStopTimer;
+        public System.Windows.Forms.Button ButtonSettings;
+        public System.Windows.Forms.Button ButtonCalibrate;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.NumericUpDown InputMinWinSize;
+        public System.Windows.Forms.GroupBox GroupBoxRank;
+        public System.Windows.Forms.RadioButton RadioS;
+        public System.Windows.Forms.RadioButton RadioA;
+        public System.Windows.Forms.RadioButton RadioB;
+        public System.Windows.Forms.RadioButton RadioC;
+        public System.Windows.Forms.CheckedListBox ChecklistItems;
+        public System.Windows.Forms.GroupBox GroupBoxItems;
+        public System.Windows.Forms.GroupBox GroupBoxNames;
+        public System.Windows.Forms.FlowLayoutPanel PanelFrameOutput;
+        public System.Windows.Forms.Button ButtonPowerOn;
+        public System.Windows.Forms.Button ButtonCalculateFrame;
+        public System.Windows.Forms.Button ButtonClearInput;
+        private System.Windows.Forms.Label label2;
+        public System.Windows.Forms.Button ButtonCalibrateToFrame;
+        public System.Windows.Forms.Button ButtonDisplayFrameData;
+        public System.Windows.Forms.Button ButtonClearFrameData;
+        public System.Windows.Forms.ComboBox ComboItems3;
+        public System.Windows.Forms.ComboBox ComboItems2;
+        public System.Windows.Forms.ComboBox ComboItems1;
+        public System.Windows.Forms.ComboBox ComboNames6;
+        public System.Windows.Forms.ComboBox ComboNames5;
+        public System.Windows.Forms.ComboBox ComboNames4;
+        public System.Windows.Forms.ComboBox ComboNames3;
+        public System.Windows.Forms.ComboBox ComboNames2;
+        public System.Windows.Forms.TextBox InputFrame;
     }
 }

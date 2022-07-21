@@ -8,7 +8,6 @@ namespace FlowTimer {
         public MainForm() {
             InitializeComponent();
             FlowTimer.SetMainForm(this);
-            FlowTimer.RegisterTabs(TabPageFixedOffset, TabPageVariableOffset);
             FlowTimer.Init();
         }
 
@@ -16,12 +15,8 @@ namespace FlowTimer {
             FlowTimer.Destroy();
         }
 
-        private void ButtonAdd_Click(object sender, EventArgs e) {
-            FlowTimer.FixedOffset.AddTimer();
-        }
-
         private void ButtonStart_Click(object sender, EventArgs e) {
-            FlowTimer.StartTimer();
+            FlowTimer.ClickStartTimer();
         }
 
         private void ButtonStop_Click(object sender, EventArgs e) {
@@ -32,36 +27,31 @@ namespace FlowTimer {
             FlowTimer.OpenSettingsForm();
         }
 
-        private void ButtonLoadTimers_Click(object sender, EventArgs e) {
-            FlowTimer.FixedOffset.OpenLoadTimersDialog();
-        }
-
-        private void ButtonSaveTimers_Click(object sender, EventArgs e) {
-            FlowTimer.FixedOffset.OpenSaveTimersDialog();
-        }
-
         private void PictureBoxPin_Click(object sender, EventArgs e) {
             FlowTimer.TogglePin();
         }
 
-        private void ButtonSubmit_Click(object sender, EventArgs e) {
-            FlowTimer.VariableOffset.Submit();
+        private void ButtonPowerOn_Click(object sender, EventArgs e) {
+            FlowTimer.ClickPowerOn();
         }
 
-        private void VariableTimer_DataChange(object sender, EventArgs e) {
-            FlowTimer.VariableOffset.OnDataChange();
+        private void ButtonCalibrate_Click(object sender, EventArgs e) {
+            FlowTimer.ClickCalibrate();
         }
 
-        private void ButtonPlus_Click(object sender, EventArgs e) {
-            FlowTimer.VariableOffset.ChangeAudio(1);
-        }
-
-        private void ButtonMinus_Click(object sender, EventArgs e) {
-            FlowTimer.VariableOffset.ChangeAudio(-1);
-        }
-
-        private void ButtonUndo_Click(object sender, EventArgs e) {
-            FlowTimer.VariableOffset.Undo();
+        private void InputMinWinSize_ValueChanged(object sender, EventArgs e) {
+            int newValue;
+            if(InputMinWinSize.Text == "") {
+                newValue = 0;
+            } else {
+                try {
+                    newValue = Convert.ToInt32(InputMinWinSize.Text);
+                } catch(System.FormatException ex) {
+                    return;
+                }
+            }
+            newValue = Math.Max(newValue, 0);
+            FlowTimer.Settings.MinimumWindowSize = newValue;
         }
     }
 }

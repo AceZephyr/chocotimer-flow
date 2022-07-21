@@ -23,240 +23,54 @@
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent() {
-            this.LabelStart = new System.Windows.Forms.Label();
-            this.ButtonStartPrimary = new System.Windows.Forms.Button();
-            this.ButtonStartSecondary = new System.Windows.Forms.Button();
-            this.ButtonStartClear = new System.Windows.Forms.Button();
-            this.CheckBoxStartGlobal = new System.Windows.Forms.CheckBox();
-            this.CheckBoxStopGlobal = new System.Windows.Forms.CheckBox();
-            this.ButtonStopClear = new System.Windows.Forms.Button();
-            this.ButtonStopSecondary = new System.Windows.Forms.Button();
-            this.ButtonStopPrimary = new System.Windows.Forms.Button();
-            this.LabelStop = new System.Windows.Forms.Label();
-            this.CheckBoxUpGlobal = new System.Windows.Forms.CheckBox();
-            this.ButtonUpClear = new System.Windows.Forms.Button();
-            this.ButtonUpSecondary = new System.Windows.Forms.Button();
-            this.ButtonUpPrimary = new System.Windows.Forms.Button();
-            this.LabelUp = new System.Windows.Forms.Label();
-            this.CheckBoxDownGlobal = new System.Windows.Forms.CheckBox();
-            this.ButtonDownClear = new System.Windows.Forms.Button();
-            this.ButtonDownSecondary = new System.Windows.Forms.Button();
-            this.ButtonDownPrimary = new System.Windows.Forms.Button();
-            this.LabelDown = new System.Windows.Forms.Label();
             this.LabelBeep = new System.Windows.Forms.Label();
             this.ComboBoxBeep = new System.Windows.Forms.ComboBox();
             this.ButtonImportBeep = new System.Windows.Forms.Button();
-            this.ComboBoxKey = new System.Windows.Forms.ComboBox();
-            this.LabelKey = new System.Windows.Forms.Label();
             this.TrackBarVolume = new System.Windows.Forms.TrackBar();
             this.TextBoxVolume = new System.Windows.Forms.TextBox();
             this.LabelVolume = new System.Windows.Forms.Label();
-            this.CheckBoxAddFrameGlobal = new System.Windows.Forms.CheckBox();
-            this.ButtonAddFrameClear = new System.Windows.Forms.Button();
-            this.ButtonAddFrameSecondary = new System.Windows.Forms.Button();
-            this.ButtonAddFramePrimary = new System.Windows.Forms.Button();
-            this.LabelAddFrame = new System.Windows.Forms.Label();
-            this.CheckBoxSubFrameGlobal = new System.Windows.Forms.CheckBox();
-            this.ButtonSubFrameClear = new System.Windows.Forms.Button();
-            this.ButtonSubFrameSecondary = new System.Windows.Forms.Button();
-            this.ButtonSubFramePrimary = new System.Windows.Forms.Button();
-            this.LabelSubFrame = new System.Windows.Forms.Label();
-            this.CheckBoxUndoGlobal = new System.Windows.Forms.CheckBox();
-            this.ButtonUndoClear = new System.Windows.Forms.Button();
-            this.ButtonUndoSecondary = new System.Windows.Forms.Button();
-            this.ButtonUndoPrimary = new System.Windows.Forms.Button();
-            this.LabelUndo = new System.Windows.Forms.Label();
+            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
+            this.flowLayoutPanel3 = new System.Windows.Forms.FlowLayoutPanel();
+            this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
+            this.label2 = new System.Windows.Forms.Label();
+            this.flowLayoutPanel4 = new System.Windows.Forms.FlowLayoutPanel();
+            this.InputFPS = new System.Windows.Forms.TextBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.flowLayoutPanel5 = new System.Windows.Forms.FlowLayoutPanel();
+            this.InputTimeBetweenBeeps = new System.Windows.Forms.TextBox();
+            this.flowLayoutPanel6 = new System.Windows.Forms.FlowLayoutPanel();
+            this.InputCalibrationTimer = new System.Windows.Forms.TextBox();
+            this.flowLayoutPanel2 = new System.Windows.Forms.FlowLayoutPanel();
+            this.label6 = new System.Windows.Forms.Label();
+            this.flowLayoutPanel8 = new System.Windows.Forms.FlowLayoutPanel();
+            this.InputMinStartTime = new System.Windows.Forms.TextBox();
+            this.label7 = new System.Windows.Forms.Label();
+            this.flowLayoutPanel9 = new System.Windows.Forms.FlowLayoutPanel();
+            this.InputBeepTimerFrequency = new System.Windows.Forms.TextBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.flowLayoutPanel7 = new System.Windows.Forms.FlowLayoutPanel();
+            this.InputDatabaseFile = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.TrackBarVolume)).BeginInit();
+            this.tableLayoutPanel1.SuspendLayout();
+            this.flowLayoutPanel1.SuspendLayout();
+            this.flowLayoutPanel3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
+            this.flowLayoutPanel4.SuspendLayout();
+            this.flowLayoutPanel5.SuspendLayout();
+            this.flowLayoutPanel6.SuspendLayout();
+            this.flowLayoutPanel2.SuspendLayout();
+            this.flowLayoutPanel8.SuspendLayout();
+            this.flowLayoutPanel9.SuspendLayout();
+            this.flowLayoutPanel7.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // LabelStart
-            // 
-            this.LabelStart.AutoSize = true;
-            this.LabelStart.Location = new System.Drawing.Point(5, 12);
-            this.LabelStart.Name = "LabelStart";
-            this.LabelStart.Size = new System.Drawing.Size(32, 13);
-            this.LabelStart.TabIndex = 0;
-            this.LabelStart.Text = "Start:";
-            // 
-            // ButtonStartPrimary
-            // 
-            this.ButtonStartPrimary.Location = new System.Drawing.Point(51, 7);
-            this.ButtonStartPrimary.Name = "ButtonStartPrimary";
-            this.ButtonStartPrimary.Size = new System.Drawing.Size(75, 23);
-            this.ButtonStartPrimary.TabIndex = 1;
-            this.ButtonStartPrimary.Text = "Unset";
-            this.ButtonStartPrimary.UseVisualStyleBackColor = true;
-            // 
-            // ButtonStartSecondary
-            // 
-            this.ButtonStartSecondary.Location = new System.Drawing.Point(129, 7);
-            this.ButtonStartSecondary.Name = "ButtonStartSecondary";
-            this.ButtonStartSecondary.Size = new System.Drawing.Size(75, 23);
-            this.ButtonStartSecondary.TabIndex = 2;
-            this.ButtonStartSecondary.Text = "Unset";
-            this.ButtonStartSecondary.UseVisualStyleBackColor = true;
-            // 
-            // ButtonStartClear
-            // 
-            this.ButtonStartClear.Location = new System.Drawing.Point(207, 7);
-            this.ButtonStartClear.Name = "ButtonStartClear";
-            this.ButtonStartClear.Size = new System.Drawing.Size(75, 23);
-            this.ButtonStartClear.TabIndex = 3;
-            this.ButtonStartClear.Text = "Clear";
-            this.ButtonStartClear.UseVisualStyleBackColor = true;
-            // 
-            // CheckBoxStartGlobal
-            // 
-            this.CheckBoxStartGlobal.AutoSize = true;
-            this.CheckBoxStartGlobal.Location = new System.Drawing.Point(289, 11);
-            this.CheckBoxStartGlobal.Name = "CheckBoxStartGlobal";
-            this.CheckBoxStartGlobal.Size = new System.Drawing.Size(56, 17);
-            this.CheckBoxStartGlobal.TabIndex = 4;
-            this.CheckBoxStartGlobal.Text = "Global";
-            this.CheckBoxStartGlobal.UseVisualStyleBackColor = true;
-            // 
-            // CheckBoxStopGlobal
-            // 
-            this.CheckBoxStopGlobal.AutoSize = true;
-            this.CheckBoxStopGlobal.Location = new System.Drawing.Point(289, 37);
-            this.CheckBoxStopGlobal.Name = "CheckBoxStopGlobal";
-            this.CheckBoxStopGlobal.Size = new System.Drawing.Size(56, 17);
-            this.CheckBoxStopGlobal.TabIndex = 9;
-            this.CheckBoxStopGlobal.Text = "Global";
-            this.CheckBoxStopGlobal.UseVisualStyleBackColor = true;
-            // 
-            // ButtonStopClear
-            // 
-            this.ButtonStopClear.Location = new System.Drawing.Point(207, 33);
-            this.ButtonStopClear.Name = "ButtonStopClear";
-            this.ButtonStopClear.Size = new System.Drawing.Size(75, 23);
-            this.ButtonStopClear.TabIndex = 8;
-            this.ButtonStopClear.Text = "Clear";
-            this.ButtonStopClear.UseVisualStyleBackColor = true;
-            // 
-            // ButtonStopSecondary
-            // 
-            this.ButtonStopSecondary.Location = new System.Drawing.Point(129, 33);
-            this.ButtonStopSecondary.Name = "ButtonStopSecondary";
-            this.ButtonStopSecondary.Size = new System.Drawing.Size(75, 23);
-            this.ButtonStopSecondary.TabIndex = 7;
-            this.ButtonStopSecondary.Text = "Unset";
-            this.ButtonStopSecondary.UseVisualStyleBackColor = true;
-            // 
-            // ButtonStopPrimary
-            // 
-            this.ButtonStopPrimary.Location = new System.Drawing.Point(51, 33);
-            this.ButtonStopPrimary.Name = "ButtonStopPrimary";
-            this.ButtonStopPrimary.Size = new System.Drawing.Size(75, 23);
-            this.ButtonStopPrimary.TabIndex = 6;
-            this.ButtonStopPrimary.Text = "Unset";
-            this.ButtonStopPrimary.UseVisualStyleBackColor = true;
-            // 
-            // LabelStop
-            // 
-            this.LabelStop.AutoSize = true;
-            this.LabelStop.Location = new System.Drawing.Point(5, 38);
-            this.LabelStop.Name = "LabelStop";
-            this.LabelStop.Size = new System.Drawing.Size(32, 13);
-            this.LabelStop.TabIndex = 5;
-            this.LabelStop.Text = "Stop:";
-            // 
-            // CheckBoxUpGlobal
-            // 
-            this.CheckBoxUpGlobal.AutoSize = true;
-            this.CheckBoxUpGlobal.Location = new System.Drawing.Point(289, 89);
-            this.CheckBoxUpGlobal.Name = "CheckBoxUpGlobal";
-            this.CheckBoxUpGlobal.Size = new System.Drawing.Size(56, 17);
-            this.CheckBoxUpGlobal.TabIndex = 14;
-            this.CheckBoxUpGlobal.Text = "Global";
-            this.CheckBoxUpGlobal.UseVisualStyleBackColor = true;
-            // 
-            // ButtonUpClear
-            // 
-            this.ButtonUpClear.Location = new System.Drawing.Point(207, 85);
-            this.ButtonUpClear.Name = "ButtonUpClear";
-            this.ButtonUpClear.Size = new System.Drawing.Size(75, 23);
-            this.ButtonUpClear.TabIndex = 13;
-            this.ButtonUpClear.Text = "Clear";
-            this.ButtonUpClear.UseVisualStyleBackColor = true;
-            // 
-            // ButtonUpSecondary
-            // 
-            this.ButtonUpSecondary.Location = new System.Drawing.Point(129, 85);
-            this.ButtonUpSecondary.Name = "ButtonUpSecondary";
-            this.ButtonUpSecondary.Size = new System.Drawing.Size(75, 23);
-            this.ButtonUpSecondary.TabIndex = 12;
-            this.ButtonUpSecondary.Text = "Unset";
-            this.ButtonUpSecondary.UseVisualStyleBackColor = true;
-            // 
-            // ButtonUpPrimary
-            // 
-            this.ButtonUpPrimary.Location = new System.Drawing.Point(51, 85);
-            this.ButtonUpPrimary.Name = "ButtonUpPrimary";
-            this.ButtonUpPrimary.Size = new System.Drawing.Size(75, 23);
-            this.ButtonUpPrimary.TabIndex = 11;
-            this.ButtonUpPrimary.Text = "Unset";
-            this.ButtonUpPrimary.UseVisualStyleBackColor = true;
-            // 
-            // LabelUp
-            // 
-            this.LabelUp.AutoSize = true;
-            this.LabelUp.Location = new System.Drawing.Point(5, 90);
-            this.LabelUp.Name = "LabelUp";
-            this.LabelUp.Size = new System.Drawing.Size(24, 13);
-            this.LabelUp.TabIndex = 10;
-            this.LabelUp.Text = "Up:";
-            // 
-            // CheckBoxDownGlobal
-            // 
-            this.CheckBoxDownGlobal.AutoSize = true;
-            this.CheckBoxDownGlobal.Location = new System.Drawing.Point(289, 115);
-            this.CheckBoxDownGlobal.Name = "CheckBoxDownGlobal";
-            this.CheckBoxDownGlobal.Size = new System.Drawing.Size(56, 17);
-            this.CheckBoxDownGlobal.TabIndex = 19;
-            this.CheckBoxDownGlobal.Text = "Global";
-            this.CheckBoxDownGlobal.UseVisualStyleBackColor = true;
-            // 
-            // ButtonDownClear
-            // 
-            this.ButtonDownClear.Location = new System.Drawing.Point(207, 111);
-            this.ButtonDownClear.Name = "ButtonDownClear";
-            this.ButtonDownClear.Size = new System.Drawing.Size(75, 23);
-            this.ButtonDownClear.TabIndex = 18;
-            this.ButtonDownClear.Text = "Clear";
-            this.ButtonDownClear.UseVisualStyleBackColor = true;
-            // 
-            // ButtonDownSecondary
-            // 
-            this.ButtonDownSecondary.Location = new System.Drawing.Point(129, 111);
-            this.ButtonDownSecondary.Name = "ButtonDownSecondary";
-            this.ButtonDownSecondary.Size = new System.Drawing.Size(75, 23);
-            this.ButtonDownSecondary.TabIndex = 17;
-            this.ButtonDownSecondary.Text = "Unset";
-            this.ButtonDownSecondary.UseVisualStyleBackColor = true;
-            // 
-            // ButtonDownPrimary
-            // 
-            this.ButtonDownPrimary.Location = new System.Drawing.Point(51, 111);
-            this.ButtonDownPrimary.Name = "ButtonDownPrimary";
-            this.ButtonDownPrimary.Size = new System.Drawing.Size(75, 23);
-            this.ButtonDownPrimary.TabIndex = 16;
-            this.ButtonDownPrimary.Text = "Unset";
-            this.ButtonDownPrimary.UseVisualStyleBackColor = true;
-            // 
-            // LabelDown
-            // 
-            this.LabelDown.AutoSize = true;
-            this.LabelDown.Location = new System.Drawing.Point(5, 116);
-            this.LabelDown.Name = "LabelDown";
-            this.LabelDown.Size = new System.Drawing.Size(38, 13);
-            this.LabelDown.TabIndex = 15;
-            this.LabelDown.Text = "Down:";
             // 
             // LabelBeep
             // 
             this.LabelBeep.AutoSize = true;
-            this.LabelBeep.Location = new System.Drawing.Point(5, 194);
+            this.LabelBeep.Location = new System.Drawing.Point(3, 0);
             this.LabelBeep.Name = "LabelBeep";
             this.LabelBeep.Size = new System.Drawing.Size(35, 13);
             this.LabelBeep.TabIndex = 20;
@@ -266,14 +80,14 @@
             // 
             this.ComboBoxBeep.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.ComboBoxBeep.FormattingEnabled = true;
-            this.ComboBoxBeep.Location = new System.Drawing.Point(52, 190);
+            this.ComboBoxBeep.Location = new System.Drawing.Point(3, 3);
             this.ComboBoxBeep.Name = "ComboBoxBeep";
-            this.ComboBoxBeep.Size = new System.Drawing.Size(112, 21);
+            this.ComboBoxBeep.Size = new System.Drawing.Size(120, 21);
             this.ComboBoxBeep.TabIndex = 22;
             // 
             // ButtonImportBeep
             // 
-            this.ButtonImportBeep.Location = new System.Drawing.Point(168, 189);
+            this.ButtonImportBeep.Location = new System.Drawing.Point(129, 3);
             this.ButtonImportBeep.Name = "ButtonImportBeep";
             this.ButtonImportBeep.Size = new System.Drawing.Size(114, 23);
             this.ButtonImportBeep.TabIndex = 23;
@@ -281,28 +95,10 @@
             this.ButtonImportBeep.UseVisualStyleBackColor = true;
             this.ButtonImportBeep.Click += new System.EventHandler(this.ButtonImportBeep_Click);
             // 
-            // ComboBoxKey
-            // 
-            this.ComboBoxKey.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.ComboBoxKey.FormattingEnabled = true;
-            this.ComboBoxKey.Location = new System.Drawing.Point(52, 242);
-            this.ComboBoxKey.Name = "ComboBoxKey";
-            this.ComboBoxKey.Size = new System.Drawing.Size(112, 21);
-            this.ComboBoxKey.TabIndex = 25;
-            // 
-            // LabelKey
-            // 
-            this.LabelKey.AutoSize = true;
-            this.LabelKey.Location = new System.Drawing.Point(5, 245);
-            this.LabelKey.Name = "LabelKey";
-            this.LabelKey.Size = new System.Drawing.Size(28, 13);
-            this.LabelKey.TabIndex = 24;
-            this.LabelKey.Text = "Key:";
-            // 
             // TrackBarVolume
             // 
             this.TrackBarVolume.AutoSize = false;
-            this.TrackBarVolume.Location = new System.Drawing.Point(45, 217);
+            this.TrackBarVolume.Location = new System.Drawing.Point(3, 3);
             this.TrackBarVolume.Maximum = 100;
             this.TrackBarVolume.Name = "TrackBarVolume";
             this.TrackBarVolume.Size = new System.Drawing.Size(165, 21);
@@ -314,7 +110,7 @@
             // TextBoxVolume
             // 
             this.TextBoxVolume.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.7F);
-            this.TextBoxVolume.Location = new System.Drawing.Point(208, 216);
+            this.TextBoxVolume.Location = new System.Drawing.Point(174, 3);
             this.TextBoxVolume.Name = "TextBoxVolume";
             this.TextBoxVolume.Size = new System.Drawing.Size(73, 21);
             this.TextBoxVolume.TabIndex = 29;
@@ -322,250 +118,354 @@
             // LabelVolume
             // 
             this.LabelVolume.AutoSize = true;
-            this.LabelVolume.Location = new System.Drawing.Point(6, 218);
+            this.LabelVolume.Location = new System.Drawing.Point(3, 68);
             this.LabelVolume.Name = "LabelVolume";
             this.LabelVolume.Size = new System.Drawing.Size(45, 13);
             this.LabelVolume.TabIndex = 30;
             this.LabelVolume.Text = "Volume:";
             // 
-            // CheckBoxAddFrameGlobal
+            // tableLayoutPanel1
             // 
-            this.CheckBoxAddFrameGlobal.AutoSize = true;
-            this.CheckBoxAddFrameGlobal.Location = new System.Drawing.Point(289, 141);
-            this.CheckBoxAddFrameGlobal.Name = "CheckBoxAddFrameGlobal";
-            this.CheckBoxAddFrameGlobal.Size = new System.Drawing.Size(56, 17);
-            this.CheckBoxAddFrameGlobal.TabIndex = 35;
-            this.CheckBoxAddFrameGlobal.Text = "Global";
-            this.CheckBoxAddFrameGlobal.UseVisualStyleBackColor = true;
+            this.tableLayoutPanel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tableLayoutPanel1.ColumnCount = 2;
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 150F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.tableLayoutPanel1.Controls.Add(this.label4, 0, 5);
+            this.tableLayoutPanel1.Controls.Add(this.label1, 0, 1);
+            this.tableLayoutPanel1.Controls.Add(this.flowLayoutPanel1, 1, 0);
+            this.tableLayoutPanel1.Controls.Add(this.LabelBeep, 0, 0);
+            this.tableLayoutPanel1.Controls.Add(this.LabelVolume, 0, 2);
+            this.tableLayoutPanel1.Controls.Add(this.flowLayoutPanel3, 1, 1);
+            this.tableLayoutPanel1.Controls.Add(this.label2, 0, 3);
+            this.tableLayoutPanel1.Controls.Add(this.flowLayoutPanel4, 1, 3);
+            this.tableLayoutPanel1.Controls.Add(this.label3, 0, 4);
+            this.tableLayoutPanel1.Controls.Add(this.flowLayoutPanel5, 1, 4);
+            this.tableLayoutPanel1.Controls.Add(this.flowLayoutPanel6, 1, 5);
+            this.tableLayoutPanel1.Controls.Add(this.flowLayoutPanel2, 1, 2);
+            this.tableLayoutPanel1.Controls.Add(this.label6, 0, 6);
+            this.tableLayoutPanel1.Controls.Add(this.flowLayoutPanel8, 1, 6);
+            this.tableLayoutPanel1.Controls.Add(this.label7, 0, 7);
+            this.tableLayoutPanel1.Controls.Add(this.flowLayoutPanel9, 1, 7);
+            this.tableLayoutPanel1.Controls.Add(this.label5, 0, 8);
+            this.tableLayoutPanel1.Controls.Add(this.flowLayoutPanel7, 1, 8);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
+            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
+            this.tableLayoutPanel1.RowCount = 10;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 34F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 34F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 34F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 34F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 34F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 34F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 34F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 34F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 34F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(515, 463);
+            this.tableLayoutPanel1.TabIndex = 31;
             // 
-            // ButtonAddFrameClear
+            // label4
             // 
-            this.ButtonAddFrameClear.Location = new System.Drawing.Point(207, 137);
-            this.ButtonAddFrameClear.Name = "ButtonAddFrameClear";
-            this.ButtonAddFrameClear.Size = new System.Drawing.Size(75, 23);
-            this.ButtonAddFrameClear.TabIndex = 34;
-            this.ButtonAddFrameClear.Text = "Clear";
-            this.ButtonAddFrameClear.UseVisualStyleBackColor = true;
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(3, 170);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(80, 13);
+            this.label4.TabIndex = 38;
+            this.label4.Text = "Calib. timer (ms)";
             // 
-            // ButtonAddFrameSecondary
+            // label1
             // 
-            this.ButtonAddFrameSecondary.Location = new System.Drawing.Point(129, 137);
-            this.ButtonAddFrameSecondary.Name = "ButtonAddFrameSecondary";
-            this.ButtonAddFrameSecondary.Size = new System.Drawing.Size(75, 23);
-            this.ButtonAddFrameSecondary.TabIndex = 33;
-            this.ButtonAddFrameSecondary.Text = "Unset";
-            this.ButtonAddFrameSecondary.UseVisualStyleBackColor = true;
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(3, 34);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(40, 13);
+            this.label1.TabIndex = 32;
+            this.label1.Text = "Beeps:";
             // 
-            // ButtonAddFramePrimary
+            // flowLayoutPanel1
             // 
-            this.ButtonAddFramePrimary.Location = new System.Drawing.Point(51, 137);
-            this.ButtonAddFramePrimary.Name = "ButtonAddFramePrimary";
-            this.ButtonAddFramePrimary.Size = new System.Drawing.Size(75, 23);
-            this.ButtonAddFramePrimary.TabIndex = 32;
-            this.ButtonAddFramePrimary.Text = "Unset";
-            this.ButtonAddFramePrimary.UseVisualStyleBackColor = true;
+            this.flowLayoutPanel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.flowLayoutPanel1.Controls.Add(this.ComboBoxBeep);
+            this.flowLayoutPanel1.Controls.Add(this.ButtonImportBeep);
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(153, 3);
+            this.flowLayoutPanel1.Name = "flowLayoutPanel1";
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(359, 28);
+            this.flowLayoutPanel1.TabIndex = 0;
             // 
-            // LabelAddFrame
+            // flowLayoutPanel3
             // 
-            this.LabelAddFrame.AutoSize = true;
-            this.LabelAddFrame.Location = new System.Drawing.Point(5, 142);
-            this.LabelAddFrame.Name = "LabelAddFrame";
-            this.LabelAddFrame.Size = new System.Drawing.Size(45, 13);
-            this.LabelAddFrame.TabIndex = 31;
-            this.LabelAddFrame.Text = "+Frame:";
+            this.flowLayoutPanel3.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.flowLayoutPanel3.Controls.Add(this.numericUpDown1);
+            this.flowLayoutPanel3.Location = new System.Drawing.Point(153, 37);
+            this.flowLayoutPanel3.Name = "flowLayoutPanel3";
+            this.flowLayoutPanel3.Size = new System.Drawing.Size(359, 28);
+            this.flowLayoutPanel3.TabIndex = 31;
             // 
-            // CheckBoxSubFrameGlobal
+            // numericUpDown1
             // 
-            this.CheckBoxSubFrameGlobal.AutoSize = true;
-            this.CheckBoxSubFrameGlobal.Location = new System.Drawing.Point(289, 167);
-            this.CheckBoxSubFrameGlobal.Name = "CheckBoxSubFrameGlobal";
-            this.CheckBoxSubFrameGlobal.Size = new System.Drawing.Size(56, 17);
-            this.CheckBoxSubFrameGlobal.TabIndex = 40;
-            this.CheckBoxSubFrameGlobal.Text = "Global";
-            this.CheckBoxSubFrameGlobal.UseVisualStyleBackColor = true;
+            this.numericUpDown1.Location = new System.Drawing.Point(3, 3);
+            this.numericUpDown1.Name = "numericUpDown1";
+            this.numericUpDown1.Size = new System.Drawing.Size(120, 20);
+            this.numericUpDown1.TabIndex = 0;
+            this.numericUpDown1.Value = new decimal(new int[] {
+            5,
+            0,
+            0,
+            0});
             // 
-            // ButtonSubFrameClear
+            // label2
             // 
-            this.ButtonSubFrameClear.Location = new System.Drawing.Point(207, 163);
-            this.ButtonSubFrameClear.Name = "ButtonSubFrameClear";
-            this.ButtonSubFrameClear.Size = new System.Drawing.Size(75, 23);
-            this.ButtonSubFrameClear.TabIndex = 39;
-            this.ButtonSubFrameClear.Text = "Clear";
-            this.ButtonSubFrameClear.UseVisualStyleBackColor = true;
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(3, 102);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(30, 13);
+            this.label2.TabIndex = 33;
+            this.label2.Text = "FPS:";
             // 
-            // ButtonSubFrameSecondary
+            // flowLayoutPanel4
             // 
-            this.ButtonSubFrameSecondary.Location = new System.Drawing.Point(129, 163);
-            this.ButtonSubFrameSecondary.Name = "ButtonSubFrameSecondary";
-            this.ButtonSubFrameSecondary.Size = new System.Drawing.Size(75, 23);
-            this.ButtonSubFrameSecondary.TabIndex = 38;
-            this.ButtonSubFrameSecondary.Text = "Unset";
-            this.ButtonSubFrameSecondary.UseVisualStyleBackColor = true;
+            this.flowLayoutPanel4.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.flowLayoutPanel4.Controls.Add(this.InputFPS);
+            this.flowLayoutPanel4.Location = new System.Drawing.Point(153, 105);
+            this.flowLayoutPanel4.Name = "flowLayoutPanel4";
+            this.flowLayoutPanel4.Size = new System.Drawing.Size(359, 28);
+            this.flowLayoutPanel4.TabIndex = 35;
             // 
-            // ButtonSubFramePrimary
+            // InputFPS
             // 
-            this.ButtonSubFramePrimary.Location = new System.Drawing.Point(51, 163);
-            this.ButtonSubFramePrimary.Name = "ButtonSubFramePrimary";
-            this.ButtonSubFramePrimary.Size = new System.Drawing.Size(75, 23);
-            this.ButtonSubFramePrimary.TabIndex = 37;
-            this.ButtonSubFramePrimary.Text = "Unset";
-            this.ButtonSubFramePrimary.UseVisualStyleBackColor = true;
+            this.InputFPS.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.7F);
+            this.InputFPS.Location = new System.Drawing.Point(3, 3);
+            this.InputFPS.Name = "InputFPS";
+            this.InputFPS.Size = new System.Drawing.Size(120, 21);
+            this.InputFPS.TabIndex = 34;
+            this.InputFPS.Text = "59.82";
+            this.InputFPS.TextChanged += new System.EventHandler(this.InputFPS_TextChanged);
             // 
-            // LabelSubFrame
+            // label3
             // 
-            this.LabelSubFrame.AutoSize = true;
-            this.LabelSubFrame.Location = new System.Drawing.Point(5, 168);
-            this.LabelSubFrame.Name = "LabelSubFrame";
-            this.LabelSubFrame.Size = new System.Drawing.Size(42, 13);
-            this.LabelSubFrame.TabIndex = 36;
-            this.LabelSubFrame.Text = "-Frame:";
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(3, 136);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(110, 13);
+            this.label3.TabIndex = 36;
+            this.label3.Text = "Time btwn beeps (ms)";
             // 
-            // CheckBoxUndoGlobal
+            // flowLayoutPanel5
             // 
-            this.CheckBoxUndoGlobal.AutoSize = true;
-            this.CheckBoxUndoGlobal.Location = new System.Drawing.Point(289, 63);
-            this.CheckBoxUndoGlobal.Name = "CheckBoxUndoGlobal";
-            this.CheckBoxUndoGlobal.Size = new System.Drawing.Size(56, 17);
-            this.CheckBoxUndoGlobal.TabIndex = 45;
-            this.CheckBoxUndoGlobal.Text = "Global";
-            this.CheckBoxUndoGlobal.UseVisualStyleBackColor = true;
+            this.flowLayoutPanel5.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.flowLayoutPanel5.Controls.Add(this.InputTimeBetweenBeeps);
+            this.flowLayoutPanel5.Location = new System.Drawing.Point(153, 139);
+            this.flowLayoutPanel5.Name = "flowLayoutPanel5";
+            this.flowLayoutPanel5.Size = new System.Drawing.Size(359, 28);
+            this.flowLayoutPanel5.TabIndex = 37;
             // 
-            // ButtonUndoClear
+            // InputTimeBetweenBeeps
             // 
-            this.ButtonUndoClear.Location = new System.Drawing.Point(207, 59);
-            this.ButtonUndoClear.Name = "ButtonUndoClear";
-            this.ButtonUndoClear.Size = new System.Drawing.Size(75, 23);
-            this.ButtonUndoClear.TabIndex = 44;
-            this.ButtonUndoClear.Text = "Clear";
-            this.ButtonUndoClear.UseVisualStyleBackColor = true;
+            this.InputTimeBetweenBeeps.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.7F);
+            this.InputTimeBetweenBeeps.Location = new System.Drawing.Point(3, 3);
+            this.InputTimeBetweenBeeps.Name = "InputTimeBetweenBeeps";
+            this.InputTimeBetweenBeeps.Size = new System.Drawing.Size(120, 21);
+            this.InputTimeBetweenBeeps.TabIndex = 35;
+            this.InputTimeBetweenBeeps.Text = "500";
+            this.InputTimeBetweenBeeps.TextChanged += new System.EventHandler(this.InputTimeBetweenBeeps_TextChanged);
             // 
-            // ButtonUndoSecondary
+            // flowLayoutPanel6
             // 
-            this.ButtonUndoSecondary.Location = new System.Drawing.Point(129, 59);
-            this.ButtonUndoSecondary.Name = "ButtonUndoSecondary";
-            this.ButtonUndoSecondary.Size = new System.Drawing.Size(75, 23);
-            this.ButtonUndoSecondary.TabIndex = 43;
-            this.ButtonUndoSecondary.Text = "Unset";
-            this.ButtonUndoSecondary.UseVisualStyleBackColor = true;
+            this.flowLayoutPanel6.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.flowLayoutPanel6.Controls.Add(this.InputCalibrationTimer);
+            this.flowLayoutPanel6.Location = new System.Drawing.Point(153, 173);
+            this.flowLayoutPanel6.Name = "flowLayoutPanel6";
+            this.flowLayoutPanel6.Size = new System.Drawing.Size(359, 28);
+            this.flowLayoutPanel6.TabIndex = 41;
             // 
-            // ButtonUndoPrimary
+            // InputCalibrationTimer
             // 
-            this.ButtonUndoPrimary.Location = new System.Drawing.Point(51, 59);
-            this.ButtonUndoPrimary.Name = "ButtonUndoPrimary";
-            this.ButtonUndoPrimary.Size = new System.Drawing.Size(75, 23);
-            this.ButtonUndoPrimary.TabIndex = 42;
-            this.ButtonUndoPrimary.Text = "Unset";
-            this.ButtonUndoPrimary.UseVisualStyleBackColor = true;
+            this.InputCalibrationTimer.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.7F);
+            this.InputCalibrationTimer.Location = new System.Drawing.Point(3, 3);
+            this.InputCalibrationTimer.Name = "InputCalibrationTimer";
+            this.InputCalibrationTimer.Size = new System.Drawing.Size(120, 21);
+            this.InputCalibrationTimer.TabIndex = 35;
+            this.InputCalibrationTimer.Text = "4000";
+            this.InputCalibrationTimer.TextChanged += new System.EventHandler(this.InputCalibrationTimer_TextChanged);
             // 
-            // LabelUndo
+            // flowLayoutPanel2
             // 
-            this.LabelUndo.AutoSize = true;
-            this.LabelUndo.Location = new System.Drawing.Point(5, 64);
-            this.LabelUndo.Name = "LabelUndo";
-            this.LabelUndo.Size = new System.Drawing.Size(36, 13);
-            this.LabelUndo.TabIndex = 41;
-            this.LabelUndo.Text = "Undo:";
+            this.flowLayoutPanel2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.flowLayoutPanel2.Controls.Add(this.TrackBarVolume);
+            this.flowLayoutPanel2.Controls.Add(this.TextBoxVolume);
+            this.flowLayoutPanel2.Location = new System.Drawing.Point(153, 71);
+            this.flowLayoutPanel2.Name = "flowLayoutPanel2";
+            this.flowLayoutPanel2.Size = new System.Drawing.Size(359, 28);
+            this.flowLayoutPanel2.TabIndex = 1;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(3, 204);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(91, 13);
+            this.label6.TabIndex = 43;
+            this.label6.Text = "Min start time (ms)";
+            // 
+            // flowLayoutPanel8
+            // 
+            this.flowLayoutPanel8.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.flowLayoutPanel8.Controls.Add(this.InputMinStartTime);
+            this.flowLayoutPanel8.Location = new System.Drawing.Point(153, 207);
+            this.flowLayoutPanel8.Name = "flowLayoutPanel8";
+            this.flowLayoutPanel8.Size = new System.Drawing.Size(359, 28);
+            this.flowLayoutPanel8.TabIndex = 44;
+            // 
+            // InputMinStartTime
+            // 
+            this.InputMinStartTime.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.7F);
+            this.InputMinStartTime.Location = new System.Drawing.Point(3, 3);
+            this.InputMinStartTime.Name = "InputMinStartTime";
+            this.InputMinStartTime.Size = new System.Drawing.Size(120, 21);
+            this.InputMinStartTime.TabIndex = 35;
+            this.InputMinStartTime.Text = "4000";
+            this.InputMinStartTime.TextChanged += new System.EventHandler(this.InputMinStartTime_TextChanged);
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(3, 238);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(129, 13);
+            this.label7.TabIndex = 45;
+            this.label7.Text = "Beep timer frequency (ms)";
+            // 
+            // flowLayoutPanel9
+            // 
+            this.flowLayoutPanel9.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.flowLayoutPanel9.Controls.Add(this.InputBeepTimerFrequency);
+            this.flowLayoutPanel9.Location = new System.Drawing.Point(153, 241);
+            this.flowLayoutPanel9.Name = "flowLayoutPanel9";
+            this.flowLayoutPanel9.Size = new System.Drawing.Size(359, 28);
+            this.flowLayoutPanel9.TabIndex = 46;
+            // 
+            // InputBeepTimerFrequency
+            // 
+            this.InputBeepTimerFrequency.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.7F);
+            this.InputBeepTimerFrequency.Location = new System.Drawing.Point(3, 3);
+            this.InputBeepTimerFrequency.Name = "InputBeepTimerFrequency";
+            this.InputBeepTimerFrequency.Size = new System.Drawing.Size(120, 21);
+            this.InputBeepTimerFrequency.TabIndex = 35;
+            this.InputBeepTimerFrequency.Text = "15";
+            this.InputBeepTimerFrequency.TextChanged += new System.EventHandler(this.InputBeepTimerFrequency_TextChanged);
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(3, 272);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(72, 13);
+            this.label5.TabIndex = 47;
+            this.label5.Text = "Database File";
+            // 
+            // flowLayoutPanel7
+            // 
+            this.flowLayoutPanel7.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.flowLayoutPanel7.Controls.Add(this.InputDatabaseFile);
+            this.flowLayoutPanel7.Location = new System.Drawing.Point(153, 275);
+            this.flowLayoutPanel7.Name = "flowLayoutPanel7";
+            this.flowLayoutPanel7.Size = new System.Drawing.Size(359, 28);
+            this.flowLayoutPanel7.TabIndex = 48;
+            // 
+            // InputDatabaseFile
+            // 
+            this.InputDatabaseFile.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.InputDatabaseFile.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.7F);
+            this.InputDatabaseFile.Location = new System.Drawing.Point(3, 3);
+            this.InputDatabaseFile.Name = "InputDatabaseFile";
+            this.InputDatabaseFile.Size = new System.Drawing.Size(356, 21);
+            this.InputDatabaseFile.TabIndex = 35;
+            this.InputDatabaseFile.Text = "C:\\Users\\pokef\\OneDrive\\Desktop\\chocoduck_database\\choco.db";
+            this.InputDatabaseFile.TextChanged += new System.EventHandler(this.InputDatabaseFile_TextChanged);
             // 
             // SettingsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(346, 271);
-            this.Controls.Add(this.CheckBoxUndoGlobal);
-            this.Controls.Add(this.ButtonUndoClear);
-            this.Controls.Add(this.ButtonUndoSecondary);
-            this.Controls.Add(this.ButtonUndoPrimary);
-            this.Controls.Add(this.LabelUndo);
-            this.Controls.Add(this.CheckBoxSubFrameGlobal);
-            this.Controls.Add(this.ButtonSubFrameClear);
-            this.Controls.Add(this.ButtonSubFrameSecondary);
-            this.Controls.Add(this.ButtonSubFramePrimary);
-            this.Controls.Add(this.LabelSubFrame);
-            this.Controls.Add(this.CheckBoxAddFrameGlobal);
-            this.Controls.Add(this.ButtonAddFrameClear);
-            this.Controls.Add(this.ButtonAddFrameSecondary);
-            this.Controls.Add(this.ButtonAddFramePrimary);
-            this.Controls.Add(this.LabelAddFrame);
-            this.Controls.Add(this.LabelVolume);
-            this.Controls.Add(this.TextBoxVolume);
-            this.Controls.Add(this.TrackBarVolume);
-            this.Controls.Add(this.ComboBoxKey);
-            this.Controls.Add(this.LabelKey);
-            this.Controls.Add(this.ButtonImportBeep);
-            this.Controls.Add(this.ComboBoxBeep);
-            this.Controls.Add(this.LabelBeep);
-            this.Controls.Add(this.CheckBoxDownGlobal);
-            this.Controls.Add(this.ButtonDownClear);
-            this.Controls.Add(this.ButtonDownSecondary);
-            this.Controls.Add(this.ButtonDownPrimary);
-            this.Controls.Add(this.LabelDown);
-            this.Controls.Add(this.CheckBoxUpGlobal);
-            this.Controls.Add(this.ButtonUpClear);
-            this.Controls.Add(this.ButtonUpSecondary);
-            this.Controls.Add(this.ButtonUpPrimary);
-            this.Controls.Add(this.LabelUp);
-            this.Controls.Add(this.CheckBoxStopGlobal);
-            this.Controls.Add(this.ButtonStopClear);
-            this.Controls.Add(this.ButtonStopSecondary);
-            this.Controls.Add(this.ButtonStopPrimary);
-            this.Controls.Add(this.LabelStop);
-            this.Controls.Add(this.CheckBoxStartGlobal);
-            this.Controls.Add(this.ButtonStartClear);
-            this.Controls.Add(this.ButtonStartSecondary);
-            this.Controls.Add(this.ButtonStartPrimary);
-            this.Controls.Add(this.LabelStart);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.ClientSize = new System.Drawing.Size(515, 461);
+            this.Controls.Add(this.tableLayoutPanel1);
             this.Name = "SettingsForm";
             this.Text = "Settings";
             ((System.ComponentModel.ISupportInitialize)(this.TrackBarVolume)).EndInit();
+            this.tableLayoutPanel1.ResumeLayout(false);
+            this.tableLayoutPanel1.PerformLayout();
+            this.flowLayoutPanel1.ResumeLayout(false);
+            this.flowLayoutPanel3.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
+            this.flowLayoutPanel4.ResumeLayout(false);
+            this.flowLayoutPanel4.PerformLayout();
+            this.flowLayoutPanel5.ResumeLayout(false);
+            this.flowLayoutPanel5.PerformLayout();
+            this.flowLayoutPanel6.ResumeLayout(false);
+            this.flowLayoutPanel6.PerformLayout();
+            this.flowLayoutPanel2.ResumeLayout(false);
+            this.flowLayoutPanel2.PerformLayout();
+            this.flowLayoutPanel8.ResumeLayout(false);
+            this.flowLayoutPanel8.PerformLayout();
+            this.flowLayoutPanel9.ResumeLayout(false);
+            this.flowLayoutPanel9.PerformLayout();
+            this.flowLayoutPanel7.ResumeLayout(false);
+            this.flowLayoutPanel7.PerformLayout();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
         #endregion
         public System.Windows.Forms.ComboBox ComboBoxBeep;
-        public System.Windows.Forms.Label LabelStart;
-        public System.Windows.Forms.Button ButtonStartPrimary;
-        public System.Windows.Forms.Button ButtonStartClear;
-        public System.Windows.Forms.CheckBox CheckBoxStartGlobal;
-        public System.Windows.Forms.Button ButtonStartSecondary;
-        public System.Windows.Forms.CheckBox CheckBoxStopGlobal;
-        public System.Windows.Forms.Button ButtonStopClear;
-        public System.Windows.Forms.Button ButtonStopSecondary;
-        public System.Windows.Forms.Button ButtonStopPrimary;
-        public System.Windows.Forms.Label LabelStop;
-        public System.Windows.Forms.CheckBox CheckBoxUpGlobal;
-        public System.Windows.Forms.Button ButtonUpClear;
-        public System.Windows.Forms.Button ButtonUpSecondary;
-        public System.Windows.Forms.Button ButtonUpPrimary;
-        public System.Windows.Forms.Label LabelUp;
-        public System.Windows.Forms.CheckBox CheckBoxDownGlobal;
-        public System.Windows.Forms.Button ButtonDownClear;
-        public System.Windows.Forms.Button ButtonDownSecondary;
-        public System.Windows.Forms.Button ButtonDownPrimary;
-        public System.Windows.Forms.Label LabelDown;
         public System.Windows.Forms.Label LabelBeep;
         public System.Windows.Forms.Button ButtonImportBeep;
-        public System.Windows.Forms.ComboBox ComboBoxKey;
-        public System.Windows.Forms.Label LabelKey;
         private System.Windows.Forms.TrackBar TrackBarVolume;
         private System.Windows.Forms.TextBox TextBoxVolume;
         public System.Windows.Forms.Label LabelVolume;
-        public System.Windows.Forms.CheckBox CheckBoxAddFrameGlobal;
-        public System.Windows.Forms.Button ButtonAddFrameClear;
-        public System.Windows.Forms.Button ButtonAddFrameSecondary;
-        public System.Windows.Forms.Button ButtonAddFramePrimary;
-        public System.Windows.Forms.Label LabelAddFrame;
-        public System.Windows.Forms.CheckBox CheckBoxSubFrameGlobal;
-        public System.Windows.Forms.Button ButtonSubFrameClear;
-        public System.Windows.Forms.Button ButtonSubFrameSecondary;
-        public System.Windows.Forms.Button ButtonSubFramePrimary;
-        public System.Windows.Forms.Label LabelSubFrame;
-        public System.Windows.Forms.CheckBox CheckBoxUndoGlobal;
-        public System.Windows.Forms.Button ButtonUndoClear;
-        public System.Windows.Forms.Button ButtonUndoSecondary;
-        public System.Windows.Forms.Button ButtonUndoPrimary;
-        public System.Windows.Forms.Label LabelUndo;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
+        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
+        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel2;
+        public System.Windows.Forms.Label label1;
+        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel3;
+        private System.Windows.Forms.NumericUpDown numericUpDown1;
+        public System.Windows.Forms.Label label2;
+        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel4;
+        public System.Windows.Forms.TextBox InputFPS;
+        public System.Windows.Forms.Label label4;
+        public System.Windows.Forms.Label label3;
+        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel5;
+        public System.Windows.Forms.TextBox InputTimeBetweenBeeps;
+        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel6;
+        public System.Windows.Forms.TextBox InputCalibrationTimer;
+        public System.Windows.Forms.Label label6;
+        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel8;
+        public System.Windows.Forms.TextBox InputMinStartTime;
+        public System.Windows.Forms.Label label7;
+        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel9;
+        public System.Windows.Forms.TextBox InputBeepTimerFrequency;
+        public System.Windows.Forms.Label label5;
+        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel7;
+        public System.Windows.Forms.TextBox InputDatabaseFile;
     }
 }

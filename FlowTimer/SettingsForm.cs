@@ -11,23 +11,10 @@ namespace FlowTimer {
         public SettingsForm() {
             InitializeComponent();
 
-            FlowTimer.Settings.Start.SetControls(ButtonStartPrimary, ButtonStartSecondary, ButtonStartClear, CheckBoxStartGlobal);
-            FlowTimer.Settings.Stop.SetControls(ButtonStopPrimary, ButtonStopSecondary, ButtonStopClear, CheckBoxStopGlobal);
-            FlowTimer.Settings.Undo.SetControls(ButtonUndoPrimary, ButtonUndoSecondary, ButtonUndoClear, CheckBoxUndoGlobal);
-            FlowTimer.Settings.Up.SetControls(ButtonUpPrimary, ButtonUpSecondary, ButtonUpClear, CheckBoxUpGlobal);
-            FlowTimer.Settings.Down.SetControls(ButtonDownPrimary, ButtonDownSecondary, ButtonDownClear, CheckBoxDownGlobal);
-            FlowTimer.Settings.AddFrame.SetControls(ButtonAddFramePrimary, ButtonAddFrameSecondary, ButtonAddFrameClear, CheckBoxAddFrameGlobal);
-            FlowTimer.Settings.SubFrame.SetControls(ButtonSubFramePrimary, ButtonSubFrameSecondary, ButtonSubFrameClear, CheckBoxSubFrameGlobal);
-
             foreach(string file in Directory.GetFiles(FlowTimer.Beeps, "*.wav")) {
                 ComboBoxBeep.Items.Add(Path.GetFileNameWithoutExtension(file));
             }
             ComboBoxBeep.SelectedItem = FlowTimer.Settings.Beep;
-
-            foreach(KeyMethod keymethod in Enum.GetValues(typeof(KeyMethod))) {
-                ComboBoxKey.Items.Add(keymethod.ToFormattedString());
-            }
-            ComboBoxKey.SelectedIndex = (int) FlowTimer.Settings.KeyMethod;
 
             TrackBarVolume.Value = FlowTimer.Settings.Volume;
             TextBoxVolume.Text = FlowTimer.Settings.Volume.ToString();
@@ -37,15 +24,10 @@ namespace FlowTimer {
             TrackBarVolume.MouseUp += TrackBarVolume_MouseUp;
             TextBoxVolume.KeyPress += TextBoxVolume_KeyPress;
             TextBoxVolume.TextChanged += TextBoxVolume_TextChanged;
-            ComboBoxKey.SelectedIndexChanged += ComboBoxKey_SelectedIndexChanged;
         }
 
         private void ComboBoxBeep_SelectedIndexChanged(object sender, EventArgs e) {
             FlowTimer.ChangeBeepSound(ComboBoxBeep.SelectedItem as string);
-        }
-
-        private void ComboBoxKey_SelectedIndexChanged(object sender, EventArgs e) {
-            FlowTimer.ChangeKeyMethod((KeyMethod) ComboBoxKey.SelectedIndex);
         }
 
         private void ButtonImportBeep_Click(object sender, EventArgs e) {
@@ -89,6 +71,85 @@ namespace FlowTimer {
             }
 
             TrackBarVolume.Value = newValue;
+        }
+
+        private void InputFPS_TextChanged(object sender, EventArgs e) {
+            double newValue;
+            if(InputFPS.Text == "") {
+                newValue = 0;
+            } else {
+                try {
+                    newValue = Convert.ToDouble(InputFPS.Text);
+                } catch (System.FormatException ex) {
+                    return;
+                }
+            }
+            newValue = Math.Max(newValue, 0);
+            FlowTimer.Settings.FPS = newValue;
+        }
+
+        private void InputTimeBetweenBeeps_TextChanged(object sender, EventArgs e) {
+            double newValue;
+            if(InputTimeBetweenBeeps.Text == "") {
+                newValue = 0;
+            } else {
+                try {
+                    newValue = Convert.ToDouble(InputTimeBetweenBeeps.Text);
+                } catch(System.FormatException ex) {
+                    return;
+                }
+            }
+            newValue = Math.Max(newValue, 0);
+            FlowTimer.Settings.TimeBetweenBeeps = newValue;
+        }
+
+        private void InputCalibrationTimer_TextChanged(object sender, EventArgs e) {
+            double newValue;
+            if(InputCalibrationTimer.Text == "") {
+                newValue = 0;
+            } else {
+                try {
+                    newValue = Convert.ToDouble(InputCalibrationTimer.Text);
+                } catch(System.FormatException ex) {
+                    return;
+                }
+            }
+            newValue = Math.Max(newValue, 0);
+            FlowTimer.Settings.CalibrateTimer = newValue;
+        }
+
+        private void InputMinStartTime_TextChanged(object sender, EventArgs e) {
+            double newValue;
+            if(InputMinStartTime.Text == "") {
+                newValue = 0;
+            } else {
+                try {
+                    newValue = Convert.ToDouble(InputMinStartTime.Text);
+                } catch(System.FormatException ex) {
+                    return;
+                }
+            }
+            newValue = Math.Max(newValue, 0);
+            FlowTimer.Settings.MinStartTime = newValue;
+        }
+
+        private void InputBeepTimerFrequency_TextChanged(object sender, EventArgs e) {
+            int newValue;
+            if(InputBeepTimerFrequency.Text == "") {
+                newValue = 0;
+            } else {
+                try {
+                    newValue = Convert.ToInt32(InputBeepTimerFrequency.Text);
+                } catch(System.FormatException ex) {
+                    return;
+                }
+            }
+            newValue = Math.Max(newValue, 0);
+            FlowTimer.Settings.BeepTimerFrequency = newValue;
+        }
+
+        private void InputDatabaseFile_TextChanged(object sender, EventArgs e) {
+            FlowTimer.Settings.DatabaseFile = InputDatabaseFile.Text;
         }
     }
 }

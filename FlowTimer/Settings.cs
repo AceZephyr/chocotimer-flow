@@ -6,20 +6,19 @@ using Newtonsoft.Json;
 namespace FlowTimer {
 
     public class Settings {
-
-        public Hotkey Start = new Hotkey(Keys.None, Keys.None, false);
-        public Hotkey Stop  = new Hotkey(Keys.None, Keys.None, false);
-        public Hotkey Undo  = new Hotkey(Keys.None, Keys.None, false);
-        public Hotkey Up    = new Hotkey(Keys.None, Keys.None, false);
-        public Hotkey Down  = new Hotkey(Keys.None, Keys.None, false);
-        public Hotkey AddFrame = new Hotkey(Keys.None, Keys.None, false);
-        public Hotkey SubFrame = new Hotkey(Keys.None, Keys.None, false);
         public KeyMethod KeyMethod = KeyMethod.OnPress;
         public string Beep = "ping1";
         public bool Pinned = false;
         public string LastLoadedTimers = null;
         public bool AutoUpdate = false;
         public int Volume = 100;
+        public double FPS = 59.82;
+        public double TimeBetweenBeeps = 500;
+        public double CalibrateTimer = 4000;
+        public double MinStartTime = 4000;
+        public int BeepTimerFrequency = 15;
+        public int MinimumWindowSize = 3;
+        public string DatabaseFile = @"C:\Users\pokef\OneDrive\Desktop\chocoduck_database\choco.db";
 
         [JsonIgnore]
         private CheckBox _CheckBoxAutoUpdate;
@@ -36,11 +35,6 @@ namespace FlowTimer {
         private void CheckBoxAutoUpdate_CheckChanged(object sender, EventArgs args) {
             AutoUpdate = _CheckBoxAutoUpdate.Checked;
         }
-
-        public string VariableFPS = "59.7275";
-        public string VariableOffset = "0";
-        public string VariableInterval = "500";
-        public string VariableNumBeeps = "5";
     }
 
     public class Hotkey {
