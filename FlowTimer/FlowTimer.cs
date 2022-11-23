@@ -11,6 +11,7 @@ using static FlowTimer.Win32;
 using static FlowTimer.SDL;
 using System.Data.SQLite;
 using System.Collections.Generic;
+using System.Data.Entity.Core.Common.CommandTrees.ExpressionBuilder;
 
 namespace FlowTimer {
 
@@ -27,6 +28,13 @@ namespace FlowTimer {
         public ulong itemFlags;
     }
 
+    public class WindowFrameData {
+        public int teioh, winners;
+        public int[] items;
+        public int[] cards;
+        public ulong itemFlags;
+    }
+
     public static class FlowTimer {
 
         public static readonly string[] CHOCO_NAMES = {"SAM", "ELEN", "BLUES", "TOM", "JOHN", "GARY", "MIKE", "SANDY", "JU", "LY", "JOEL", "GREY", "EDWARD", "JAMES",
@@ -40,6 +48,7 @@ namespace FlowTimer {
     "Hi-Potion"};
 
         public static readonly Dictionary<int, string> SOLUTION_STRINGS = new Dictionary<int, string>();
+        public static readonly Dictionary<string, ulong> PRIZE_FAMILIES = new Dictionary<string, ulong>();
 
         public const string TimerFileFilter = "Json files (*.json)|*.json";
         public const string BeepFileFilter = "WAV files (*.wav)|*.wav";
@@ -69,15 +78,24 @@ namespace FlowTimer {
         public static byte[] PCM;
 
         public static bool IsTimerRunning;
+        public static bool IsTimerAudioRunning;
         public static double TimerTarget;
         public static Thread TimerUpdateThread;
 
         public static Proc KeyboardCallback;
         public static IntPtr KeyboardHook;
 
-        public static double PowerOnTime = -1, CalibrationTime = -1, CalibrationFrame = -1;
+        public static double PowerOnTime = -1,
+            CalibrationTime = -1,
+            NextWindowTargetTime = -1;
+        public static int CalibrationFrame = -1,
+            NextWindowStartFrame = -1,
+            NextWindowLength = -1,
+            NextWindowTargetFrame = -1,
+            NextWindowLastFrame = -1;
 
-        public static SortedDictionary<int, Window> WINDOW_MAP = new SortedDictionary<int, Window>();
+        public static Dictionary<int, Window> WINDOW_MAP = new Dictionary<int, Window>();
+        public static List<int> WINDOW_MAP_FRAMES_LIST_SORTED = new List<int>();
         public static ulong WINDOW_MAP_ITEM_FLAGS = 0;
         public static int WINDOW_MAP_FRAME_LIMIT = 0;
         public static int WINDOW_MAP_RANK = -1;
@@ -120,6 +138,13 @@ namespace FlowTimer {
             SOLUTION_STRINGS.Add(98432, "M Square Left");
             SOLUTION_STRINGS.Add(98448, "M Square Up-Left");
             SOLUTION_STRINGS.Add(98496, "M Square Down-Left");
+
+            PRIZE_FAMILIES.Add("Enemy Away", 1UL << 5);
+            PRIZE_FAMILIES.Add("Sneak Attack", 1UL << 6);
+
+            PRIZE_FAMILIES.Add("500+", 21);
+            PRIZE_FAMILIES.Add("300+", 131327);
+            PRIZE_FAMILIES.Add("150+", 393983);
 
             FixedOffset = new FixedOffsetTimer();
 
@@ -270,7 +295,7 @@ namespace FlowTimer {
             } else if(o.Count == 1) {
                 return o[0];
             } else {
-                return "(" + String.Join("|", o) + ")";
+                return "(" + string.Join("|", o) + ")";
             }
         }
 
@@ -313,6 +338,7 @@ namespace FlowTimer {
 
         private static void wipeWindowMap(ulong selItemFlags, int rank) {
             WINDOW_MAP.Clear();
+            WINDOW_MAP_FRAMES_LIST_SORTED.Clear();
             WINDOW_MAP_ITEM_FLAGS = selItemFlags;
             WINDOW_MAP_RANK = rank;
             WINDOW_MAP_FRAME_LIMIT = 0;
@@ -322,28 +348,188 @@ namespace FlowTimer {
             return WINDOW_MAP_ITEM_FLAGS == selItemFlags && WINDOW_MAP_RANK == rank;
         }
 
-        private static void expandWindowMap() {
-        
+        private static void expandWindowMap(ulong selItemFlags, int frame, int rank, int expandByFrames = 30 * 60 * 60) {
+            int frameStart;
+            if(!isWindowMapValid(selItemFlags, rank)) {
+                wipeWindowMap(selItemFlags, rank);
+                frameStart = frame;
+            } else {
+                frameStart = WINDOW_MAP_FRAME_LIMIT;
+            }
+            int frameEnd = frame + expandByFrames;
+            string query = $@"SELECT DISTINCT Races.Frame, Races.Teioh, Races.Winner, Prizes.Item1, Prizes.Item2, Prizes.Item3, Prizes.Card1_1, Prizes.Card1_2, Prizes.Card1_3, Prizes.Card1_4, Prizes.Card1_5 FROM Prizes
+                INNER JOIN Races ON (
+                    Races.Frame = Prizes.Frame AND
+                    Races.Rank = Prizes.rank
+                    )
+                WHERE Races.Teioh = 0
+                and Races.Winner != -1
+                and Prizes.Rank = {rank}
+                and Races.Frame >= {frameStart}
+                and Races.Frame < {frameEnd}
+                ORDER BY Prizes.Frame";
+            using(var conn = makeConnection()) {
+                conn.Open();
+                SQLiteCommand c = conn.CreateCommand();
+                c.CommandText = query;
+                SQLiteDataReader reader = c.ExecuteReader();
+                // sanity checking
+                if(!isWindowMapValid(selItemFlags, rank)) {
+                    return;
+                }
+                List<int[]> rows = new List<int[]>();
+                try {
+                    while(reader.Read()) {
+                        int[] row = new int[reader.VisibleFieldCount];
+                        for(int i = 0; i < reader.VisibleFieldCount; i++) {
+                            row[i] = reader.GetInt32(i);
+                        }
+                        rows.Add(row);
+                    }
+                } finally {
+                    reader.Close();
+                }
+                conn.Close();
+                Dictionary<int, List<int>> winnersByFrame = new Dictionary<int, List<int>>();
+                foreach(int[] r in rows) {
+                    int f = r[0];
+                    if(!winnersByFrame.ContainsKey(f)) {
+                        winnersByFrame.Add(f, new List<int>());
+                    }
+                    if(r[2] != -1) {
+                        winnersByFrame[f].Add(r[2]);
+                    }
+                }
+                Dictionary<int, WindowFrameData> fdata = new Dictionary<int, WindowFrameData>();
+                ulong itemFlags;
+                foreach(int[] r in rows) {
+                    int f = r[0];
+                    if(!fdata.ContainsKey(f)) {
+                        int[] items = new int[] { r[3], r[4], r[5] };
+                        int[] cards = new int[] { r[6], r[7], r[8], r[9], r[10] };
+                        List<int> winners = winnersByFrame[f];
+                        itemFlags = 0;
+                        foreach(int w in winners) {
+                            itemFlags |= (1UL << items[cards[w - 2]]);
+                        }
+                        if((itemFlags & WINDOW_MAP_ITEM_FLAGS) != 0) {
+                            WindowFrameData wfd = new WindowFrameData();
+                            wfd.teioh = r[2];
+                            wfd.items = items;
+                            wfd.cards = cards;
+                            wfd.itemFlags = itemFlags;
+                            fdata.Add(f, wfd);
+                        }
+                    }
+                }
+                List<int> framesList = fdata.Keys.ToList();
+                framesList.Sort();
+
+                if(framesList.Count > 0) {
+                    int windowStartFrame = framesList[0];
+                    int windowLength = 1;
+                    itemFlags = fdata[windowStartFrame].itemFlags;
+                    for(int i = 1; i < framesList.Count; i++) {
+                        int f = framesList[i];
+                        if(f < WINDOW_MAP_FRAME_LIMIT) {
+                            continue;
+                        }
+                        if(windowStartFrame == f - windowLength) {
+                            itemFlags |= fdata[f].itemFlags;
+                            windowLength++;
+                        } else {
+                            if(windowLength > 1) {
+                                Console.WriteLine(windowStartFrame);
+                                Window w = new Window();
+                                w.rank = rank;
+                                w.startFrame = windowStartFrame;
+                                w.winLength = windowLength;
+                                w.itemFlags = itemFlags;
+                                WINDOW_MAP.Add(windowStartFrame, w);
+                                WINDOW_MAP_FRAMES_LIST_SORTED.Add(windowStartFrame);
+                            }
+                            windowStartFrame = f;
+                            windowLength = 1;
+                            itemFlags = fdata[f].itemFlags;
+                        }
+                    }
+                    WINDOW_MAP_FRAMES_LIST_SORTED.Sort();
+                }
+
+                WINDOW_MAP_FRAME_LIMIT = frameEnd;
+            }
         }
 
-        private static int getNextWindow(int startFrame, int minWindowSizze, ulong selectedItemFlags, int rank, int currentFrame, int remainingTries = 1) {
-            // todo
+        public static int binSearch(List<int> arr, int x) {
+            int lo = 0;
+            int hi = arr.Count - 1;
+            while(lo <= hi) {
+                int mid = (lo + hi) >> 1;
+                if(arr[mid] == x)
+                    return mid;
+                else if(arr[mid] < x)
+                    lo = mid + 1;
+                else
+                    hi = mid - 1;
+            }
+            return lo;
+        }
+
+        public static int getNextWindow(int startFrame, int minWindowSize, ulong selectedItemFlags, int rank, int currentFrame, int remainingTries = 1) {
+            if(!isWindowMapValid(selectedItemFlags, rank)) {
+                expandWindowMap(selectedItemFlags, currentFrame, rank);
+                if(!isWindowMapValid(selectedItemFlags, rank)) {
+                    MessageBox.Show("No windows.", "ChocoTimer Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return -1;
+                }
+            }
+            int startIndex = binSearch(WINDOW_MAP_FRAMES_LIST_SORTED, startFrame);
+
+            for(int i = startIndex; i < WINDOW_MAP_FRAMES_LIST_SORTED.Count; i++) {
+                Window w = WINDOW_MAP[WINDOW_MAP_FRAMES_LIST_SORTED[i]];
+                if(w.rank == rank && w.startFrame > startFrame && w.winLength >= minWindowSize && (w.itemFlags & selectedItemFlags) != 0) {
+                    return WINDOW_MAP_FRAMES_LIST_SORTED[i];
+                }
+            }
+            // couldn't find window. attempt to generate more data.
+            if(remainingTries > 0) {
+                expandWindowMap(selectedItemFlags, currentFrame, rank);
+                return getNextWindow(startFrame, minWindowSize, selectedItemFlags, rank, currentFrame, remainingTries - 1);
+            }
+            return -1;
         }
 
         private static void ButtonLoadStartTimer_Click(object sender, EventArgs e) {
             if(PowerOnTime == -1 || CalibrationTime == -1 || CalibrationFrame == -1) {
-                // message box
+                MessageBox.Show("Power on and calibrate first.", "ChocoTimer Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
             double now = Win32.GetTime();
-            int current_frame = framesBetweenTimes(now, PowerOnTime);
-            int start_frame = framesBetweenTimes(Settings.MinStartTime + now, PowerOnTime);
-            ulong selected_item_flags = getSelectedItemFlags();
-            if(selected_item_flags == 0UL) {
-                // message box
+            int currentFrame = framesBetweenTimes(now, PowerOnTime);
+            int startFrame = framesBetweenTimes(Settings.MinStartTime + now, PowerOnTime);
+            ulong selectedItemFlags = getSelectedItemFlags();
+            if(selectedItemFlags == 0UL) {
+                MessageBox.Show("Select at least one item.", "ChocoTimer Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
             int rank = getSelectedRank();
+            int winFrame = getNextWindow(startFrame, Settings.MinimumWindowSize, selectedItemFlags, rank, currentFrame);
+            if(winFrame < 0) {
+                MessageBox.Show("Could not find window.", "ChocoTimer Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            Window win = WINDOW_MAP[winFrame];
+            NextWindowStartFrame = win.startFrame;
+            NextWindowLength = win.winLength;
+            NextWindowTargetFrame = NextWindowStartFrame + (NextWindowLength / 2);
+            NextWindowTargetTime = PowerOnTime + Math.Round(framesToMilliseconds(NextWindowTargetFrame));
+            NextWindowLastFrame = NextWindowStartFrame + NextWindowLength - 1;
+            CalibrationTime = NextWindowTargetTime;
+            CalibrationFrame = 0;
+
+            clearFramesData(MainForm.PanelFrameOutput);
+            putFramesData(NextWindowStartFrame, NextWindowLastFrame, rank, selectedItemFlags, MainForm.PanelFrameOutput);
+            StartTimer(NextWindowTargetTime);
         }
 
         private static void ButtonClearInput_Click(object sender, EventArgs e) {
@@ -406,10 +592,10 @@ namespace FlowTimer {
                 } else {
                     s = itemStrs[i];
                 }
-                string[] parts = s.Split(new char[] {'|'});
+                string[] parts = s.Split(new char[] { '|' });
                 string[] qParts = new string[parts.Length];
                 for(int j = 0; j < parts.Length; j++) {
-                    qParts[j] = $"Item{i+1} = {indexOf(ITEM_NAMES, parts[j])}";
+                    qParts[j] = $"Item{i + 1} = {indexOf(ITEM_NAMES, parts[j])}";
                 }
                 queryParts.Add("(" + String.Join(" OR ", qParts) + ")");
             }
@@ -453,12 +639,20 @@ namespace FlowTimer {
                 }
                 conn.Close();
             }
-            MainForm.InputFrame.Text = $"{minDistToFrame(possibleFrames, framesFirstEstimate)}";
+            if(possibleFrames.Count > 0) {
+                MainForm.InputFrame.Text = $"{minDistToFrame(possibleFrames, framesFirstEstimate)}";
+            } else {
+                MessageBox.Show("Could not match frame.", "ChocoTimer Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private static void ButtonCalibrateToFrame_Click(object sender, EventArgs e) {
             if(PowerOnTime == -1 || CalibrationTime == -1) {
                 MessageBox.Show("Signal a power on time and prepare to calibrate with a race before putting in data.", "ChocoTimer Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            if(MainForm.InputFrame.Text.Length == 0) {
+                MessageBox.Show("Input a frame in the Frame box.", "ChocoTimer Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
             CalibrationFrame = Int32.Parse(MainForm.InputFrame.Text);
@@ -505,9 +699,6 @@ namespace FlowTimer {
         }
 
         public static void ClickPowerOn() {
-            //clearFramesData();
-            //putFramesData(216220, 216222, 2, 32 | 64);
-            //return;
             double t = Win32.GetTime();
             PowerOnTime = t;
             MainForm.ButtonCalibrate.Enabled = true;
@@ -519,6 +710,26 @@ namespace FlowTimer {
             double t = Win32.GetTime() + FlowTimer.Settings.CalibrateTimer;
             StartTimer(t);
             CalibrationTime = t;
+        }
+
+        public static void ClickDisplayFrameData(FlowLayoutPanel container) {
+            if(MainForm.InputFrame.Text.Length == 0) {
+                MessageBox.Show("Input a frame in the Frame box.", "ChocoTimer Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            int displayFrame = Int32.Parse(MainForm.InputFrame.Text);
+            int rank = getSelectedRank();
+            ulong targetPrizeFlags = getSelectedItemFlags();
+            clearFramesData(container);
+            putFramesData(displayFrame, displayFrame, rank, targetPrizeFlags, container);
+        }
+
+        public static void ClickClearFrameData(FlowLayoutPanel container) {
+            clearFramesData(container);
+        }
+
+        public static void ClickBuildCaches() {
+            expandWindowMap(getSelectedItemFlags(), framesBetweenTimes(Settings.MinStartTime + Win32.GetTime(), PowerOnTime), getSelectedRank());
         }
 
         public static void UpdatePCM(double[] offsets, uint interval, uint numBeeps, bool garbageCollect = true) {
@@ -537,16 +748,21 @@ namespace FlowTimer {
             }
         }
 
+        public static void StartAudio() {
+            Console.WriteLine("Creating PCM");
+            double now = Win32.GetTime();
+            double offset = TimerTarget - now;
+            UpdatePCM(new double[] { offset }, (uint) FlowTimer.Settings.TimeBetweenBeeps, (uint) FlowTimer.Settings.BeepCount);
+            AudioContext.QueueAudio(PCM);
+            IsTimerAudioRunning = true;
+        }
+
         public static void StartTimer(double target) {
             AudioContext.ClearQueuedAudio();
+            IsTimerAudioRunning = false;
 
             IsTimerRunning = true;
             TimerTarget = target;
-
-            double now = Win32.GetTime();
-            double offset = target - now;
-            UpdatePCM(new double[] { offset }, 500, 5);
-            AudioContext.QueueAudio(PCM);
 
             if(!MainForm.ButtonLoadStartTimer.Enabled) {
                 AudioContext.ClearQueuedAudio();
@@ -564,6 +780,7 @@ namespace FlowTimer {
         public static void StopTimer(bool timerExpired) {
             if(!timerExpired) {
                 AudioContext.ClearQueuedAudio();
+                IsTimerAudioRunning = false;
                 TimerUpdateThread.AbortIfAlive();
             }
 
@@ -583,6 +800,11 @@ namespace FlowTimer {
             do {
                 inv = delegate {
                     currentTime = CurrentTab.TimerCallback(TimerTarget);
+
+                    if(!IsTimerAudioRunning && currentTime < FlowTimer.Settings.CreateAudioAtTime) {
+                        StartAudio();
+                    }
+
                     MainForm.LabelTimer.Text = currentTime.ToFormattedString();
                 };
                 MainForm.Invoke(inv);
@@ -598,6 +820,7 @@ namespace FlowTimer {
 
         public static void OpenSettingsForm() {
             SettingsForm = new SettingsForm();
+            Settings.SetSettingsTexts();
             SettingsForm.TopMost = Settings.Pinned;
             SettingsForm.RemoveKeyControls();
             SettingsForm.ShowDialog(MainForm);
@@ -641,8 +864,11 @@ namespace FlowTimer {
         }
 
         public static void ChangeBeepSound(string beepName, bool playSound = true) {
-            if(AudioContext != null)
+            if(AudioContext != null) {
                 AudioContext.Destroy();
+                IsTimerAudioRunning = false;
+            }
+
 
             SDL_AudioSpec audioSpec;
             Wave.LoadWAV(Beeps + beepName + ".wav", out BeepSoundUnadjusted, out audioSpec);
@@ -724,25 +950,10 @@ namespace FlowTimer {
             return -1;
         }
 
-        public static HashSet<int> getSelectedItems() {
-            HashSet<int> selectedItems = new HashSet<int>();
-            foreach(CheckBox cbox in MainForm.ChecklistItems.Items) {
-                if(cbox.Checked) {
-                    for(int i = 0; i < ITEM_NAMES.Length; i++) {
-                        if(ITEM_NAMES[i] == cbox.Text) {
-                            selectedItems.Add(i);
-                            break;
-                        }
-                    }
-                }
-            }
-            return selectedItems;
-        }
-
         public static ulong getSelectedItemFlags() {
             ulong i = 0;
-            foreach(int item in getSelectedItems()) {
-                i |= (1UL << item);
+            foreach(string item in MainForm.ChecklistItems.CheckedItems) {
+                i |= PRIZE_FAMILIES[item];
             }
             return i;
         }
@@ -751,9 +962,9 @@ namespace FlowTimer {
             return new SQLiteConnection($"Data Source={Settings.DatabaseFile};Version=3;");
         }
 
-        public static void clearFramesData() {
-            while(MainForm.PanelFrameOutput.Controls.Count > 0) {
-                MainForm.PanelFrameOutput.Controls.RemoveAt(0);
+        public static void clearFramesData(FlowLayoutPanel container) {
+            while(container.Controls.Count > 0) {
+                container.Controls.RemoveAt(0);
             }
         }
 
@@ -779,7 +990,7 @@ namespace FlowTimer {
         }
 
 
-        public static void putFramesData(int startFrame, int endFrame, int rank, ulong targetPrizeFlags) {
+        public static void putFramesData(int startFrame, int endFrame, int rank, ulong targetPrizeFlags, FlowLayoutPanel container) {
             using(var conn = makeConnection()) {
                 conn.Open();
                 var racesByFrame = new Dictionary<int, List<RaceData>>();
@@ -836,20 +1047,9 @@ namespace FlowTimer {
                             prizesReader.GetInt32(24)
                         };
 
-                        Dictionary<int, RaceData> solutionsByPrize = new Dictionary<int, RaceData>();
-
-                        foreach(RaceData raceData in racesByFrame[frame]) {
-                            if(raceData.winner >= 2 && raceData.winner <= 6) {
-                                int racePrize = prizeData.items[prizeData.tileCards[raceData.winner - 2]];
-                                if((targetPrizeFlags & (1UL << racePrize)) != 0 && !solutionsByPrize.ContainsKey(racePrize)) {
-                                    solutionsByPrize[racePrize] = raceData;
-                                }
-                            }
-                        }
-
                         var panel = new TableLayoutPanel();
                         panel.SuspendLayout();
-                        MainForm.PanelFrameOutput.Controls.Add(panel);
+                        container.Controls.Add(panel);
                         panel.ColumnCount = 1;
                         panel.Location = new Point(0, 0);
                         panel.Size = new Size(200, 0);
@@ -910,12 +1110,26 @@ namespace FlowTimer {
                         panel.SuspendLayout();
 
                         addTextRow(panel, "Solutions", ContentAlignment.MiddleCenter, 20, true, 10);
+                        if(racesByFrame.ContainsKey(frame)) {
+                            Dictionary<int, RaceData> solutionsByPrize = new Dictionary<int, RaceData>();
+                            foreach(RaceData raceData in racesByFrame[frame]) {
+                                if(raceData.winner >= 2 && raceData.winner <= 6) {
+                                    int racePrize = prizeData.items[prizeData.tileCards[raceData.winner - 2]];
+                                    if((targetPrizeFlags & (1UL << racePrize)) != 0 && !solutionsByPrize.ContainsKey(racePrize)) {
+                                        solutionsByPrize[racePrize] = raceData;
+                                    }
+                                }
+                            }
 
-                        foreach(int targetPrize in solutionsByPrize.Keys) {
-                            RaceData raceSolution = solutionsByPrize[targetPrize];
-                            addTextRow(panel, ITEM_NAMES[targetPrize], ContentAlignment.MiddleCenter, 20, false, 10);
-                            addTextRow(panel, SOLUTION_STRINGS[raceSolution.inputs], ContentAlignment.MiddleLeft, 20, false, 10);
+                            foreach(int targetPrize in solutionsByPrize.Keys) {
+                                RaceData raceSolution = solutionsByPrize[targetPrize];
+                                addTextRow(panel, ITEM_NAMES[targetPrize], ContentAlignment.MiddleCenter, 20, false, 10);
+                                addTextRow(panel, SOLUTION_STRINGS[raceSolution.inputs], ContentAlignment.MiddleLeft, 20, false, 10);
+                            }
+                        } else {
+                            addTextRow(panel, "No Race Data", ContentAlignment.MiddleCenter, 20, false, 10);
                         }
+
                     }
                 } finally {
                     prizesReader.Close();

@@ -56,6 +56,9 @@
             this.ButtonCalibrateToFrame = new System.Windows.Forms.Button();
             this.ButtonDisplayFrameData = new System.Windows.Forms.Button();
             this.ButtonClearFrameData = new System.Windows.Forms.Button();
+            this.ButtonClearFrameDataSecondary = new System.Windows.Forms.Button();
+            this.PanelFrameOutputSub = new System.Windows.Forms.FlowLayoutPanel();
+            this.ButtonBuildCaches = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.PictureBoxPin)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.InputMinWinSize)).BeginInit();
             this.GroupBoxRank.SuspendLayout();
@@ -86,18 +89,17 @@
             this.ButtonLoadStartTimer.Location = new System.Drawing.Point(19, 116);
             this.ButtonLoadStartTimer.Name = "ButtonLoadStartTimer";
             this.ButtonLoadStartTimer.Size = new System.Drawing.Size(121, 25);
-            this.ButtonLoadStartTimer.TabIndex = 36;
+            this.ButtonLoadStartTimer.TabIndex = 11;
             this.ButtonLoadStartTimer.TabStop = false;
             this.ButtonLoadStartTimer.Text = "Load + Start Timer";
             this.ButtonLoadStartTimer.UseVisualStyleBackColor = true;
-            this.ButtonLoadStartTimer.Click += new System.EventHandler(this.ButtonStart_Click);
             // 
             // ButtonStopTimer
             // 
             this.ButtonStopTimer.Location = new System.Drawing.Point(19, 147);
             this.ButtonStopTimer.Name = "ButtonStopTimer";
             this.ButtonStopTimer.Size = new System.Drawing.Size(121, 25);
-            this.ButtonStopTimer.TabIndex = 37;
+            this.ButtonStopTimer.TabIndex = 12;
             this.ButtonStopTimer.TabStop = false;
             this.ButtonStopTimer.Text = "Stop Timer";
             this.ButtonStopTimer.UseVisualStyleBackColor = true;
@@ -108,7 +110,7 @@
             this.ButtonSettings.Location = new System.Drawing.Point(19, 178);
             this.ButtonSettings.Name = "ButtonSettings";
             this.ButtonSettings.Size = new System.Drawing.Size(121, 25);
-            this.ButtonSettings.TabIndex = 38;
+            this.ButtonSettings.TabIndex = 13;
             this.ButtonSettings.TabStop = false;
             this.ButtonSettings.Text = "Settings";
             this.ButtonSettings.UseVisualStyleBackColor = true;
@@ -119,7 +121,7 @@
             this.ButtonCalibrate.Location = new System.Drawing.Point(19, 85);
             this.ButtonCalibrate.Name = "ButtonCalibrate";
             this.ButtonCalibrate.Size = new System.Drawing.Size(121, 25);
-            this.ButtonCalibrate.TabIndex = 41;
+            this.ButtonCalibrate.TabIndex = 10;
             this.ButtonCalibrate.TabStop = false;
             this.ButtonCalibrate.Text = "Calibrate";
             this.ButtonCalibrate.UseVisualStyleBackColor = true;
@@ -139,7 +141,7 @@
             this.InputMinWinSize.Location = new System.Drawing.Point(19, 227);
             this.InputMinWinSize.Name = "InputMinWinSize";
             this.InputMinWinSize.Size = new System.Drawing.Size(120, 20);
-            this.InputMinWinSize.TabIndex = 43;
+            this.InputMinWinSize.TabIndex = 14;
             this.InputMinWinSize.Value = new decimal(new int[] {
             3,
             0,
@@ -156,7 +158,7 @@
             this.GroupBoxRank.Location = new System.Drawing.Point(19, 253);
             this.GroupBoxRank.Name = "GroupBoxRank";
             this.GroupBoxRank.Size = new System.Drawing.Size(121, 114);
-            this.GroupBoxRank.TabIndex = 44;
+            this.GroupBoxRank.TabIndex = 15;
             this.GroupBoxRank.TabStop = false;
             this.GroupBoxRank.Text = "Rank";
             // 
@@ -209,11 +211,15 @@
             this.ChecklistItems.FormattingEnabled = true;
             this.ChecklistItems.Items.AddRange(new object[] {
             "Sneak Attack",
-            "Enemy Away"});
+            "Enemy Away",
+            "500+",
+            "300+",
+            "150+"});
             this.ChecklistItems.Location = new System.Drawing.Point(19, 374);
             this.ChecklistItems.Name = "ChecklistItems";
-            this.ChecklistItems.Size = new System.Drawing.Size(121, 94);
-            this.ChecklistItems.TabIndex = 45;
+            this.ChecklistItems.Size = new System.Drawing.Size(121, 79);
+            this.ChecklistItems.TabIndex = 16;
+            this.ChecklistItems.SelectedIndexChanged += new System.EventHandler(this.ChecklistItems_SelectedIndexChanged);
             // 
             // GroupBoxItems
             // 
@@ -223,7 +229,7 @@
             this.GroupBoxItems.Location = new System.Drawing.Point(147, 55);
             this.GroupBoxItems.Name = "GroupBoxItems";
             this.GroupBoxItems.Size = new System.Drawing.Size(200, 100);
-            this.GroupBoxItems.TabIndex = 46;
+            this.GroupBoxItems.TabIndex = 0;
             this.GroupBoxItems.TabStop = false;
             this.GroupBoxItems.Text = "Items";
             // 
@@ -261,7 +267,7 @@
             this.GroupBoxNames.Location = new System.Drawing.Point(147, 154);
             this.GroupBoxNames.Name = "GroupBoxNames";
             this.GroupBoxNames.Size = new System.Drawing.Size(200, 150);
-            this.GroupBoxNames.TabIndex = 47;
+            this.GroupBoxNames.TabIndex = 1;
             this.GroupBoxNames.TabStop = false;
             this.GroupBoxNames.Text = "Names";
             // 
@@ -271,7 +277,7 @@
             this.ComboNames6.Location = new System.Drawing.Point(6, 124);
             this.ComboNames6.Name = "ComboNames6";
             this.ComboNames6.Size = new System.Drawing.Size(187, 21);
-            this.ComboNames6.TabIndex = 7;
+            this.ComboNames6.TabIndex = 4;
             // 
             // ComboNames5
             // 
@@ -279,7 +285,7 @@
             this.ComboNames5.Location = new System.Drawing.Point(6, 98);
             this.ComboNames5.Name = "ComboNames5";
             this.ComboNames5.Size = new System.Drawing.Size(187, 21);
-            this.ComboNames5.TabIndex = 6;
+            this.ComboNames5.TabIndex = 3;
             // 
             // ComboNames4
             // 
@@ -287,7 +293,7 @@
             this.ComboNames4.Location = new System.Drawing.Point(6, 72);
             this.ComboNames4.Name = "ComboNames4";
             this.ComboNames4.Size = new System.Drawing.Size(187, 21);
-            this.ComboNames4.TabIndex = 5;
+            this.ComboNames4.TabIndex = 2;
             // 
             // ComboNames3
             // 
@@ -295,7 +301,7 @@
             this.ComboNames3.Location = new System.Drawing.Point(6, 46);
             this.ComboNames3.Name = "ComboNames3";
             this.ComboNames3.Size = new System.Drawing.Size(187, 21);
-            this.ComboNames3.TabIndex = 4;
+            this.ComboNames3.TabIndex = 1;
             // 
             // ComboNames2
             // 
@@ -303,7 +309,7 @@
             this.ComboNames2.Location = new System.Drawing.Point(6, 20);
             this.ComboNames2.Name = "ComboNames2";
             this.ComboNames2.Size = new System.Drawing.Size(187, 21);
-            this.ComboNames2.TabIndex = 3;
+            this.ComboNames2.TabIndex = 0;
             // 
             // PanelFrameOutput
             // 
@@ -320,7 +326,7 @@
             this.ButtonPowerOn.Location = new System.Drawing.Point(19, 54);
             this.ButtonPowerOn.Name = "ButtonPowerOn";
             this.ButtonPowerOn.Size = new System.Drawing.Size(121, 25);
-            this.ButtonPowerOn.TabIndex = 40;
+            this.ButtonPowerOn.TabIndex = 9;
             this.ButtonPowerOn.TabStop = false;
             this.ButtonPowerOn.Text = "Power On";
             this.ButtonPowerOn.UseVisualStyleBackColor = true;
@@ -331,7 +337,7 @@
             this.ButtonCalculateFrame.Location = new System.Drawing.Point(147, 305);
             this.ButtonCalculateFrame.Name = "ButtonCalculateFrame";
             this.ButtonCalculateFrame.Size = new System.Drawing.Size(98, 25);
-            this.ButtonCalculateFrame.TabIndex = 8;
+            this.ButtonCalculateFrame.TabIndex = 2;
             this.ButtonCalculateFrame.Text = "Calculate Frame";
             this.ButtonCalculateFrame.UseVisualStyleBackColor = true;
             // 
@@ -340,7 +346,7 @@
             this.ButtonClearInput.Location = new System.Drawing.Point(249, 305);
             this.ButtonClearInput.Name = "ButtonClearInput";
             this.ButtonClearInput.Size = new System.Drawing.Size(98, 25);
-            this.ButtonClearInput.TabIndex = 9;
+            this.ButtonClearInput.TabIndex = 8;
             this.ButtonClearInput.Text = "Clear Input";
             this.ButtonClearInput.UseVisualStyleBackColor = true;
             // 
@@ -349,7 +355,7 @@
             this.InputFrame.Location = new System.Drawing.Point(189, 334);
             this.InputFrame.Name = "InputFrame";
             this.InputFrame.Size = new System.Drawing.Size(158, 20);
-            this.InputFrame.TabIndex = 10;
+            this.InputFrame.TabIndex = 3;
             // 
             // label2
             // 
@@ -366,7 +372,7 @@
             this.ButtonCalibrateToFrame.Location = new System.Drawing.Point(147, 360);
             this.ButtonCalibrateToFrame.Name = "ButtonCalibrateToFrame";
             this.ButtonCalibrateToFrame.Size = new System.Drawing.Size(200, 25);
-            this.ButtonCalibrateToFrame.TabIndex = 11;
+            this.ButtonCalibrateToFrame.TabIndex = 4;
             this.ButtonCalibrateToFrame.Text = "Calibrate To Frame";
             this.ButtonCalibrateToFrame.UseVisualStyleBackColor = true;
             // 
@@ -375,24 +381,60 @@
             this.ButtonDisplayFrameData.Location = new System.Drawing.Point(147, 391);
             this.ButtonDisplayFrameData.Name = "ButtonDisplayFrameData";
             this.ButtonDisplayFrameData.Size = new System.Drawing.Size(200, 25);
-            this.ButtonDisplayFrameData.TabIndex = 12;
+            this.ButtonDisplayFrameData.TabIndex = 5;
             this.ButtonDisplayFrameData.Text = "Display Frame Data";
             this.ButtonDisplayFrameData.UseVisualStyleBackColor = true;
+            this.ButtonDisplayFrameData.Click += new System.EventHandler(this.ButtonDisplayFrameData_Click);
             // 
             // ButtonClearFrameData
             // 
             this.ButtonClearFrameData.Location = new System.Drawing.Point(147, 422);
             this.ButtonClearFrameData.Name = "ButtonClearFrameData";
             this.ButtonClearFrameData.Size = new System.Drawing.Size(200, 25);
-            this.ButtonClearFrameData.TabIndex = 13;
-            this.ButtonClearFrameData.Text = "Clear Frame Data";
+            this.ButtonClearFrameData.TabIndex = 6;
+            this.ButtonClearFrameData.Text = "Clear Frame Data -->";
             this.ButtonClearFrameData.UseVisualStyleBackColor = true;
+            this.ButtonClearFrameData.Click += new System.EventHandler(this.ButtonClearFrameDataRight_Click);
+            // 
+            // ButtonClearFrameDataSecondary
+            // 
+            this.ButtonClearFrameDataSecondary.Location = new System.Drawing.Point(147, 453);
+            this.ButtonClearFrameDataSecondary.Name = "ButtonClearFrameDataSecondary";
+            this.ButtonClearFrameDataSecondary.Size = new System.Drawing.Size(200, 25);
+            this.ButtonClearFrameDataSecondary.TabIndex = 7;
+            this.ButtonClearFrameDataSecondary.Text = "v Clear Frame Data v";
+            this.ButtonClearFrameDataSecondary.UseVisualStyleBackColor = true;
+            this.ButtonClearFrameDataSecondary.Click += new System.EventHandler(this.ButtonClearFrameDataDown_Click);
+            // 
+            // PanelFrameOutputSub
+            // 
+            this.PanelFrameOutputSub.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.PanelFrameOutputSub.Location = new System.Drawing.Point(19, 484);
+            this.PanelFrameOutputSub.Name = "PanelFrameOutputSub";
+            this.PanelFrameOutputSub.Size = new System.Drawing.Size(329, 365);
+            this.PanelFrameOutputSub.TabIndex = 49;
+            // 
+            // ButtonBuildCaches
+            // 
+            this.ButtonBuildCaches.Location = new System.Drawing.Point(19, 453);
+            this.ButtonBuildCaches.Name = "ButtonBuildCaches";
+            this.ButtonBuildCaches.Size = new System.Drawing.Size(121, 25);
+            this.ButtonBuildCaches.TabIndex = 53;
+            this.ButtonBuildCaches.TabStop = false;
+            this.ButtonBuildCaches.Text = "Build Caches";
+            this.ButtonBuildCaches.UseVisualStyleBackColor = true;
+            this.ButtonBuildCaches.Click += new System.EventHandler(this.ButtonBuildCaches_Click);
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1584, 861);
+            this.Controls.Add(this.ButtonBuildCaches);
+            this.Controls.Add(this.PanelFrameOutputSub);
+            this.Controls.Add(this.ButtonClearFrameDataSecondary);
             this.Controls.Add(this.ButtonClearFrameData);
             this.Controls.Add(this.ButtonDisplayFrameData);
             this.Controls.Add(this.ButtonCalibrateToFrame);
@@ -437,7 +479,6 @@
         public System.Windows.Forms.Button ButtonSettings;
         public System.Windows.Forms.Button ButtonCalibrate;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.NumericUpDown InputMinWinSize;
         public System.Windows.Forms.GroupBox GroupBoxRank;
         public System.Windows.Forms.RadioButton RadioS;
         public System.Windows.Forms.RadioButton RadioA;
@@ -463,5 +504,9 @@
         public System.Windows.Forms.ComboBox ComboNames3;
         public System.Windows.Forms.ComboBox ComboNames2;
         public System.Windows.Forms.TextBox InputFrame;
+        public System.Windows.Forms.Button ButtonClearFrameDataSecondary;
+        public System.Windows.Forms.FlowLayoutPanel PanelFrameOutputSub;
+        public System.Windows.Forms.NumericUpDown InputMinWinSize;
+        public System.Windows.Forms.Button ButtonBuildCaches;
     }
 }

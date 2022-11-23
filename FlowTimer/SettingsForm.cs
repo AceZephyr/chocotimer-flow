@@ -18,6 +18,12 @@ namespace FlowTimer {
 
             TrackBarVolume.Value = FlowTimer.Settings.Volume;
             TextBoxVolume.Text = FlowTimer.Settings.Volume.ToString();
+            UpDownBeepCount.Value = FlowTimer.Settings.BeepCount;
+            InputFPS.Text = FlowTimer.Settings.FPS.ToString();
+            InputTimeBetweenBeeps.Text = FlowTimer.Settings.TimeBetweenBeeps.ToString();
+            InputCalibrationTimer.Text = FlowTimer.Settings.CalibrateTimer.ToString();
+            InputMinStartTime.Text = FlowTimer.Settings.MinStartTime.ToString();
+            InputBeepTimerFrequency.Text = FlowTimer.Settings.BeepTimerFrequency.ToString();
 
             ComboBoxBeep.SelectedIndexChanged += ComboBoxBeep_SelectedIndexChanged;
             TrackBarVolume.ValueChanged += TrackBarVolume_ValueChanged;
@@ -150,6 +156,14 @@ namespace FlowTimer {
 
         private void InputDatabaseFile_TextChanged(object sender, EventArgs e) {
             FlowTimer.Settings.DatabaseFile = InputDatabaseFile.Text;
+        }
+
+        private void button1_Click(object sender, EventArgs e) {
+
+        }
+
+        private void UpDownBeepCount_ValueChanged(object sender, EventArgs e) {
+            FlowTimer.Settings.BeepCount = (int) UpDownBeepCount.Value;
         }
     }
 }

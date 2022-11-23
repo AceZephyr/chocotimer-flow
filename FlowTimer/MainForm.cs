@@ -15,10 +15,6 @@ namespace FlowTimer {
             FlowTimer.Destroy();
         }
 
-        private void ButtonStart_Click(object sender, EventArgs e) {
-            FlowTimer.ClickStartTimer();
-        }
-
         private void ButtonStop_Click(object sender, EventArgs e) {
             FlowTimer.StopTimer(false);
         }
@@ -40,18 +36,28 @@ namespace FlowTimer {
         }
 
         private void InputMinWinSize_ValueChanged(object sender, EventArgs e) {
-            int newValue;
-            if(InputMinWinSize.Text == "") {
-                newValue = 0;
-            } else {
-                try {
-                    newValue = Convert.ToInt32(InputMinWinSize.Text);
-                } catch(System.FormatException ex) {
-                    return;
-                }
-            }
-            newValue = Math.Max(newValue, 0);
+            int newValue = Math.Max((int) (sender as NumericUpDown).Value, 0);
             FlowTimer.Settings.MinimumWindowSize = newValue;
+        }
+
+        private void ChecklistItems_SelectedIndexChanged(object sender, EventArgs e) {
+
+        }
+
+        private void ButtonDisplayFrameData_Click(object sender, EventArgs e) {
+            FlowTimer.ClickDisplayFrameData(PanelFrameOutputSub);
+        }
+
+        private void ButtonClearFrameDataRight_Click(object sender, EventArgs e) {
+            FlowTimer.ClickClearFrameData(PanelFrameOutput);
+        }
+
+        private void ButtonClearFrameDataDown_Click(object sender, EventArgs e) {
+            FlowTimer.ClickClearFrameData(PanelFrameOutputSub);
+        }
+
+        private void ButtonBuildCaches_Click(object sender, EventArgs e) {
+            FlowTimer.ClickBuildCaches();
         }
     }
 }

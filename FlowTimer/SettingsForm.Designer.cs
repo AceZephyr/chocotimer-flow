@@ -34,7 +34,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.flowLayoutPanel3 = new System.Windows.Forms.FlowLayoutPanel();
-            this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
+            this.UpDownBeepCount = new System.Windows.Forms.NumericUpDown();
             this.label2 = new System.Windows.Forms.Label();
             this.flowLayoutPanel4 = new System.Windows.Forms.FlowLayoutPanel();
             this.InputFPS = new System.Windows.Forms.TextBox();
@@ -57,7 +57,7 @@
             this.tableLayoutPanel1.SuspendLayout();
             this.flowLayoutPanel1.SuspendLayout();
             this.flowLayoutPanel3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.UpDownBeepCount)).BeginInit();
             this.flowLayoutPanel4.SuspendLayout();
             this.flowLayoutPanel5.SuspendLayout();
             this.flowLayoutPanel6.SuspendLayout();
@@ -201,23 +201,24 @@
             this.flowLayoutPanel3.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.flowLayoutPanel3.Controls.Add(this.numericUpDown1);
+            this.flowLayoutPanel3.Controls.Add(this.UpDownBeepCount);
             this.flowLayoutPanel3.Location = new System.Drawing.Point(153, 37);
             this.flowLayoutPanel3.Name = "flowLayoutPanel3";
             this.flowLayoutPanel3.Size = new System.Drawing.Size(359, 28);
             this.flowLayoutPanel3.TabIndex = 31;
             // 
-            // numericUpDown1
+            // UpDownBeepCount
             // 
-            this.numericUpDown1.Location = new System.Drawing.Point(3, 3);
-            this.numericUpDown1.Name = "numericUpDown1";
-            this.numericUpDown1.Size = new System.Drawing.Size(120, 20);
-            this.numericUpDown1.TabIndex = 0;
-            this.numericUpDown1.Value = new decimal(new int[] {
+            this.UpDownBeepCount.Location = new System.Drawing.Point(3, 3);
+            this.UpDownBeepCount.Name = "UpDownBeepCount";
+            this.UpDownBeepCount.Size = new System.Drawing.Size(120, 20);
+            this.UpDownBeepCount.TabIndex = 0;
+            this.UpDownBeepCount.Value = new decimal(new int[] {
             5,
             0,
             0,
             0});
+            this.UpDownBeepCount.ValueChanged += new System.EventHandler(this.UpDownBeepCount_ValueChanged);
             // 
             // label2
             // 
@@ -401,7 +402,7 @@
             this.InputDatabaseFile.Name = "InputDatabaseFile";
             this.InputDatabaseFile.Size = new System.Drawing.Size(356, 21);
             this.InputDatabaseFile.TabIndex = 35;
-            this.InputDatabaseFile.Text = "C:\\Users\\pokef\\OneDrive\\Desktop\\chocoduck_database\\choco.db";
+            this.InputDatabaseFile.Text = "C:\\Users\\pokef\\PyCharmProjects\\chocoduck-builder\\choco.db";
             this.InputDatabaseFile.TextChanged += new System.EventHandler(this.InputDatabaseFile_TextChanged);
             // 
             // SettingsForm
@@ -417,7 +418,7 @@
             this.tableLayoutPanel1.PerformLayout();
             this.flowLayoutPanel1.ResumeLayout(false);
             this.flowLayoutPanel3.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.UpDownBeepCount)).EndInit();
             this.flowLayoutPanel4.ResumeLayout(false);
             this.flowLayoutPanel4.PerformLayout();
             this.flowLayoutPanel5.ResumeLayout(false);
@@ -440,15 +441,12 @@
         public System.Windows.Forms.ComboBox ComboBoxBeep;
         public System.Windows.Forms.Label LabelBeep;
         public System.Windows.Forms.Button ButtonImportBeep;
-        private System.Windows.Forms.TrackBar TrackBarVolume;
-        private System.Windows.Forms.TextBox TextBoxVolume;
         public System.Windows.Forms.Label LabelVolume;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel2;
         public System.Windows.Forms.Label label1;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel3;
-        private System.Windows.Forms.NumericUpDown numericUpDown1;
         public System.Windows.Forms.Label label2;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel4;
         public System.Windows.Forms.TextBox InputFPS;
@@ -467,5 +465,8 @@
         public System.Windows.Forms.Label label5;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel7;
         public System.Windows.Forms.TextBox InputDatabaseFile;
+        public System.Windows.Forms.NumericUpDown UpDownBeepCount;
+        public System.Windows.Forms.TrackBar TrackBarVolume;
+        public System.Windows.Forms.TextBox TextBoxVolume;
     }
 }

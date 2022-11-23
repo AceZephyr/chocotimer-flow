@@ -17,10 +17,12 @@ namespace FlowTimer {
         public double CalibrateTimer = 4000;
         public double MinStartTime = 4000;
         public int BeepTimerFrequency = 15;
-        public int MinimumWindowSize = 3;
-        public string DatabaseFile = @"";
+        public string DatabaseFile = @"C:\Users\pokef\PyCharmProjects\chocoduck-builder\choco.db";
+        public int BeepCount = 5;
+        public double CreateAudioAtTime = 10;
 
         [JsonIgnore]
+        public int MinimumWindowSize = 3;
         private CheckBox _CheckBoxAutoUpdate;
         [JsonIgnore]
         public CheckBox CheckBoxAutoUpdate {
@@ -34,6 +36,10 @@ namespace FlowTimer {
 
         private void CheckBoxAutoUpdate_CheckChanged(object sender, EventArgs args) {
             AutoUpdate = _CheckBoxAutoUpdate.Checked;
+        }
+
+        public void SetSettingsTexts() {
+            
         }
     }
 
