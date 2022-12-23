@@ -30,6 +30,8 @@
             this.TextBoxVolume = new System.Windows.Forms.TextBox();
             this.LabelVolume = new System.Windows.Forms.Label();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.flowLayoutPanel10 = new System.Windows.Forms.FlowLayoutPanel();
+            this.button1 = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
@@ -53,8 +55,10 @@
             this.label5 = new System.Windows.Forms.Label();
             this.flowLayoutPanel7 = new System.Windows.Forms.FlowLayoutPanel();
             this.InputDatabaseFile = new System.Windows.Forms.TextBox();
+            this.label8 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.TrackBarVolume)).BeginInit();
             this.tableLayoutPanel1.SuspendLayout();
+            this.flowLayoutPanel10.SuspendLayout();
             this.flowLayoutPanel1.SuspendLayout();
             this.flowLayoutPanel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.UpDownBeepCount)).BeginInit();
@@ -78,6 +82,7 @@
             // 
             // ComboBoxBeep
             // 
+            this.ComboBoxBeep.CausesValidation = false;
             this.ComboBoxBeep.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.ComboBoxBeep.FormattingEnabled = true;
             this.ComboBoxBeep.Location = new System.Drawing.Point(3, 3);
@@ -132,6 +137,7 @@
             this.tableLayoutPanel1.ColumnCount = 2;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 150F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.tableLayoutPanel1.Controls.Add(this.flowLayoutPanel10, 1, 9);
             this.tableLayoutPanel1.Controls.Add(this.label4, 0, 5);
             this.tableLayoutPanel1.Controls.Add(this.label1, 0, 1);
             this.tableLayoutPanel1.Controls.Add(this.flowLayoutPanel1, 1, 0);
@@ -150,9 +156,12 @@
             this.tableLayoutPanel1.Controls.Add(this.flowLayoutPanel9, 1, 7);
             this.tableLayoutPanel1.Controls.Add(this.label5, 0, 8);
             this.tableLayoutPanel1.Controls.Add(this.flowLayoutPanel7, 1, 8);
+            this.tableLayoutPanel1.Controls.Add(this.label8, 0, 9);
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 10;
+            this.tableLayoutPanel1.RowCount = 12;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 34F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 34F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 34F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 34F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 34F));
@@ -165,6 +174,27 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.Size = new System.Drawing.Size(515, 463);
             this.tableLayoutPanel1.TabIndex = 31;
+            // 
+            // flowLayoutPanel10
+            // 
+            this.flowLayoutPanel10.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.flowLayoutPanel10.Controls.Add(this.button1);
+            this.flowLayoutPanel10.Location = new System.Drawing.Point(153, 309);
+            this.flowLayoutPanel10.Name = "flowLayoutPanel10";
+            this.flowLayoutPanel10.Size = new System.Drawing.Size(359, 28);
+            this.flowLayoutPanel10.TabIndex = 50;
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(3, 3);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(200, 23);
+            this.button1.TabIndex = 0;
+            this.button1.Text = "Open Configuration Directory";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click_1);
             // 
             // label4
             // 
@@ -247,7 +277,7 @@
             this.InputFPS.Name = "InputFPS";
             this.InputFPS.Size = new System.Drawing.Size(120, 21);
             this.InputFPS.TabIndex = 34;
-            this.InputFPS.Text = "59.82";
+            this.InputFPS.Text = "DEFAULT";
             this.InputFPS.TextChanged += new System.EventHandler(this.InputFPS_TextChanged);
             // 
             // label3
@@ -277,7 +307,7 @@
             this.InputTimeBetweenBeeps.Name = "InputTimeBetweenBeeps";
             this.InputTimeBetweenBeeps.Size = new System.Drawing.Size(120, 21);
             this.InputTimeBetweenBeeps.TabIndex = 35;
-            this.InputTimeBetweenBeeps.Text = "500";
+            this.InputTimeBetweenBeeps.Text = "DEFAULT";
             this.InputTimeBetweenBeeps.TextChanged += new System.EventHandler(this.InputTimeBetweenBeeps_TextChanged);
             // 
             // flowLayoutPanel6
@@ -298,7 +328,7 @@
             this.InputCalibrationTimer.Name = "InputCalibrationTimer";
             this.InputCalibrationTimer.Size = new System.Drawing.Size(120, 21);
             this.InputCalibrationTimer.TabIndex = 35;
-            this.InputCalibrationTimer.Text = "4000";
+            this.InputCalibrationTimer.Text = "DEFAULT";
             this.InputCalibrationTimer.TextChanged += new System.EventHandler(this.InputCalibrationTimer_TextChanged);
             // 
             // flowLayoutPanel2
@@ -340,7 +370,7 @@
             this.InputMinStartTime.Name = "InputMinStartTime";
             this.InputMinStartTime.Size = new System.Drawing.Size(120, 21);
             this.InputMinStartTime.TabIndex = 35;
-            this.InputMinStartTime.Text = "4000";
+            this.InputMinStartTime.Text = "DEFAULT";
             this.InputMinStartTime.TextChanged += new System.EventHandler(this.InputMinStartTime_TextChanged);
             // 
             // label7
@@ -370,7 +400,7 @@
             this.InputBeepTimerFrequency.Name = "InputBeepTimerFrequency";
             this.InputBeepTimerFrequency.Size = new System.Drawing.Size(120, 21);
             this.InputBeepTimerFrequency.TabIndex = 35;
-            this.InputBeepTimerFrequency.Text = "15";
+            this.InputBeepTimerFrequency.Text = "DEFAULT";
             this.InputBeepTimerFrequency.TextChanged += new System.EventHandler(this.InputBeepTimerFrequency_TextChanged);
             // 
             // label5
@@ -402,8 +432,16 @@
             this.InputDatabaseFile.Name = "InputDatabaseFile";
             this.InputDatabaseFile.Size = new System.Drawing.Size(356, 21);
             this.InputDatabaseFile.TabIndex = 35;
-            this.InputDatabaseFile.Text = "C:\\Users\\pokef\\PyCharmProjects\\chocoduck-builder\\choco.db";
+            this.InputDatabaseFile.Text = "DEFAULT";
             this.InputDatabaseFile.TextChanged += new System.EventHandler(this.InputDatabaseFile_TextChanged);
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(3, 306);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(0, 13);
+            this.label8.TabIndex = 49;
             // 
             // SettingsForm
             // 
@@ -412,10 +450,11 @@
             this.ClientSize = new System.Drawing.Size(515, 461);
             this.Controls.Add(this.tableLayoutPanel1);
             this.Name = "SettingsForm";
-            this.Text = "Settings";
+            this.Text = "Settings (Applied automatically on edit)";
             ((System.ComponentModel.ISupportInitialize)(this.TrackBarVolume)).EndInit();
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
+            this.flowLayoutPanel10.ResumeLayout(false);
             this.flowLayoutPanel1.ResumeLayout(false);
             this.flowLayoutPanel3.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.UpDownBeepCount)).EndInit();
@@ -468,5 +507,8 @@
         public System.Windows.Forms.NumericUpDown UpDownBeepCount;
         public System.Windows.Forms.TrackBar TrackBarVolume;
         public System.Windows.Forms.TextBox TextBoxVolume;
+        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel10;
+        private System.Windows.Forms.Button button1;
+        public System.Windows.Forms.Label label8;
     }
 }

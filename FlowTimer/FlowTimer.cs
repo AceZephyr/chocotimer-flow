@@ -53,7 +53,7 @@ namespace FlowTimer {
         public const string TimerFileFilter = "Json files (*.json)|*.json";
         public const string BeepFileFilter = "WAV files (*.wav)|*.wav";
 
-        public static readonly string Folder = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/flowtimer/";
+        public static readonly string Folder = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/chocotimer/";
         public static readonly string Beeps = Folder + "beeps/";
         public static readonly string SettingsFile = Folder + "settings.json";
 
@@ -820,7 +820,6 @@ namespace FlowTimer {
 
         public static void OpenSettingsForm() {
             SettingsForm = new SettingsForm();
-            Settings.SetSettingsTexts();
             SettingsForm.TopMost = Settings.Pinned;
             SettingsForm.RemoveKeyControls();
             SettingsForm.ShowDialog(MainForm);

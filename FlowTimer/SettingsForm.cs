@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 using System.IO;
+using System.Diagnostics;
 
 namespace FlowTimer {
 
@@ -24,6 +25,7 @@ namespace FlowTimer {
             InputCalibrationTimer.Text = FlowTimer.Settings.CalibrateTimer.ToString();
             InputMinStartTime.Text = FlowTimer.Settings.MinStartTime.ToString();
             InputBeepTimerFrequency.Text = FlowTimer.Settings.BeepTimerFrequency.ToString();
+            InputDatabaseFile.Text = FlowTimer.Settings.DatabaseFile.ToString();
 
             ComboBoxBeep.SelectedIndexChanged += ComboBoxBeep_SelectedIndexChanged;
             TrackBarVolume.ValueChanged += TrackBarVolume_ValueChanged;
@@ -42,7 +44,8 @@ namespace FlowTimer {
 
         private void TrackBarVolume_ValueChanged(object sender, EventArgs e) {
             if((Win32.GetKeyState(Keys.LButton) & 0x80) == 0) {
-                if(TextBoxVolume.Text != "") TextBoxVolume.Text = TrackBarVolume.Value.ToString();
+                if(TextBoxVolume.Text != "")
+                    TextBoxVolume.Text = TrackBarVolume.Value.ToString();
                 FlowTimer.AdjustBeepSoundVolume(TrackBarVolume.Value);
                 FlowTimer.AudioContext.QueueAudio(FlowTimer.BeepSound);
                 FlowTimer.Settings.Volume = TrackBarVolume.Value;
@@ -86,7 +89,7 @@ namespace FlowTimer {
             } else {
                 try {
                     newValue = Convert.ToDouble(InputFPS.Text);
-                } catch (System.FormatException ex) {
+                } catch(System.FormatException ex) {
                     return;
                 }
             }
@@ -158,12 +161,22 @@ namespace FlowTimer {
             FlowTimer.Settings.DatabaseFile = InputDatabaseFile.Text;
         }
 
-        private void button1_Click(object sender, EventArgs e) {
-
-        }
-
         private void UpDownBeepCount_ValueChanged(object sender, EventArgs e) {
             FlowTimer.Settings.BeepCount = (int) UpDownBeepCount.Value;
+        }
+
+        private void button1_Click_1(object sender, EventArgs e) {
+            Console.WriteLine(FlowTimer.Folder);
+            String f = FlowTimer.Folder.Replace("/", "\\");
+            if(Directory.Exists(f)) {
+                ProcessStartInfo startInfo = new ProcessStartInfo {
+                    Arguments = f,
+                    FileName = "explorer.exe"
+                };
+                Process.Start(startInfo);
+            } else {
+                MessageBox.Show(string.Format("{0} Directory does not exist!", f));
+            }
         }
     }
 }
