@@ -752,7 +752,11 @@ namespace FlowTimer {
             Console.WriteLine("Creating PCM");
             double now = Win32.GetTime();
             double offset = TimerTarget - now;
-            UpdatePCM(new double[] { offset }, (uint) FlowTimer.Settings.TimeBetweenBeeps, (uint) FlowTimer.Settings.BeepCount);
+            try {
+                UpdatePCM(new double[] { offset }, (uint) FlowTimer.Settings.TimeBetweenBeeps, (uint) FlowTimer.Settings.BeepCount);
+            } catch (ArgumentOutOfRangeException ex) {
+                MessageBox.Show("Failed to update PCM.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
             AudioContext.QueueAudio(PCM);
             IsTimerAudioRunning = true;
         }
