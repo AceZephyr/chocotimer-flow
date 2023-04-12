@@ -58,7 +58,6 @@
             this.ButtonClearFrameData = new System.Windows.Forms.Button();
             this.ButtonClearFrameDataSecondary = new System.Windows.Forms.Button();
             this.PanelFrameOutputSub = new System.Windows.Forms.FlowLayoutPanel();
-            this.ButtonBuildCaches = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.PictureBoxPin)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.InputMinWinSize)).BeginInit();
             this.GroupBoxRank.SuspendLayout();
@@ -68,10 +67,10 @@
             // 
             // LabelTimer
             // 
-            this.LabelTimer.Font = new System.Drawing.Font("Microsoft Sans Serif", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LabelTimer.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.LabelTimer.Location = new System.Drawing.Point(23, 9);
             this.LabelTimer.Name = "LabelTimer";
-            this.LabelTimer.Size = new System.Drawing.Size(303, 42);
+            this.LabelTimer.Size = new System.Drawing.Size(303, 33);
             this.LabelTimer.TabIndex = 35;
             this.LabelTimer.Text = "0.000";
             // 
@@ -86,7 +85,7 @@
             // 
             // ButtonLoadStartTimer
             // 
-            this.ButtonLoadStartTimer.Location = new System.Drawing.Point(19, 116);
+            this.ButtonLoadStartTimer.Location = new System.Drawing.Point(19, 107);
             this.ButtonLoadStartTimer.Name = "ButtonLoadStartTimer";
             this.ButtonLoadStartTimer.Size = new System.Drawing.Size(121, 25);
             this.ButtonLoadStartTimer.TabIndex = 11;
@@ -96,7 +95,7 @@
             // 
             // ButtonStopTimer
             // 
-            this.ButtonStopTimer.Location = new System.Drawing.Point(19, 147);
+            this.ButtonStopTimer.Location = new System.Drawing.Point(19, 138);
             this.ButtonStopTimer.Name = "ButtonStopTimer";
             this.ButtonStopTimer.Size = new System.Drawing.Size(121, 25);
             this.ButtonStopTimer.TabIndex = 12;
@@ -107,7 +106,7 @@
             // 
             // ButtonSettings
             // 
-            this.ButtonSettings.Location = new System.Drawing.Point(19, 178);
+            this.ButtonSettings.Location = new System.Drawing.Point(19, 169);
             this.ButtonSettings.Name = "ButtonSettings";
             this.ButtonSettings.Size = new System.Drawing.Size(121, 25);
             this.ButtonSettings.TabIndex = 13;
@@ -118,7 +117,7 @@
             // 
             // ButtonCalibrate
             // 
-            this.ButtonCalibrate.Location = new System.Drawing.Point(19, 85);
+            this.ButtonCalibrate.Location = new System.Drawing.Point(19, 76);
             this.ButtonCalibrate.Name = "ButtonCalibrate";
             this.ButtonCalibrate.Size = new System.Drawing.Size(121, 25);
             this.ButtonCalibrate.TabIndex = 10;
@@ -130,17 +129,17 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(19, 210);
+            this.label1.Location = new System.Drawing.Point(16, 203);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(116, 13);
+            this.label1.Size = new System.Drawing.Size(72, 13);
             this.label1.TabIndex = 42;
-            this.label1.Text = "Minimum Window Size:";
+            this.label1.Text = "Min. Window:";
             // 
             // InputMinWinSize
             // 
-            this.InputMinWinSize.Location = new System.Drawing.Point(19, 227);
+            this.InputMinWinSize.Location = new System.Drawing.Point(94, 201);
             this.InputMinWinSize.Name = "InputMinWinSize";
-            this.InputMinWinSize.Size = new System.Drawing.Size(120, 20);
+            this.InputMinWinSize.Size = new System.Drawing.Size(46, 20);
             this.InputMinWinSize.TabIndex = 14;
             this.InputMinWinSize.Value = new decimal(new int[] {
             3,
@@ -155,7 +154,7 @@
             this.GroupBoxRank.Controls.Add(this.RadioA);
             this.GroupBoxRank.Controls.Add(this.RadioB);
             this.GroupBoxRank.Controls.Add(this.RadioC);
-            this.GroupBoxRank.Location = new System.Drawing.Point(19, 253);
+            this.GroupBoxRank.Location = new System.Drawing.Point(19, 227);
             this.GroupBoxRank.Name = "GroupBoxRank";
             this.GroupBoxRank.Size = new System.Drawing.Size(121, 114);
             this.GroupBoxRank.TabIndex = 15;
@@ -214,19 +213,19 @@
             "Enemy Away",
             "500+",
             "300+",
-            "150+"});
-            this.ChecklistItems.Location = new System.Drawing.Point(19, 374);
+            "150+",
+            "Bolt Plume"});
+            this.ChecklistItems.Location = new System.Drawing.Point(19, 344);
             this.ChecklistItems.Name = "ChecklistItems";
-            this.ChecklistItems.Size = new System.Drawing.Size(121, 79);
+            this.ChecklistItems.Size = new System.Drawing.Size(121, 94);
             this.ChecklistItems.TabIndex = 16;
-            this.ChecklistItems.SelectedIndexChanged += new System.EventHandler(this.ChecklistItems_SelectedIndexChanged);
             // 
             // GroupBoxItems
             // 
             this.GroupBoxItems.Controls.Add(this.ComboItems3);
             this.GroupBoxItems.Controls.Add(this.ComboItems2);
             this.GroupBoxItems.Controls.Add(this.ComboItems1);
-            this.GroupBoxItems.Location = new System.Drawing.Point(147, 55);
+            this.GroupBoxItems.Location = new System.Drawing.Point(147, 46);
             this.GroupBoxItems.Name = "GroupBoxItems";
             this.GroupBoxItems.Size = new System.Drawing.Size(200, 100);
             this.GroupBoxItems.TabIndex = 0;
@@ -264,7 +263,7 @@
             this.GroupBoxNames.Controls.Add(this.ComboNames4);
             this.GroupBoxNames.Controls.Add(this.ComboNames3);
             this.GroupBoxNames.Controls.Add(this.ComboNames2);
-            this.GroupBoxNames.Location = new System.Drawing.Point(147, 154);
+            this.GroupBoxNames.Location = new System.Drawing.Point(147, 145);
             this.GroupBoxNames.Name = "GroupBoxNames";
             this.GroupBoxNames.Size = new System.Drawing.Size(200, 150);
             this.GroupBoxNames.TabIndex = 1;
@@ -316,14 +315,15 @@
             this.PanelFrameOutput.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.PanelFrameOutput.AutoScroll = true;
             this.PanelFrameOutput.Location = new System.Drawing.Point(354, 9);
             this.PanelFrameOutput.Name = "PanelFrameOutput";
-            this.PanelFrameOutput.Size = new System.Drawing.Size(1218, 840);
+            this.PanelFrameOutput.Size = new System.Drawing.Size(898, 660);
             this.PanelFrameOutput.TabIndex = 48;
             // 
             // ButtonPowerOn
             // 
-            this.ButtonPowerOn.Location = new System.Drawing.Point(19, 54);
+            this.ButtonPowerOn.Location = new System.Drawing.Point(19, 45);
             this.ButtonPowerOn.Name = "ButtonPowerOn";
             this.ButtonPowerOn.Size = new System.Drawing.Size(121, 25);
             this.ButtonPowerOn.TabIndex = 9;
@@ -334,25 +334,25 @@
             // 
             // ButtonCalculateFrame
             // 
-            this.ButtonCalculateFrame.Location = new System.Drawing.Point(147, 305);
+            this.ButtonCalculateFrame.Location = new System.Drawing.Point(147, 296);
             this.ButtonCalculateFrame.Name = "ButtonCalculateFrame";
             this.ButtonCalculateFrame.Size = new System.Drawing.Size(98, 25);
             this.ButtonCalculateFrame.TabIndex = 2;
-            this.ButtonCalculateFrame.Text = "Calculate Frame";
+            this.ButtonCalculateFrame.Text = "Find Frame";
             this.ButtonCalculateFrame.UseVisualStyleBackColor = true;
             // 
             // ButtonClearInput
             // 
-            this.ButtonClearInput.Location = new System.Drawing.Point(249, 305);
+            this.ButtonClearInput.Location = new System.Drawing.Point(249, 296);
             this.ButtonClearInput.Name = "ButtonClearInput";
             this.ButtonClearInput.Size = new System.Drawing.Size(98, 25);
             this.ButtonClearInput.TabIndex = 8;
-            this.ButtonClearInput.Text = "Clear Input";
+            this.ButtonClearInput.Text = "^ Clear ^";
             this.ButtonClearInput.UseVisualStyleBackColor = true;
             // 
             // InputFrame
             // 
-            this.InputFrame.Location = new System.Drawing.Point(189, 334);
+            this.InputFrame.Location = new System.Drawing.Point(189, 325);
             this.InputFrame.Name = "InputFrame";
             this.InputFrame.Size = new System.Drawing.Size(158, 20);
             this.InputFrame.TabIndex = 3;
@@ -360,16 +360,16 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(147, 337);
+            this.label2.Location = new System.Drawing.Point(147, 328);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(36, 13);
+            this.label2.Size = new System.Drawing.Size(39, 13);
             this.label2.TabIndex = 52;
-            this.label2.Text = "Frame";
+            this.label2.Text = "Frame:";
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // ButtonCalibrateToFrame
             // 
-            this.ButtonCalibrateToFrame.Location = new System.Drawing.Point(147, 360);
+            this.ButtonCalibrateToFrame.Location = new System.Drawing.Point(147, 351);
             this.ButtonCalibrateToFrame.Name = "ButtonCalibrateToFrame";
             this.ButtonCalibrateToFrame.Size = new System.Drawing.Size(200, 25);
             this.ButtonCalibrateToFrame.TabIndex = 4;
@@ -378,7 +378,7 @@
             // 
             // ButtonDisplayFrameData
             // 
-            this.ButtonDisplayFrameData.Location = new System.Drawing.Point(147, 391);
+            this.ButtonDisplayFrameData.Location = new System.Drawing.Point(147, 382);
             this.ButtonDisplayFrameData.Name = "ButtonDisplayFrameData";
             this.ButtonDisplayFrameData.Size = new System.Drawing.Size(200, 25);
             this.ButtonDisplayFrameData.TabIndex = 5;
@@ -388,51 +388,39 @@
             // 
             // ButtonClearFrameData
             // 
-            this.ButtonClearFrameData.Location = new System.Drawing.Point(147, 422);
+            this.ButtonClearFrameData.Location = new System.Drawing.Point(249, 413);
             this.ButtonClearFrameData.Name = "ButtonClearFrameData";
-            this.ButtonClearFrameData.Size = new System.Drawing.Size(200, 25);
+            this.ButtonClearFrameData.Size = new System.Drawing.Size(98, 25);
             this.ButtonClearFrameData.TabIndex = 6;
-            this.ButtonClearFrameData.Text = "Clear Frame Data -->";
+            this.ButtonClearFrameData.Text = "Clear -->";
             this.ButtonClearFrameData.UseVisualStyleBackColor = true;
             this.ButtonClearFrameData.Click += new System.EventHandler(this.ButtonClearFrameDataRight_Click);
             // 
             // ButtonClearFrameDataSecondary
             // 
-            this.ButtonClearFrameDataSecondary.Location = new System.Drawing.Point(147, 453);
+            this.ButtonClearFrameDataSecondary.Location = new System.Drawing.Point(147, 413);
             this.ButtonClearFrameDataSecondary.Name = "ButtonClearFrameDataSecondary";
-            this.ButtonClearFrameDataSecondary.Size = new System.Drawing.Size(200, 25);
+            this.ButtonClearFrameDataSecondary.Size = new System.Drawing.Size(98, 25);
             this.ButtonClearFrameDataSecondary.TabIndex = 7;
-            this.ButtonClearFrameDataSecondary.Text = "v Clear Frame Data v";
+            this.ButtonClearFrameDataSecondary.Text = "v Clear v";
             this.ButtonClearFrameDataSecondary.UseVisualStyleBackColor = true;
             this.ButtonClearFrameDataSecondary.Click += new System.EventHandler(this.ButtonClearFrameDataDown_Click);
             // 
             // PanelFrameOutputSub
             // 
-            this.PanelFrameOutputSub.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.PanelFrameOutputSub.Location = new System.Drawing.Point(19, 484);
+            this.PanelFrameOutputSub.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.PanelFrameOutputSub.AutoScroll = true;
+            this.PanelFrameOutputSub.Location = new System.Drawing.Point(19, 444);
             this.PanelFrameOutputSub.Name = "PanelFrameOutputSub";
-            this.PanelFrameOutputSub.Size = new System.Drawing.Size(329, 365);
+            this.PanelFrameOutputSub.Size = new System.Drawing.Size(328, 225);
             this.PanelFrameOutputSub.TabIndex = 49;
-            // 
-            // ButtonBuildCaches
-            // 
-            this.ButtonBuildCaches.Location = new System.Drawing.Point(19, 453);
-            this.ButtonBuildCaches.Name = "ButtonBuildCaches";
-            this.ButtonBuildCaches.Size = new System.Drawing.Size(121, 25);
-            this.ButtonBuildCaches.TabIndex = 53;
-            this.ButtonBuildCaches.TabStop = false;
-            this.ButtonBuildCaches.Text = "Build Caches";
-            this.ButtonBuildCaches.UseVisualStyleBackColor = true;
-            this.ButtonBuildCaches.Click += new System.EventHandler(this.ButtonBuildCaches_Click);
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1584, 861);
-            this.Controls.Add(this.ButtonBuildCaches);
+            this.ClientSize = new System.Drawing.Size(1264, 681);
             this.Controls.Add(this.PanelFrameOutputSub);
             this.Controls.Add(this.ButtonClearFrameDataSecondary);
             this.Controls.Add(this.ButtonClearFrameData);
@@ -457,7 +445,7 @@
             this.Controls.Add(this.ButtonStopTimer);
             this.Controls.Add(this.ButtonSettings);
             this.Name = "MainForm";
-            this.Text = "FlowTimer";
+            this.Text = "ChocoTimer";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
             ((System.ComponentModel.ISupportInitialize)(this.PictureBoxPin)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.InputMinWinSize)).EndInit();
@@ -507,6 +495,5 @@
         public System.Windows.Forms.Button ButtonClearFrameDataSecondary;
         public System.Windows.Forms.FlowLayoutPanel PanelFrameOutputSub;
         public System.Windows.Forms.NumericUpDown InputMinWinSize;
-        public System.Windows.Forms.Button ButtonBuildCaches;
     }
 }

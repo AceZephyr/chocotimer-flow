@@ -20,7 +20,8 @@ namespace FlowTimer {
     }
 
     public class RaceData {
-        public int rank, frame, teioh, inputs, winner;
+        public int rank, frame, teioh, winningItem;
+        public long winningInputs;
     }
 
     public class Window {
@@ -37,6 +38,8 @@ namespace FlowTimer {
 
     public static class FlowTimer {
 
+        public static readonly string[] RANKS = { "C", "B", "A", "S" };
+
         public static readonly string[] CHOCO_NAMES = {"SAM", "ELEN", "BLUES", "TOM", "JOHN", "GARY", "MIKE", "SANDY", "JU", "LY", "JOEL", "GREY", "EDWARD", "JAMES",
     "HARVEY", "DAN", "RUDY", "GRAHAM", "FOX", "CLIVE", "SEAN", "YOUNG", "ROBIN", "DARIO", "ARL", "SARA", "MARIE",
     "SAMMY", "LIA", "KNIGHT", "PAULA", "PAU", "LE", "PETER", "AIMEE", "TERRY", "ANDY", "NANCY", "TIM", "ROBER",
@@ -49,6 +52,7 @@ namespace FlowTimer {
 
         public static readonly Dictionary<int, string> SOLUTION_STRINGS = new Dictionary<int, string>();
         public static readonly Dictionary<string, ulong> PRIZE_FAMILIES = new Dictionary<string, ulong>();
+        public static readonly List<int> SOLUTION_ORDER = new List<int>();
 
         public const string TimerFileFilter = "Json files (*.json)|*.json";
         public const string BeepFileFilter = "WAV files (*.wav)|*.wav";
@@ -94,11 +98,17 @@ namespace FlowTimer {
             NextWindowTargetFrame = -1,
             NextWindowLastFrame = -1;
 
-        public static Dictionary<int, Window> WINDOW_MAP = new Dictionary<int, Window>();
-        public static List<int> WINDOW_MAP_FRAMES_LIST_SORTED = new List<int>();
-        public static ulong WINDOW_MAP_ITEM_FLAGS = 0;
-        public static int WINDOW_MAP_FRAME_LIMIT = 0;
-        public static int WINDOW_MAP_RANK = -1;
+        private static ulong convertItems(params string[] items) {
+            ulong val = 0UL;
+            foreach(string item in items) {
+                for(int i = 0; i < ITEM_NAMES.Length; i++)
+                    if(ITEM_NAMES[i].Equals(item))
+                        val |= 1UL << i;
+                if (val == 0)
+                    throw new Exception($"Illegal item: '{item}'");
+            }
+            return val;
+        }
 
         public static void Init() {
             SOLUTION_STRINGS.Add(0, "Automatic");
@@ -139,12 +149,18 @@ namespace FlowTimer {
             SOLUTION_STRINGS.Add(98448, "M Square Up-Left");
             SOLUTION_STRINGS.Add(98496, "M Square Down-Left");
 
-            PRIZE_FAMILIES.Add("Enemy Away", 1UL << 5);
-            PRIZE_FAMILIES.Add("Sneak Attack", 1UL << 6);
+            List<int> solutions = SOLUTION_STRINGS.Keys.ToList();
+            solutions.Sort();
+            foreach (int solution in solutions)
+                SOLUTION_ORDER.Add(solution);
 
-            PRIZE_FAMILIES.Add("500+", 21);
-            PRIZE_FAMILIES.Add("300+", 131327);
-            PRIZE_FAMILIES.Add("150+", 393983);
+            PRIZE_FAMILIES.Add("Enemy Away", convertItems("Enemy Away"));
+            PRIZE_FAMILIES.Add("Sneak Attack", convertItems("Sneak Attack"));
+
+            PRIZE_FAMILIES.Add("500+", convertItems("Cat's Bell", "Magic Counter", "Sprint Shoes"));
+            PRIZE_FAMILIES.Add("300+", convertItems("Counter", "Enemy Away", "Megalixir", "Precious Watch", "Sneak Attack", "Chocobracelet", "Cat's Bell", "Magic Counter", "Sprint Shoes"));
+            PRIZE_FAMILIES.Add("150+", convertItems("Turbo Ether", "Elixir", "Counter", "Enemy Away", "Megalixir", "Precious Watch", "Sneak Attack", "Chocobracelet", "Cat's Bell", "Magic Counter", "Sprint Shoes"));
+            PRIZE_FAMILIES.Add("Bolt Plume", convertItems("Bolt Plume"));
 
             FixedOffset = new FixedOffsetTimer();
 
@@ -299,7 +315,7 @@ namespace FlowTimer {
             }
         }
 
-        private static string autocomplete(ComboBox.ObjectCollection coll, string target) {
+        private static string autocomplete(System.Windows.Forms.ComboBox.ObjectCollection coll, string target) {
             if(target.Length <= 1) {
                 return target;
             }
@@ -336,167 +352,69 @@ namespace FlowTimer {
             }
         }
 
-        private static void wipeWindowMap(ulong selItemFlags, int rank) {
-            WINDOW_MAP.Clear();
-            WINDOW_MAP_FRAMES_LIST_SORTED.Clear();
-            WINDOW_MAP_ITEM_FLAGS = selItemFlags;
-            WINDOW_MAP_RANK = rank;
-            WINDOW_MAP_FRAME_LIMIT = 0;
+        public static List<int> itemFlagsToList(ulong itemFlags) {
+            List<int> items = new List<int>();
+            for(int i = 0; i < ITEM_NAMES.Length; i++)
+                if((itemFlags & (1UL << i)) != 0)
+                    items.Add(i);
+            return items;
         }
 
-        private static bool isWindowMapValid(ulong selItemFlags, int rank) {
-            return WINDOW_MAP_ITEM_FLAGS == selItemFlags && WINDOW_MAP_RANK == rank;
-        }
-
-        private static void expandWindowMap(ulong selItemFlags, int frame, int rank, int expandByFrames = 30 * 60 * 60) {
-            int frameStart;
-            if(!isWindowMapValid(selItemFlags, rank)) {
-                wipeWindowMap(selItemFlags, rank);
-                frameStart = frame;
-            } else {
-                frameStart = WINDOW_MAP_FRAME_LIMIT;
-            }
-            int frameEnd = frame + expandByFrames;
-            string query = $@"SELECT DISTINCT Races.Frame, Races.Teioh, Races.Winner, Prizes.Item1, Prizes.Item2, Prizes.Item3, Prizes.Card1_1, Prizes.Card1_2, Prizes.Card1_3, Prizes.Card1_4, Prizes.Card1_5 FROM Prizes
-                INNER JOIN Races ON (
-                    Races.Frame = Prizes.Frame AND
-                    Races.Rank = Prizes.rank
-                    )
-                WHERE Races.Teioh = 0
-                and Races.Winner != -1
-                and Prizes.Rank = {rank}
-                and Races.Frame >= {frameStart}
-                and Races.Frame < {frameEnd}
-                ORDER BY Prizes.Frame";
+        public static Window getNextWindow(int startFrame, int minWindowSize, ulong selectedItemFlags, int rank, int currentFrame, int remainingTries = 1) {
+            int endFrame = startFrame + 60*60*30;
+            List<int> selectedItems = itemFlagsToList(selectedItemFlags);
+            
             using(var conn = makeConnection()) {
+
                 conn.Open();
-                SQLiteCommand c = conn.CreateCommand();
-                c.CommandText = query;
-                SQLiteDataReader reader = c.ExecuteReader();
-                // sanity checking
-                if(!isWindowMapValid(selItemFlags, rank)) {
-                    return;
-                }
-                List<int[]> rows = new List<int[]>();
+
+                string query1 = $@"SELECT Races.Frame, Races.WinningItem, Races.WinningInputs
+                    FROM Races
+                    WHERE Races.Rank = {rank}
+                    AND Races.WinningItem IN ({string.Join(",", selectedItems)})
+                    AND Races.Frame >= {startFrame}
+                    AND Races.Frame <= {endFrame}
+                    ORDER BY Races.Frame
+                    LIMIT 10000";
+
+                Console.WriteLine(query1);
+
+                SQLiteCommand command1 = conn.CreateCommand();
+                command1.CommandText = query1;
+                SQLiteDataReader reader1 = command1.ExecuteReader();
+
+                List<(int, int, long)> currentWindow = new List<(int, int, long)>();
                 try {
-                    while(reader.Read()) {
-                        int[] row = new int[reader.VisibleFieldCount];
-                        for(int i = 0; i < reader.VisibleFieldCount; i++) {
-                            row[i] = reader.GetInt32(i);
+                    while(reader1.Read()) {
+                        (int, int, long) row = (
+                            reader1.GetInt32(0),
+                            reader1.GetInt32(1),
+                            reader1.GetInt64(2)
+                        );
+
+                        int frame = row.Item1;
+                        if(currentWindow.Count > 0 && currentWindow[currentWindow.Count - 1].Item1 + 1 != frame) {
+                            if(currentWindow.Count >= minWindowSize) {
+                                break;
+                            }
+                            currentWindow.Clear();
                         }
-                        rows.Add(row);
+
+                        currentWindow.Add(row);
                     }
                 } finally {
-                    reader.Close();
+                    reader1.Close();
                 }
-                conn.Close();
-                Dictionary<int, List<int>> winnersByFrame = new Dictionary<int, List<int>>();
-                foreach(int[] r in rows) {
-                    int f = r[0];
-                    if(!winnersByFrame.ContainsKey(f)) {
-                        winnersByFrame.Add(f, new List<int>());
-                    }
-                    if(r[2] != -1) {
-                        winnersByFrame[f].Add(r[2]);
-                    }
+                if(currentWindow.Count < minWindowSize) {
+                    return null;
                 }
-                Dictionary<int, WindowFrameData> fdata = new Dictionary<int, WindowFrameData>();
-                ulong itemFlags;
-                foreach(int[] r in rows) {
-                    int f = r[0];
-                    if(!fdata.ContainsKey(f)) {
-                        int[] items = new int[] { r[3], r[4], r[5] };
-                        int[] cards = new int[] { r[6], r[7], r[8], r[9], r[10] };
-                        List<int> winners = winnersByFrame[f];
-                        itemFlags = 0;
-                        foreach(int w in winners) {
-                            itemFlags |= (1UL << items[cards[w - 2]]);
-                        }
-                        if((itemFlags & WINDOW_MAP_ITEM_FLAGS) != 0) {
-                            WindowFrameData wfd = new WindowFrameData();
-                            wfd.teioh = r[2];
-                            wfd.items = items;
-                            wfd.cards = cards;
-                            wfd.itemFlags = itemFlags;
-                            fdata.Add(f, wfd);
-                        }
-                    }
-                }
-                List<int> framesList = fdata.Keys.ToList();
-                framesList.Sort();
-
-                if(framesList.Count > 0) {
-                    int windowStartFrame = framesList[0];
-                    int windowLength = 1;
-                    itemFlags = fdata[windowStartFrame].itemFlags;
-                    for(int i = 1; i < framesList.Count; i++) {
-                        int f = framesList[i];
-                        if(f < WINDOW_MAP_FRAME_LIMIT) {
-                            continue;
-                        }
-                        if(windowStartFrame == f - windowLength) {
-                            itemFlags |= fdata[f].itemFlags;
-                            windowLength++;
-                        } else {
-                            if(windowLength > 1) {
-                                Console.WriteLine(windowStartFrame);
-                                Window w = new Window();
-                                w.rank = rank;
-                                w.startFrame = windowStartFrame;
-                                w.winLength = windowLength;
-                                w.itemFlags = itemFlags;
-                                WINDOW_MAP.Add(windowStartFrame, w);
-                                WINDOW_MAP_FRAMES_LIST_SORTED.Add(windowStartFrame);
-                            }
-                            windowStartFrame = f;
-                            windowLength = 1;
-                            itemFlags = fdata[f].itemFlags;
-                        }
-                    }
-                    WINDOW_MAP_FRAMES_LIST_SORTED.Sort();
-                }
-
-                WINDOW_MAP_FRAME_LIMIT = frameEnd;
+                Window winOut = new Window();
+                winOut.rank = rank;
+                winOut.startFrame = currentWindow[0].Item1;
+                winOut.winLength = currentWindow.Count;
+                winOut.itemFlags = selectedItemFlags;
+                return winOut;
             }
-        }
-
-        public static int binSearch(List<int> arr, int x) {
-            int lo = 0;
-            int hi = arr.Count - 1;
-            while(lo <= hi) {
-                int mid = (lo + hi) >> 1;
-                if(arr[mid] == x)
-                    return mid;
-                else if(arr[mid] < x)
-                    lo = mid + 1;
-                else
-                    hi = mid - 1;
-            }
-            return lo;
-        }
-
-        public static int getNextWindow(int startFrame, int minWindowSize, ulong selectedItemFlags, int rank, int currentFrame, int remainingTries = 1) {
-            if(!isWindowMapValid(selectedItemFlags, rank)) {
-                expandWindowMap(selectedItemFlags, currentFrame, rank);
-                if(!isWindowMapValid(selectedItemFlags, rank)) {
-                    MessageBox.Show("No windows.", "ChocoTimer Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return -1;
-                }
-            }
-            int startIndex = binSearch(WINDOW_MAP_FRAMES_LIST_SORTED, startFrame);
-
-            for(int i = startIndex; i < WINDOW_MAP_FRAMES_LIST_SORTED.Count; i++) {
-                Window w = WINDOW_MAP[WINDOW_MAP_FRAMES_LIST_SORTED[i]];
-                if(w.rank == rank && w.startFrame > startFrame && w.winLength >= minWindowSize && (w.itemFlags & selectedItemFlags) != 0) {
-                    return WINDOW_MAP_FRAMES_LIST_SORTED[i];
-                }
-            }
-            // couldn't find window. attempt to generate more data.
-            if(remainingTries > 0) {
-                expandWindowMap(selectedItemFlags, currentFrame, rank);
-                return getNextWindow(startFrame, minWindowSize, selectedItemFlags, rank, currentFrame, remainingTries - 1);
-            }
-            return -1;
         }
 
         private static void ButtonLoadStartTimer_Click(object sender, EventArgs e) {
@@ -513,12 +431,11 @@ namespace FlowTimer {
                 return;
             }
             int rank = getSelectedRank();
-            int winFrame = getNextWindow(startFrame, Settings.MinimumWindowSize, selectedItemFlags, rank, currentFrame);
-            if(winFrame < 0) {
+            Window win = getNextWindow(startFrame, Settings.MinimumWindowSize, selectedItemFlags, rank, currentFrame);
+            if(win == null) {
                 MessageBox.Show("Could not find window.", "ChocoTimer Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-            Window win = WINDOW_MAP[winFrame];
             NextWindowStartFrame = win.startFrame;
             NextWindowLength = win.winLength;
             NextWindowTargetFrame = NextWindowStartFrame + (NextWindowLength / 2);
@@ -528,7 +445,7 @@ namespace FlowTimer {
             CalibrationFrame = 0;
 
             clearFramesData(MainForm.PanelFrameOutput);
-            putFramesData(NextWindowStartFrame, NextWindowLastFrame, rank, selectedItemFlags, MainForm.PanelFrameOutput);
+            putFramesData(NextWindowStartFrame, NextWindowLastFrame, rank, MainForm.PanelFrameOutput);
             StartTimer(NextWindowTargetTime);
         }
 
@@ -719,17 +636,12 @@ namespace FlowTimer {
             }
             int displayFrame = Int32.Parse(MainForm.InputFrame.Text);
             int rank = getSelectedRank();
-            ulong targetPrizeFlags = getSelectedItemFlags();
             clearFramesData(container);
-            putFramesData(displayFrame, displayFrame, rank, targetPrizeFlags, container);
+            putFramesData(displayFrame, displayFrame, rank, container);
         }
 
         public static void ClickClearFrameData(FlowLayoutPanel container) {
             clearFramesData(container);
-        }
-
-        public static void ClickBuildCaches() {
-            expandWindowMap(getSelectedItemFlags(), framesBetweenTimes(Settings.MinStartTime + Win32.GetTime(), PowerOnTime), getSelectedRank());
         }
 
         public static void UpdatePCM(double[] offsets, uint interval, uint numBeeps, bool garbageCollect = true) {
@@ -922,21 +834,25 @@ namespace FlowTimer {
         public static SQLiteDataReader fetchRangePrizes(SQLiteConnection conn, int startFrame, int endFrame, int rank) {
             SQLiteCommand c = conn.CreateCommand();
             c.CommandText = $@"select * from Prizes
-                    where Rank = {rank}
-                    and Frame >= {startFrame}
-                    and Frame <= {endFrame}
-                    order by Frame asc";
+                    where Prizes.Rank = {rank}
+                    and Prizes.Frame >= {startFrame}
+                    and Prizes.Frame <= {endFrame}
+                    order by Prizes.Frame asc";
             return c.ExecuteReader();
         }
 
         public static SQLiteDataReader fetchRangeRaces(SQLiteConnection conn, int startFrame, int endFrame, int rank) {
             SQLiteCommand c = conn.CreateCommand();
-            c.CommandText = $@"select * from Races
-                    where Rank = {rank}
-                    and Frame >= {startFrame}
-                    and Frame <= {endFrame}
-                    order by Frame asc";
+            c.CommandText = $@"select Races.Frame, Races.Teioh, Races.WinningItem, Races.WinningInputs from Races
+                    where Races.Rank = {rank}
+                    and Races.Frame >= {startFrame}
+                    and Races.Frame <= {endFrame}
+                    order by Races.Frame asc";
             return c.ExecuteReader();
+        }
+
+        public static string rankByIndex(int index) {
+            return new string[]{ "C", "B", "A", "S"} [index];
         }
 
         public static int getSelectedRank() {
@@ -971,29 +887,37 @@ namespace FlowTimer {
             }
         }
 
-        private static void addTextRow(TableLayoutPanel panel, string text, ContentAlignment align, int height = 20, bool bold = false, System.Single size = 10F) {
-            var h = panel.Height;
-            panel.Height += height;
-
+        private static void addTextRow(TableLayoutPanel panel, string text, ContentAlignment align, bool newRow = true, int col = 0, int height = 18, int width = 194, int leftOffset = 3, bool bold = false, System.Single size = 9F, string fontColorName = "Black") {                
             var label = new Label();
-            label.Anchor = ((AnchorStyles) ((((AnchorStyles.Top | AnchorStyles.Bottom)
+            label.Anchor = (((AnchorStyles.Top | AnchorStyles.Bottom)
             | AnchorStyles.Left)
-            | AnchorStyles.Right)));
+            | AnchorStyles.Right);
             label.AutoSize = true;
             var fontStyle = bold ? FontStyle.Bold : FontStyle.Regular;
             label.Font = new Font("Microsoft Sans Serif", size, fontStyle, GraphicsUnit.Point, ((byte) (0)));
-            label.Size = new Size(194, height);
-            label.Location = new Point(3, h);
+            label.Size = new Size(width, height);
+            label.Location = new Point(leftOffset, 0);
             label.Text = text;
             label.TextAlign = align;
+            label.ForeColor = Color.FromName(fontColorName);
 
-            panel.RowCount++;
-            panel.RowStyles.Add(new RowStyle(SizeType.Absolute, height));
-            panel.Controls.Add(label, 0, panel.RowCount - 1);
+            if(newRow) {
+                panel.Height += height;
+                panel.RowCount++;
+                panel.RowStyles.Add(new RowStyle(SizeType.Absolute, height));
+            }
+            Console.WriteLine($"{label}, {col}, {panel.RowCount - 1}, {height}, {panel.Height}");
+            panel.Controls.Add(label, col, panel.RowCount - 1);
         }
 
+        public static int getLeastSetBitIndex(long num) {
+            for(int i = 0; i < 64; i++)
+                if(((1L << i) & num) != 0)
+                    return i;
+            throw new Exception($"getLeastSetBitIndex({num})");
+        }
 
-        public static void putFramesData(int startFrame, int endFrame, int rank, ulong targetPrizeFlags, FlowLayoutPanel container) {
+        public static void putFramesData(int startFrame, int endFrame, int rank, FlowLayoutPanel container) {
             using(var conn = makeConnection()) {
                 conn.Open();
                 var racesByFrame = new Dictionary<int, List<RaceData>>();
@@ -1001,15 +925,15 @@ namespace FlowTimer {
                 try {
                     while(racesReader.Read()) {
                         var rd = new RaceData();
-                        rd.rank = racesReader.GetInt32(0);
-                        rd.frame = racesReader.GetInt32(1);
-                        rd.teioh = racesReader.GetInt32(2);
-                        rd.inputs = racesReader.GetInt32(3);
-                        rd.winner = racesReader.GetInt32(4);
+                        rd.rank = rank;
+                        rd.frame = racesReader.GetInt32(0);
+                        rd.teioh = racesReader.GetInt32(1);
+                        rd.winningItem = racesReader.GetInt32(2);
+                        rd.winningInputs = racesReader.GetInt64(3);
 
-                        if(!racesByFrame.ContainsKey(rd.frame)) {
+                        if(!racesByFrame.ContainsKey(rd.frame))
                             racesByFrame.Add(rd.frame, new List<RaceData>());
-                        }
+
                         racesByFrame[rd.frame].Add(rd);
                     }
                 } finally {
@@ -1057,19 +981,54 @@ namespace FlowTimer {
                         panel.Location = new Point(0, 0);
                         panel.Size = new Size(200, 0);
 
-                        addTextRow(panel, $"{frame} [{rank}]", ContentAlignment.MiddleCenter, 24, true, 12);
+                        addTextRow(panel, $"{frame} [{RANKS.ElementAtOrDefault(rank)}]", ContentAlignment.MiddleCenter, height:24, bold:true, size: 12);
 
-                        addTextRow(panel, "Item Pool", ContentAlignment.MiddleCenter, 20, true, 10);
-                        foreach(var prizeIndex in prizeData.items) {
-                            addTextRow(panel, ITEM_NAMES[prizeIndex], ContentAlignment.MiddleLeft, 20, false, 10);
+                        var subPanel = new TableLayoutPanel();
+                        subPanel.SuspendLayout();
+                        subPanel.ColumnCount = 2;
+                        subPanel.RowCount = 5;
+                        subPanel.Size = new Size(194, 0);
+                        subPanel.Anchor = ((AnchorStyles) ((((AnchorStyles.Top | AnchorStyles.Bottom)
+                                    | AnchorStyles.Left)
+                                    | AnchorStyles.Right)));
+                        for(int k = 0; k < 5; k++)
+                            subPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+                        for(int j = 0, h = 0; j < Math.Max(prizeData.items.Length, prizeData.names.Length); j++, h += 20) {
+                            var itemName = j < prizeData.items.Length ? ITEM_NAMES[prizeData.items[j]] : "";
+                            var racerName = j < prizeData.names.Length ? CHOCO_NAMES[prizeData.names[j]] : "";
+
+                            subPanel.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
+
+                            var l1 = new Label();
+                            l1.Anchor = (((AnchorStyles.Top | AnchorStyles.Bottom)
+                                | AnchorStyles.Left)
+                                | AnchorStyles.Right);
+                            l1.AutoSize = true;
+                            l1.Text = itemName;
+                            l1.TextAlign = ContentAlignment.MiddleLeft;
+                            l1.Size = new Size(97, 20);
+                            l1.Location = new Point(0, h);
+
+                            var l2 = new Label();
+                            l2.Anchor = (((AnchorStyles.Top | AnchorStyles.Bottom)
+                                | AnchorStyles.Left)
+                                | AnchorStyles.Right);
+                            l2.AutoSize = true;
+                            l2.Text = racerName;
+                            l2.TextAlign = ContentAlignment.MiddleRight;
+                            l2.Size = new Size(97, 20);
+                            l2.Location = new Point(100, h);
+
+                            subPanel.Controls.Add(l1, 0, j);
+                            subPanel.Controls.Add(l2, 1, j);
+                            subPanel.Height += 20;
                         }
 
-                        addTextRow(panel, "Racers", ContentAlignment.MiddleCenter, 20, true, 10);
-                        foreach(var racerIndex in prizeData.names) {
-                            addTextRow(panel, CHOCO_NAMES[racerIndex], ContentAlignment.MiddleLeft, 20, false, 10);
-                        }
+                        panel.Height += subPanel.Height;
 
-                        addTextRow(panel, "Tiles", ContentAlignment.MiddleCenter, 20, true, 10);
+                        panel.RowCount++;
+                        panel.RowStyles.Add(new RowStyle());
+                        panel.Controls.Add(subPanel, 0, panel.RowCount - 1);
 
                         panel.ResumeLayout(true);
                         panel.SuspendLayout();
@@ -1077,7 +1036,7 @@ namespace FlowTimer {
                         var tilesPanel = new TableLayoutPanel();
                         tilesPanel.SuspendLayout();
                         tilesPanel.ColumnCount = 5;
-                        tilesPanel.RowCount = 3;
+                        tilesPanel.RowCount = 1;
                         tilesPanel.Size = new Size(194, 0);
                         tilesPanel.Anchor = ((AnchorStyles) ((((AnchorStyles.Top | AnchorStyles.Bottom)
                                     | AnchorStyles.Left)
@@ -1086,13 +1045,13 @@ namespace FlowTimer {
                         for(int k = 0; k < 5; k++)
                             tilesPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 20F));
 
-                        for(int j = 0, h = 0; j < 3; j++, h += 20) {
+                        for(int j = 0, h = 0; j < 1; j++, h += 20) {
                             tilesPanel.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
                             for(int k = 0, w = 3; k < 5; k++, w += 38) {
                                 var l = new Label();
-                                l.Anchor = ((AnchorStyles) ((((AnchorStyles.Top | AnchorStyles.Bottom)
+                                l.Anchor = (((AnchorStyles.Top | AnchorStyles.Bottom)
                                     | AnchorStyles.Left)
-                                    | AnchorStyles.Right)));
+                                    | AnchorStyles.Right);
                                 l.AutoSize = true;
                                 l.Text = $"{prizeData.tileCards[j * 5 + k] + 1}";
                                 l.TextAlign = ContentAlignment.MiddleCenter;
@@ -1112,27 +1071,25 @@ namespace FlowTimer {
                         panel.ResumeLayout(true);
                         panel.SuspendLayout();
 
-                        addTextRow(panel, "Solutions", ContentAlignment.MiddleCenter, 20, true, 10);
+                        ulong selectedItemFlags = getSelectedItemFlags();
+
                         if(racesByFrame.ContainsKey(frame)) {
-                            Dictionary<int, RaceData> solutionsByPrize = new Dictionary<int, RaceData>();
-                            foreach(RaceData raceData in racesByFrame[frame]) {
-                                if(raceData.winner >= 2 && raceData.winner <= 6) {
-                                    int racePrize = prizeData.items[prizeData.tileCards[raceData.winner - 2]];
-                                    if((targetPrizeFlags & (1UL << racePrize)) != 0 && !solutionsByPrize.ContainsKey(racePrize)) {
-                                        solutionsByPrize[racePrize] = raceData;
-                                    }
+                            foreach(int item in prizeData.items) {
+                                RaceData rd = racesByFrame[frame].Find(x => x.winningItem == item);
+                                if(rd == null) {
+                                    addTextRow(panel, $"{ITEM_NAMES[item]}: None", ContentAlignment.MiddleLeft, fontColorName: "Gray");
+                                } else {
+                                    bool bold = (selectedItemFlags & (1UL << item)) != 0;
+                                    addTextRow(panel, $"{ITEM_NAMES[item]}: {SOLUTION_STRINGS[SOLUTION_ORDER[getLeastSetBitIndex(rd.winningInputs)]]}", ContentAlignment.MiddleLeft, bold: bold);
                                 }
                             }
-
-                            foreach(int targetPrize in solutionsByPrize.Keys) {
-                                RaceData raceSolution = solutionsByPrize[targetPrize];
-                                addTextRow(panel, ITEM_NAMES[targetPrize], ContentAlignment.MiddleCenter, 20, false, 10);
-                                addTextRow(panel, SOLUTION_STRINGS[raceSolution.inputs], ContentAlignment.MiddleLeft, 20, false, 10);
-                            }
                         } else {
-                            addTextRow(panel, "No Race Data", ContentAlignment.MiddleCenter, 20, false, 10);
+                            addTextRow(panel, "No Race Data", ContentAlignment.MiddleCenter);
                         }
 
+                        panel.Height += 12;
+
+                        panel.ResumeLayout(true);
                     }
                 } finally {
                     prizesReader.Close();

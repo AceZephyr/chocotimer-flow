@@ -40,10 +40,6 @@ namespace FlowTimer {
             FlowTimer.Settings.MinimumWindowSize = newValue;
         }
 
-        private void ChecklistItems_SelectedIndexChanged(object sender, EventArgs e) {
-
-        }
-
         private void ButtonDisplayFrameData_Click(object sender, EventArgs e) {
             FlowTimer.ClickDisplayFrameData(PanelFrameOutputSub);
         }
@@ -54,10 +50,6 @@ namespace FlowTimer {
 
         private void ButtonClearFrameDataDown_Click(object sender, EventArgs e) {
             FlowTimer.ClickClearFrameData(PanelFrameOutputSub);
-        }
-
-        private void ButtonBuildCaches_Click(object sender, EventArgs e) {
-            FlowTimer.ClickBuildCaches();
         }
     }
 }
