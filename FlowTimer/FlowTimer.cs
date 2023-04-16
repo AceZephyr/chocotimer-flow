@@ -368,14 +368,24 @@ namespace FlowTimer {
 
                 conn.Open();
 
-                string query1 = $@"SELECT Races.Frame, Races.WinningItem, Races.WinningInputs
-                    FROM Races
-                    WHERE Races.Rank = {rank}
-                    AND Races.WinningItem IN ({string.Join(",", selectedItems)})
-                    AND Races.Frame >= {startFrame}
-                    AND Races.Frame <= {endFrame}
-                    ORDER BY Races.Frame
-                    LIMIT 10000";
+                var queryJoin = "";
+
+                if(MainForm.checkBoxTeiohMode.Checked) {
+                    queryJoin = $@"join Prizes on Races.Rank = Prizes.Rank and Races.Frame = Prizes.Frame
+                        and (Prizes.Card1_1 != 0 or Prizes.Item1 in ({string.Join(",", selectedItems)}))
+                        and (Prizes.Card1_1 != 1 or Prizes.Item2 in ({string.Join(",", selectedItems)}))
+                        and (Prizes.Card1_1 != 2 or Prizes.Item3 in ({string.Join(",", selectedItems)}))";
+                }
+
+                string query1 = $@"select Races.Frame, Races.WinningItem, Races.WinningInputs
+                    from Races
+                        {queryJoin}
+                    where Races.Rank = {rank}
+                    and Races.WinningItem in ({string.Join(",", selectedItems)})
+                    and Races.Frame >= {startFrame}
+                    and Races.Frame <= {endFrame}
+                    order by Races.Frame
+                    limit 10000";
 
                 Console.WriteLine(query1);
 
@@ -843,11 +853,13 @@ namespace FlowTimer {
 
         public static SQLiteDataReader fetchRangeRaces(SQLiteConnection conn, int startFrame, int endFrame, int rank) {
             SQLiteCommand c = conn.CreateCommand();
-            c.CommandText = $@"select Races.Frame, Races.Teioh, Races.WinningItem, Races.WinningInputs from Races
-                    where Races.Rank = {rank}
-                    and Races.Frame >= {startFrame}
-                    and Races.Frame <= {endFrame}
-                    order by Races.Frame asc";
+            c.CommandText = $@"
+                select Races.Frame, Races.Teioh, Races.WinningItem, Races.WinningInputs
+                from Races
+                where Races.Rank = {rank}
+                and Races.Frame >= {startFrame}
+                and Races.Frame <= {endFrame}
+                order by Races.Frame asc";
             return c.ExecuteReader();
         }
 
@@ -887,7 +899,7 @@ namespace FlowTimer {
             }
         }
 
-        private static void addTextRow(TableLayoutPanel panel, string text, ContentAlignment align, bool newRow = true, int col = 0, int height = 18, int width = 194, int leftOffset = 3, bool bold = false, System.Single size = 9F, string fontColorName = "Black") {                
+        private static void addTextRow(TableLayoutPanel panel, string text, ContentAlignment align, bool newRow = true, int col = 0, int height = 18, int width = 194, int leftOffset = 3, bool bold = false, System.Single size = 8F, string fontColorName = "Black") {                
             var label = new Label();
             label.Anchor = (((AnchorStyles.Top | AnchorStyles.Bottom)
             | AnchorStyles.Left)

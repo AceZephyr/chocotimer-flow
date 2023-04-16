@@ -58,6 +58,7 @@
             this.ButtonClearFrameData = new System.Windows.Forms.Button();
             this.ButtonClearFrameDataSecondary = new System.Windows.Forms.Button();
             this.PanelFrameOutputSub = new System.Windows.Forms.FlowLayoutPanel();
+            this.checkBoxTeiohMode = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.PictureBoxPin)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.InputMinWinSize)).BeginInit();
             this.GroupBoxRank.SuspendLayout();
@@ -156,7 +157,7 @@
             this.GroupBoxRank.Controls.Add(this.RadioC);
             this.GroupBoxRank.Location = new System.Drawing.Point(19, 227);
             this.GroupBoxRank.Name = "GroupBoxRank";
-            this.GroupBoxRank.Size = new System.Drawing.Size(121, 114);
+            this.GroupBoxRank.Size = new System.Drawing.Size(121, 63);
             this.GroupBoxRank.TabIndex = 15;
             this.GroupBoxRank.TabStop = false;
             this.GroupBoxRank.Text = "Rank";
@@ -164,7 +165,7 @@
             // RadioS
             // 
             this.RadioS.AutoSize = true;
-            this.RadioS.Location = new System.Drawing.Point(7, 89);
+            this.RadioS.Location = new System.Drawing.Point(45, 42);
             this.RadioS.Name = "RadioS";
             this.RadioS.Size = new System.Drawing.Size(32, 17);
             this.RadioS.TabIndex = 3;
@@ -175,7 +176,7 @@
             // RadioA
             // 
             this.RadioA.AutoSize = true;
-            this.RadioA.Location = new System.Drawing.Point(7, 66);
+            this.RadioA.Location = new System.Drawing.Point(7, 42);
             this.RadioA.Name = "RadioA";
             this.RadioA.Size = new System.Drawing.Size(32, 17);
             this.RadioA.TabIndex = 2;
@@ -186,7 +187,7 @@
             // RadioB
             // 
             this.RadioB.AutoSize = true;
-            this.RadioB.Location = new System.Drawing.Point(7, 43);
+            this.RadioB.Location = new System.Drawing.Point(45, 20);
             this.RadioB.Name = "RadioB";
             this.RadioB.Size = new System.Drawing.Size(32, 17);
             this.RadioB.TabIndex = 1;
@@ -215,7 +216,7 @@
             "300+",
             "150+",
             "Bolt Plume"});
-            this.ChecklistItems.Location = new System.Drawing.Point(19, 344);
+            this.ChecklistItems.Location = new System.Drawing.Point(18, 344);
             this.ChecklistItems.Name = "ChecklistItems";
             this.ChecklistItems.Size = new System.Drawing.Size(121, 94);
             this.ChecklistItems.TabIndex = 16;
@@ -416,11 +417,22 @@
             this.PanelFrameOutputSub.Size = new System.Drawing.Size(328, 225);
             this.PanelFrameOutputSub.TabIndex = 49;
             // 
+            // checkBoxTeiohMode
+            // 
+            this.checkBoxTeiohMode.AutoSize = true;
+            this.checkBoxTeiohMode.Location = new System.Drawing.Point(26, 293);
+            this.checkBoxTeiohMode.Name = "checkBoxTeiohMode";
+            this.checkBoxTeiohMode.Size = new System.Drawing.Size(53, 17);
+            this.checkBoxTeiohMode.TabIndex = 53;
+            this.checkBoxTeiohMode.Text = "Teioh";
+            this.checkBoxTeiohMode.UseVisualStyleBackColor = true;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1264, 681);
+            this.Controls.Add(this.checkBoxTeiohMode);
             this.Controls.Add(this.PanelFrameOutputSub);
             this.Controls.Add(this.ButtonClearFrameDataSecondary);
             this.Controls.Add(this.ButtonClearFrameData);
@@ -495,5 +507,6 @@
         public System.Windows.Forms.Button ButtonClearFrameDataSecondary;
         public System.Windows.Forms.FlowLayoutPanel PanelFrameOutputSub;
         public System.Windows.Forms.NumericUpDown InputMinWinSize;
+        public System.Windows.Forms.CheckBox checkBoxTeiohMode;
     }
 }
