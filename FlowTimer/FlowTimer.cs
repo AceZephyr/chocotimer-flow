@@ -158,6 +158,7 @@ namespace FlowTimer {
             PRIZE_FAMILIES.Add("Sneak Attack", convertItems("Sneak Attack"));
 
             PRIZE_FAMILIES.Add("500+", convertItems("Cat's Bell", "Magic Counter", "Sprint Shoes"));
+            PRIZE_FAMILIES.Add("400+", convertItems("Cat's Bell", "Magic Counter", "Sprint Shoes", "Chocobracelet"));
             PRIZE_FAMILIES.Add("300+", convertItems("Counter", "Enemy Away", "Megalixir", "Precious Watch", "Sneak Attack", "Chocobracelet", "Cat's Bell", "Magic Counter", "Sprint Shoes"));
             PRIZE_FAMILIES.Add("150+", convertItems("Turbo Ether", "Elixir", "Counter", "Enemy Away", "Megalixir", "Precious Watch", "Sneak Attack", "Chocobracelet", "Cat's Bell", "Magic Counter", "Sprint Shoes"));
             PRIZE_FAMILIES.Add("Bolt Plume", convertItems("Bolt Plume"));
@@ -387,7 +388,7 @@ namespace FlowTimer {
                     order by Races.Frame
                     limit 10000";
 
-                Console.WriteLine(query1);
+                Console.WriteLine("getNextWindow query1: " + query1);
 
                 SQLiteCommand command1 = conn.CreateCommand();
                 command1.CommandText = query1;
@@ -549,8 +550,13 @@ namespace FlowTimer {
                 return;
             }
 
-            var framesFirstEstimate = framesBetweenTimes(CalibrationTime, PowerOnTime);
-            var query = $"select Frame from prizes where Rank = {rank} and {String.Join(" AND ", queryParts.ToArray())}";
+            var framesFirstEstimate = Math.Max(framesBetweenTimes(CalibrationTime, PowerOnTime), 0);
+            var query = $"select Frame from prizes where Rank = {rank} " +
+                $"and {String.Join(" AND ", queryParts.ToArray())} " +
+                $"order by abs(Frame - {framesFirstEstimate})";
+
+            Console.WriteLine("ButtonCalculateFrame_Click query: " + query);
+            
             List<int> possibleFrames = new List<int>();
             using(var conn = makeConnection()) {
                 conn.Open();
@@ -558,7 +564,7 @@ namespace FlowTimer {
                 c.CommandText = query;
                 SQLiteDataReader r = c.ExecuteReader();
                 try {
-                    while(r.Read()) {
+                    if (r.Read()) {
                         possibleFrames.Add(r.GetInt32(0));
                     }
                 } finally {
@@ -567,10 +573,12 @@ namespace FlowTimer {
                 conn.Close();
             }
             if(possibleFrames.Count > 0) {
-                MainForm.InputFrame.Text = $"{minDistToFrame(possibleFrames, framesFirstEstimate)}";
+                MainForm.InputFrame.Text = $"{possibleFrames[0]}";
             } else {
                 MessageBox.Show("Could not match frame.", "ChocoTimer Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+
+            ClickDisplayFrameData(MainForm.PanelFrameOutputSub);
         }
 
         private static void ButtonCalibrateToFrame_Click(object sender, EventArgs e) {
@@ -848,6 +856,7 @@ namespace FlowTimer {
                     and Prizes.Frame >= {startFrame}
                     and Prizes.Frame <= {endFrame}
                     order by Prizes.Frame asc";
+            Console.WriteLine("fetchRangePrizes query: " + c.CommandText);
             return c.ExecuteReader();
         }
 
@@ -860,6 +869,7 @@ namespace FlowTimer {
                 and Races.Frame >= {startFrame}
                 and Races.Frame <= {endFrame}
                 order by Races.Frame asc";
+            Console.WriteLine("fetchRangeRaces query: " + c.CommandText);
             return c.ExecuteReader();
         }
 

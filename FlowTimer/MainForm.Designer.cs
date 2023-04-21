@@ -213,12 +213,13 @@
             "Sneak Attack",
             "Enemy Away",
             "500+",
+            "400+",
             "300+",
             "150+",
             "Bolt Plume"});
-            this.ChecklistItems.Location = new System.Drawing.Point(18, 344);
+            this.ChecklistItems.Location = new System.Drawing.Point(18, 329);
             this.ChecklistItems.Name = "ChecklistItems";
-            this.ChecklistItems.Size = new System.Drawing.Size(121, 94);
+            this.ChecklistItems.Size = new System.Drawing.Size(121, 109);
             this.ChecklistItems.TabIndex = 16;
             // 
             // GroupBoxItems
